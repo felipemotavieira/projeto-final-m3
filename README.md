@@ -1,6 +1,6 @@
 ### AVISOS IMPORTANTES
 
-As pastas já estão criadas, mas não criei todos os arquivos. Vocês podem criar os arquivos conforme foram trabalhando neles. Lembrando que basta que seja criado um arquivo .tsx por tela, não há necessidade de styles.tsx.
+As pastas já estão criadas, mas não criei todos os arquivos. Vocês podem criar os arquivos conforme foram trabalhando neles. Lembrando que basta que seja criado um arquivo .tsx por pasta, não há necessidade de styles.tsx.
 
 # Getting Started with Create React App
 
