@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Context } from "../../../context/Context";
 
 export const LandingPage = () => {
+  
   const {
     setIsOpenModalLogin,
     setIsOpenModalRegister,
