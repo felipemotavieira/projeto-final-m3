@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { LandingPage } from "./components/pages/LandingPage/LandingPage";
 
+
 function App() {
   return (
     <Routes>
