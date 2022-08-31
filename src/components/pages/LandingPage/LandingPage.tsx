@@ -1,24 +1,37 @@
-import { useContext } from "react";
-import { Context } from "../../../context/Context";
+import { Button, Flex, Heading, Image, Img, Spacer, Text } from "@chakra-ui/react";
+import { Login } from "../../modals/Login/Login";
+import { Register } from "../../modals/Register/Register";
 
 export const LandingPage = () => {
-  
-  const {
-    setIsOpenModalLogin,
-    setIsOpenModalRegister,
-    isOpenModalLogin,
-    isOpenModalRegister,
-  } = useContext(Context);
-  console.log(isOpenModalLogin);
+
   return (
     <div className="App">
-      <h1>teste</h1>
-      <button onClick={() => setIsOpenModalLogin(true)}>login</button>
-      <button onClick={() => setIsOpenModalRegister(true)}>register</button>
+      
+      <Flex h="100%" justifyContent="space-around">
 
-      {isOpenModalLogin && <h1>true LOGIN</h1>}
+        <Flex direction="column" gap="7" w="300px" h="100%"  justify="center">
 
-      {isOpenModalRegister && <h1>true REGISTER</h1>}
+          <Flex gap="3" w="300px" align="center" >
+            <Image src="./icone.png"></Image>
+            <Heading as="h1">Checkin</Heading>
+          </Flex>
+
+          <Heading as='h3' size='lg'>Quer viajar?</Heading>
+          <Text   w="300px" >Conheça lugares diferentes através de pessoas que já foram</Text>
+          <Login />
+          <Button boxShadow='2xl' width="250px" h="60px" borderRadius="30px" colorScheme="whatsapp" color="white">Explorar</Button>
+
+          <Text   w="max-content" >Ainda não tem conta? Cadastre-se <Register /></Text>
+        </Flex>
+
+        
+
+        <Flex align="center">
+          <Img src="./image.png" w="600px" h="500px"></Img>
+        </Flex>
+
+      </Flex>
+      
     </div>
   );
 };
