@@ -12,11 +12,12 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useState } from "react";
-// import * as yup from "yup";
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface ISubmitData {
   email: string;
@@ -28,7 +29,35 @@ interface ISubmitData {
 export const Register = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const formSchema = yup.object().shape({
+    name: yup.string().required("Nome necessário"),
+    email: yup.string().required("E-mail necessário").email("E-mail inválido"),
+    password: yup
+      .string()
+      .matches(
+        /(^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*_-])).{8,}$/,
+        "Sua senha deve conter, ao menos, 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e 8 dígitos"
+      )
+      .required("Senha obrigatória"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "As senhas devem ser idênticas")
+      .required("Obrigatório confirmar sua senha"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISubmitData>({
+    resolver: yupResolver(formSchema),
+  });
+
+  async function submitRegister(data: ISubmitData) {
+    console.log(data);
+  }
 
   return (
     <>
@@ -39,30 +68,74 @@ export const Register = () => {
           <ModalHeader>Registre-se!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form>
-              <FormControl>
+            <form onSubmit={handleSubmit(submitRegister)}>
+              <FormControl isInvalid={!!errors?.name?.message}>
                 <FormLabel>Nome</FormLabel>
-                <Input type="text" variant="flushed" />
+                <Input
+                  type="text"
+                  variant="flushed"
+                  id="name"
+                  {...register("name")}
+                />
+                <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors?.email?.message}>
                 <FormLabel>E-mail</FormLabel>
-                <Input type="email" variant="flushed" />
+                <Input
+                  type="text"
+                  variant="flushed"
+                  id="email"
+                  {...register("email")}
+                />
+                <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors?.password?.message}>
                 <FormLabel>Senha</FormLabel>
                 <InputGroup>
                   <Input
                     variant="flushed"
                     type={show ? "text" : "password"}
                     placeholder="Enter password"
+                    id="password"
+                    {...register("password")}
                   />
                   <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
-                      {show ? "Hide" : "Show"}
+                    <Button
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShow(!show)}
+                    >
+                      {show ? "Esconder" : "Mostrar"}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
               </FormControl>
+              <FormControl isInvalid={!!errors?.confirmPassword?.message}>
+                <FormLabel>Confirmar senha</FormLabel>
+                <InputGroup>
+                  <Input
+                    variant="flushed"
+                    type={showConfirm ? "text" : "password"}
+                    placeholder="Enter password"
+                    id="confirmPassword"
+                    {...register("confirmPassword")}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShowConfirm(!showConfirm)}
+                    >
+                      {showConfirm ? "Esconder" : "Mostrar"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>
+                  {errors?.confirmPassword?.message}
+                </FormErrorMessage>
+              </FormControl>
+              <Button type="submit">Cadastre-se!</Button>
             </form>
           </ModalBody>
         </ModalContent>
