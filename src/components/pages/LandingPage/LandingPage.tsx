@@ -1,3 +1,4 @@
+
 import { Button, Flex, Heading, Image, Img, Text } from "@chakra-ui/react";
 import { Login } from "../../modals/Login/Login";
 import { Register } from "../../modals/Register/Register";
@@ -34,4 +35,5 @@ export const LandingPage = () => {
       
     </div>
   );
+
 };
