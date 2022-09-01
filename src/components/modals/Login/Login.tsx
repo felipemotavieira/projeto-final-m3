@@ -15,10 +15,12 @@ import {
   Image,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { UserContext } from "../../../context/Context";
 
 interface ISubmitData {
   email: string;
@@ -26,12 +28,14 @@ interface ISubmitData {
 }
 export const Login = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onSubmitLogin } = useContext(UserContext);
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const handleClick = () => setShow(!show);
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail necessário").email("E-mail inválido"),
-    password: yup.string().required("Senha obrigatória").min(8),
+    password: yup.string().required("Senha obrigatória").min(6),
   });
 
   const {
@@ -42,7 +46,15 @@ export const Login = () => {
     resolver: yupResolver(formSchema),
   });
 
-  async function submitRegister(data: ISubmitData) {
+  const handleSuccess = () => {
+    navigate("/dashboard");
+  };
+
+  async function submitLogin(data: ISubmitData) {
+    let verify = await onSubmitLogin(data);
+
+    verify ? handleSuccess() : console.log("verify");
+
     console.log(data);
   }
 
@@ -68,7 +80,7 @@ export const Login = () => {
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={handleSubmit(submitRegister)}>
+            <form onSubmit={handleSubmit(submitLogin)}>
               <FormControl isInvalid={!!errors?.email?.message}>
                 <FormLabel>E-mail</FormLabel>
                 <Input
