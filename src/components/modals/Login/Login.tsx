@@ -14,6 +14,7 @@ import {
   Button,
   Image,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import * as yup from "yup";
@@ -32,6 +33,7 @@ export const Login = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const handleClick = () => setShow(!show);
+  const toast = useToast();
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail necessário").email("E-mail inválido"),
@@ -48,13 +50,25 @@ export const Login = () => {
 
   const handleSuccess = () => {
     navigate("/dashboard");
+    toast({
+      title: "Login realizado com sucesso!",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   const submitLogin = async (data: ILoginData) => {
-    console.log(data);
     let verify = await onSubmitLogin(data);
 
-    verify ? handleSuccess() : console.log("verify");
+    verify
+      ? handleSuccess()
+      : toast({
+          title: "E-mail ou senha incorretos",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
   };
 
   return (
