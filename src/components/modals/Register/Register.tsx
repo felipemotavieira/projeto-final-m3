@@ -59,9 +59,11 @@ export const Register = () => {
     console.log(data);
   }
 
+  
   return (
     <>
-      <Button colorScheme="whatsapp" color="white" onClick={onOpen}>aqui</Button>
+
+      <Button  color="black" _hover={{color:"#21a968"}} bg="none" onClick={onOpen}>Cadastre-se aqui</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

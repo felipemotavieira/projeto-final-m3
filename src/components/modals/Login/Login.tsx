@@ -59,7 +59,7 @@ export const Login = () => {
 
   return (
     <>
-      <Button boxShadow='2xl' w="250px" h="60px" borderRadius="30px" colorScheme="whatsapp" onClick={onOpen}>Login</Button>
+      <Button boxShadow='2xl' w="250px" h="60px" borderRadius="30px" color="white" backgroundColor="#21BA71" _hover={{backgroundColor:"#3fc4a1"}} _active={{backgroundColor:"#21BA71"}} onClick={onOpen}>Login</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
