@@ -59,15 +59,19 @@ export const Register = () => {
     console.log(data);
   }
 
+  
   return (
     <>
-      <Button onClick={onOpen}>Faça seu cadastro!</Button>
+
+      <Button  color="black" _hover={{color:"#21a968"}} bg="none" onClick={onOpen}>Cadastre-se aqui</Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Registre-se!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+
             <form onSubmit={handleSubmit(submitRegister)}>
               <FormControl isInvalid={!!errors?.name?.message}>
                 <FormLabel>Nome</FormLabel>
@@ -90,12 +94,14 @@ export const Register = () => {
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors?.password?.message}>
+
                 <FormLabel>Senha</FormLabel>
                 <InputGroup>
                   <Input
                     variant="flushed"
                     type={show ? "text" : "password"}
                     placeholder="Enter password"
+
                     id="password"
                     {...register("password")}
                   />
