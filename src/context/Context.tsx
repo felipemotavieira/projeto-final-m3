@@ -60,6 +60,7 @@ export const Context = ({ children }: IContextProviderProps) => {
   };
 
   const onSubmitLogin = async (data: ILoginData | boolean) => {
+    console.log(data);
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
         setUser(response.data);
@@ -80,5 +81,3 @@ export const Context = ({ children }: IContextProviderProps) => {
     </UserContext.Provider>
   );
 };
-
-export default Context;

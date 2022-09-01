@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../../../context/Context";
 
-interface ISubmitData {
+interface ILoginData {
   email: string;
   password: string;
 }
@@ -42,7 +42,7 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISubmitData>({
+  } = useForm<ILoginData>({
     resolver: yupResolver(formSchema),
   });
 
@@ -50,13 +50,12 @@ export const Login = () => {
     navigate("/dashboard");
   };
 
-  async function submitLogin(data: ISubmitData) {
+  const submitLogin = async (data: ILoginData) => {
+    console.log(data);
     let verify = await onSubmitLogin(data);
 
     verify ? handleSuccess() : console.log("verify");
-
-    console.log(data);
-  }
+  };
 
   return (
     <>
