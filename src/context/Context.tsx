@@ -1,21 +1,8 @@
-import { ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import InternalAPI from "../services/InternalAPI/InternalAPI";
 
 interface IContextProviderProps {
   children: ReactNode;
-}
-
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  course_module: string;
-  bio: string;
-  contact: string;
-  created_at: string;
-  updated_at: string;
-  techs: Array<Object>;
-  works: Array<Object>;
-  avatar_url: string;
 }
 
 interface ISubmitData {
@@ -27,6 +14,14 @@ interface ISubmitData {
 interface ILoginData {
   email: string;
   password: string;
+}
+
+interface IUser {
+  email: string;
+  name: string;
+  userPhoto: string;
+  locations: object[];
+  id: number;
 }
 
 interface IUserProviderData {
@@ -45,39 +40,34 @@ export const Context = ({ children }: IContextProviderProps) => {
   useEffect(() => {
     let token = localStorage.getItem("@TOKEN");
     token
-      ? api
-          .get("/profile", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => {
-            setUser(response.data);
-          })
-          .catch((error) => {
+      ? InternalAPI.get("/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => setUser(response.data))
+          .catch((error: any) => {
             console.log(error);
           })
       : localStorage.clear();
   }, []);
 
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
-    const response = await api
-      .post("/users", data)
+    const response = await InternalAPI.post("/register", data)
       .then(() => true)
       .catch(() => false);
     return response;
   };
 
   const onSubmitLogin = async (data: ILoginData | boolean) => {
-    const response = await api
-      .post("/sessions", data)
+    const response = await InternalAPI.post("/login", data)
       .then((response) => {
-        setUser(response.data.user);
-        localStorage.setItem("@TOKEN", response.data.token);
-        localStorage.setItem("@USERID", response.data.user.id);
+        setUser(response.data);
+        localStorage.setItem("@TOKEN", response.data);
+        localStorage.setItem("@USERID", response.data);
         return true;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(error);
         return false;
       });
