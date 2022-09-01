@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-// import { ContextProvider } from './context/Context';
+import { Context } from "./context/Context";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <ChakraProvider>
       <BrowserRouter>
-        {/* <ContextProvider> */}
-        <App />
-        {/* </ContextProvider> */}
+        <Context>
+          <App />
+        </Context>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

@@ -13,11 +13,14 @@ import {
   InputRightElement,
   Button,
   FormErrorMessage,
+  useToast,
+  Image,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { UserContext } from "../../../context/Context";
 
 interface ISubmitData {
   email: string;
@@ -30,6 +33,8 @@ export const Register = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { onSubmitRegister } = useContext(UserContext);
+  const toast = useToast();
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome necessário"),
@@ -55,15 +60,33 @@ export const Register = () => {
     resolver: yupResolver(formSchema),
   });
 
-  async function submitRegister(data: ISubmitData) {
-    console.log(data);
-  }
+  const handleSuccess = () => {
+    onClose();
+    toast({
+      title: "Cadastro realizado com sucesso!",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  };
 
-  
+  const submitRegister = async (data: ISubmitData) => {
+    console.log(data);
+    let verify = await onSubmitRegister(data);
+
+    verify ? handleSuccess() : console.log(verify);
+  };
+
   return (
     <>
-
-      <Button  color="black" _hover={{color:"#21a968"}} bg="none" onClick={onOpen}>Cadastre-se aqui</Button>
+      <Button
+        color="black"
+        _hover={{ color: "#21a968" }}
+        bg="none"
+        onClick={onOpen}
+      >
+        Cadastre-se aqui
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -71,7 +94,6 @@ export const Register = () => {
           <ModalHeader>Registre-se!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-
             <form onSubmit={handleSubmit(submitRegister)}>
               <FormControl isInvalid={!!errors?.name?.message}>
                 <FormLabel>Nome</FormLabel>
@@ -94,14 +116,12 @@ export const Register = () => {
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors?.password?.message}>
-
                 <FormLabel>Senha</FormLabel>
                 <InputGroup>
                   <Input
                     variant="flushed"
                     type={show ? "text" : "password"}
                     placeholder="Enter password"
-
                     id="password"
                     {...register("password")}
                   />
@@ -111,7 +131,11 @@ export const Register = () => {
                       size="sm"
                       onClick={() => setShow(!show)}
                     >
-                      {show ? "Esconder" : "Mostrar"}
+                      {show ? (
+                        <Image src="./aberto.png" w="25px" h="25px"></Image>
+                      ) : (
+                        <Image src="./olho.png" w="25px" h="25px"></Image>
+                      )}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -133,7 +157,11 @@ export const Register = () => {
                       size="sm"
                       onClick={() => setShowConfirm(!showConfirm)}
                     >
-                      {showConfirm ? "Esconder" : "Mostrar"}
+                      {showConfirm ? (
+                        <Image src="./aberto.png" w="25px" h="25px"></Image>
+                      ) : (
+                        <Image src="./olho.png" w="25px" h="25px"></Image>
+                      )}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
