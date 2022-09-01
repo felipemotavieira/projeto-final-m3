@@ -1,9 +1,16 @@
 
 import { Button, Flex, Heading, Image, Img, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { Login } from "../../modals/Login/Login";
 import { Register } from "../../modals/Register/Register";
 
 export const LandingPage = () => {
+
+  const navigate = useNavigate()
+
+  function handleToDashboard (){
+    navigate('/dashboard', {replace: true});
+  } 
 
   return (
     <div className="App">
@@ -24,7 +31,7 @@ export const LandingPage = () => {
           <Flex justify={["center", "start"]}><Heading as='h3' size='lg'>Quer viajar?</Heading></Flex>
           <Flex justify={["center", "start"]}><Text  textAlign={["center", "start"]} w={["250px","300px"]} justifyContent={"center"}  fontSize={["2xl", "lg"]}>Conheça lugares diferentes através de pessoas que já foram</Text></Flex>
           <Flex justify={["center", "start"]}><Login /></Flex>
-          <Flex justify={["center", "start"]}><Button boxShadow='2xl' width="250px" h="60px" borderRadius="30px" color="white" backgroundColor="#21BA71" _hover={{backgroundColor:"#3fc4a1"}} _active={{backgroundColor:"#21BA71"}}>Explorar</Button></Flex>
+          <Flex justify={["center", "start"]}><Button onClick={handleToDashboard} boxShadow='2xl' width="250px" h="60px" borderRadius="30px" color="white" backgroundColor="#21BA71" _hover={{backgroundColor:"#3fc4a1"}} _active={{backgroundColor:"#21BA71"}}>Explorar</Button></Flex>
 
           <Flex justify={["center", "start"]}><Text textAlign={["center", "start"]}  w="max-content">Ainda não tem conta?<Register /></Text></Flex>
         </Flex>
