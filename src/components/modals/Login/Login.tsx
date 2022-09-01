@@ -15,58 +15,71 @@ import {
   Image,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { UserContext } from "../../../context/Context";
 
-
-
-
-interface ISubmitData {
+interface ILoginData {
   email: string;
   password: string;
 }
-
-
 export const Login = () => {
-
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onSubmitLogin } = useContext(UserContext);
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const handleClick = () => setShow(!show);
 
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail necessário").email("E-mail inválido"),
-    password: yup
-      .string()
-      .required("Senha obrigatória")
-      .min(8)
+    password: yup.string().required("Senha obrigatória").min(6),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISubmitData>({
+  } = useForm<ILoginData>({
     resolver: yupResolver(formSchema),
   });
 
-  async function submitRegister(data: ISubmitData) {
-    console.log(data);
-  }
+  const handleSuccess = () => {
+    navigate("/dashboard");
+  };
 
+  const submitLogin = async (data: ILoginData) => {
+    console.log(data);
+    let verify = await onSubmitLogin(data);
+
+    verify ? handleSuccess() : console.log("verify");
+  };
 
   return (
     <>
-      <Button boxShadow='2xl' w="250px" h="60px" borderRadius="30px" color="white" backgroundColor="#21BA71" _hover={{backgroundColor:"#3fc4a1"}} _active={{backgroundColor:"#21BA71"}} onClick={onOpen}>Login</Button>
+      <Button
+        boxShadow="2xl"
+        w="250px"
+        h="60px"
+        borderRadius="30px"
+        color="white"
+        backgroundColor="#21BA71"
+        _hover={{ backgroundColor: "#3fc4a1" }}
+        _active={{ backgroundColor: "#21BA71" }}
+        onClick={onOpen}
+      >
+        Login
+      </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          <form onSubmit={handleSubmit(submitRegister)}>
+            <form onSubmit={handleSubmit(submitLogin)}>
               <FormControl isInvalid={!!errors?.email?.message}>
                 <FormLabel>E-mail</FormLabel>
                 <Input
@@ -78,7 +91,6 @@ export const Login = () => {
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
 
-
               <FormControl isInvalid={!!errors?.password?.message}>
                 <FormLabel>Senha</FormLabel>
                 <InputGroup>
@@ -86,19 +98,21 @@ export const Login = () => {
                     variant="flushed"
                     type={show ? "text" : "password"}
                     id="password"
-                  {...register("password")}
+                    {...register("password")}
                   />
-                  
+
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleClick}>
-                      {show ? <Image src="./aberto.png" w="25px" h="25px"></Image> : <Image src="./olho.png" w="25px" h="25px"></Image>}
+                      {show ? (
+                        <Image src="./aberto.png" w="25px" h="25px"></Image>
+                      ) : (
+                        <Image src="./olho.png" w="25px" h="25px"></Image>
+                      )}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
                 <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-
               </FormControl>
-              
 
               <Button type="submit">Entrar</Button>
             </form>
