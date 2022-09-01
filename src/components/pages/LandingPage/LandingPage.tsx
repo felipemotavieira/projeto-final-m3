@@ -14,11 +14,11 @@ export const LandingPage = () => {
 
           <Flex gap="3" align="center" justify={["center", "start"]}>
             <Image src="./icone.png" w={["80px","80px", "80px", "80px"]} h={["100px", "90px", "110px", "110px"]}></Image>
-            <Heading as="h1" fontSize={["50px"]}>Checkin</Heading>
+            <Heading as="h1" fontSize={["40px", "50px"]}>Checkin</Heading>
           </Flex>
 
           
-          <Img src="./imagemMobile.png" w={["100vw","0", "0", "0"]} h={["300px", "0", "0", "0px"]}></Img>
+          <Img src="./imagemMobile.png" w={["100vw","0", "0", "0"]} h={["200px", "0", "0", "0px"]}></Img>
           
 
           <Flex justify={["center", "start"]}><Heading as='h3' size='lg'>Quer viajar?</Heading></Flex>
