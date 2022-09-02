@@ -15,11 +15,16 @@ export const LandingPage = () => {
       <Flex
         h="100%"
         w={["100%", "100%", "80%", "80%"]}
-        justify={["center","center", "space-around"]}
+        justify={["center", "center", "space-around"]}
       >
-        <Flex direction="column" gap="7" w={["500px","800px" ,"600px"]} h="100%" justify="center">
-          <Flex gap="3" align="center" justify={["center","center" ,"start"]}>
-
+        <Flex
+          direction="column"
+          gap="7"
+          w={["500px", "800px", "600px"]}
+          h="100%"
+          justify="center"
+        >
+          <Flex gap="3" align="center" justify={["center", "center", "start"]}>
             <Image
               src="./icone.png"
               w={["60px", "80px", "80px", "80px"]}
@@ -37,14 +42,14 @@ export const LandingPage = () => {
             h={["270px", "270", "0", "0px"]}
           ></Img>
 
-          <Flex justify={["center", "center","start"]}>
+          <Flex justify={["center", "center", "start"]}>
             <Heading as="h3" size="lg">
               Quer viajar?
             </Heading>
           </Flex>
-          <Flex justify={["center","center", "start"]}>
+          <Flex justify={["center", "center", "start"]}>
             <Text
-              textAlign={["center","center", "start"]}
+              textAlign={["center", "center", "start"]}
               w={["250px", "300px"]}
               justifyContent={"center"}
               fontSize={["2xl", "lg"]}
@@ -52,10 +57,10 @@ export const LandingPage = () => {
               Conheça lugares diferentes através de pessoas que já foram
             </Text>
           </Flex>
-          <Flex justify={["center","center", "start"]}>
+          <Flex justify={["center", "center", "start"]}>
             <Login />
           </Flex>
-          <Flex justify={["center","center", "start"]}>
+          <Flex justify={["center", "center", "start"]}>
             <Button
               onClick={handleToDashboard}
               boxShadow="2xl"
@@ -71,7 +76,7 @@ export const LandingPage = () => {
             </Button>
           </Flex>
 
-          <Flex justify={["center","center", "start"]}>
+          <Flex justify={["center", "center", "start"]}>
             <Text textAlign={["center", "start"]} w="max-content">
               Ainda não tem conta?
               <Register />
