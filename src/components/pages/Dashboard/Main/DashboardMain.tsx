@@ -1,10 +1,9 @@
-import { CityRegister } from "../../../modals/CityRegister/CityRegister";
+import { Header } from "../Header/Header";
 
 export const DashboardMain = () => {
   return (
     <>
-      <h1>Dashboard</h1>
-      <CityRegister />
+      <Header />
     </>
   );
 };

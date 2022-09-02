@@ -1,6 +1,5 @@
 import {
   Button,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,8 +10,8 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
 
 interface Item {
@@ -22,32 +21,27 @@ interface Item {
   regiaoimediata: any;
 }
 
+interface ICityData {
+  city: string;
+}
+
 export const CityRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
+  const { register, handleSubmit } = useForm<ICityData>();
   const toast = useToast();
-  const [pickerItems, setPickerItems] = useState<Item[]>(cities);
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
-
-  const handleCreateItem = (item: Item) => {
-    setPickerItems((curr) => [...curr, item]);
-    setSelectedItems((curr) => [...curr, item]);
-  };
-
-  const handleSelectedItemsChange = (selectedItems?: Item[]) => {
-    if (selectedItems) {
-      setSelectedItems(selectedItems);
-    }
-  };
-
   const handleOnChange = (uf: string) => {
-    console.log(uf);
-    ExternalAPI.get(`/${uf}/municipios`)
-      .then((response) => {
-        setCities(response.data);
-        console.log(cities);
-      })
-      .catch((error) => console.log(error));
+    uf === "Escolha o estado"
+      ? setCities([])
+      : ExternalAPI.get(`/${uf}/municipios`)
+          .then((response) => {
+            setCities(response.data);
+          })
+          .catch((error) => console.log(error));
+  };
+
+  const handleSubmitCity = (data: ICityData) => {
+    console.log(data);
   };
 
   return (
@@ -59,8 +53,9 @@ export const CityRegister = () => {
           <ModalHeader>Para onde gostaria de ir?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form>
+            <form onSubmit={handleSubmit(handleSubmitCity)}>
               <Select onChange={(e) => handleOnChange(e.target.value)}>
+                <option>Escolha o estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
@@ -90,18 +85,28 @@ export const CityRegister = () => {
                 <option value="TO">Tocantins</option>
                 <option value="EX">Estrangeiro</option>
               </Select>
-              {cities.length > 0 && (
-                <CUIAutoComplete
-                  label="Choose preferred work locations"
-                  placeholder="Type a Country"
-                  onCreateItem={handleCreateItem}
-                  items={pickerItems}
-                  selectedItems={selectedItems}
-                  onSelectedItemsChange={(changes) =>
-                    handleSelectedItemsChange(changes.selectedItems)
-                  }
-                />
+              {cities.length > 0 ? (
+                <Select {...register("city")}>
+                  {cities.map((elem) => (
+                    <option key={elem.id}>{elem.nome} </option>
+                  ))}
+                </Select>
+              ) : (
+                <Select isDisabled={true} placeholder="Cidades"></Select>
               )}
+
+              <Button
+                boxShadow="2xl"
+                w="250px"
+                h="60px"
+                borderRadius="30px"
+                color="white"
+                backgroundColor="#21BA71"
+                _hover={{ backgroundColor: "#3fc4a1" }}
+                _active={{ backgroundColor: "#21BA71" }}
+              >
+                Adicionar cidade
+              </Button>
             </form>
           </ModalBody>
         </ModalContent>
