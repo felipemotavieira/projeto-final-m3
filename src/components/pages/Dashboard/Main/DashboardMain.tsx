@@ -1,3 +1,4 @@
+import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
 import React, { useContext, useEffect } from "react";
 
@@ -10,6 +11,7 @@ export const DashboardMain = () => {
 
   return (
     <>
+      <Header />
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
