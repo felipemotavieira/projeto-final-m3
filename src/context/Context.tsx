@@ -21,6 +21,7 @@ interface IUser {
   name: string;
   userPhoto: string;
   locations: object[];
+  posts: IPosts[];
   id: number;
 }
 
@@ -85,6 +86,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     console.log(data);
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
+        console.log(response);
         setUser(response.data);
         localStorage.setItem("@TOKEN", response.data);
         localStorage.setItem("@USERID", response.data);
