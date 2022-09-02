@@ -21,7 +21,27 @@ interface IUser {
   name: string;
   userPhoto: string;
   locations: object[];
+  posts: IPosts[];
   id: number;
+}
+
+interface ILocal {
+  cityId: string;
+  state: string;
+  cityName: string;
+}
+
+interface IPosts {
+  postImage: string;
+  title: string;
+  description: string;
+  localization: ILocal[];
+  category: null;
+  likes: null;
+  saved: null;
+  comments: null;
+  userId: number;
+  id?: number;
 }
 
 interface IUserProviderData {
@@ -63,6 +83,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     console.log(data);
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
+        console.log(response);
         setUser(response.data);
         localStorage.setItem("@TOKEN", response.data);
         localStorage.setItem("@USERID", response.data);
