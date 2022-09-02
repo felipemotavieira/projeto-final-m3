@@ -14,11 +14,9 @@ import {
   Button,
   Image,
   FormErrorMessage,
-
   Flex,
   Box,
   useToast,
-
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import * as yup from "yup";
@@ -32,7 +30,6 @@ interface ISubmitData {
   email: string;
   password: string;
 }
-
 
 interface ILoginData {
   email: string;
@@ -59,9 +56,6 @@ export const Login = () => {
     resolver: yupResolver(formSchema),
   });
 
-  async function submitRegister(data: ISubmitData) {
-    console.log(data);
-  }
   const handleSuccess = () => {
     navigate("/dashboard");
     toast({
@@ -129,7 +123,7 @@ export const Login = () => {
             <ModalBody>
               <ModalCloseButton />
 
-              <form onSubmit={handleSubmit(submitRegister)}>
+              <form onSubmit={handleSubmit(submitLogin)}>
                 <FormControl isInvalid={!!errors?.email?.message}>
                   <FormLabel>E-mail</FormLabel>
                   <Input
