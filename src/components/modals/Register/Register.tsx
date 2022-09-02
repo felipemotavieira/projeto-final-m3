@@ -15,6 +15,8 @@ import {
   FormErrorMessage,
   useToast,
   Image,
+  Flex,
+  Box
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import * as yup from "yup";
@@ -102,90 +104,153 @@ export const Register = () => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Registre-se!</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <form onSubmit={handleSubmit(submitRegister)}>
+        <ModalContent
+          
+          display="flex"
+          justifyContent="center"
+          backgroundColor="#fff"
+          borderRadius={["60px 60px 0px 0px", "40px", "40px", "40px"]}
+          h={[
+            "738px",
+            errors?.password?.message || errors?.email?.message
+              ? "640px"
+              : "550px",
+          ]}
+          mb={["auto"]}
+          mt={["105px","auto"]}
+          //py="0px"
+          
+        >
+          <Box
+            
+            display="flex"
+            flexDirection="column"
+            
+            
+            
+          >
+            <Flex w="100%" align="center" direction="column" mt="10px">
+              <Image src="./icone.png" w={[0, "40px"]} h={[0, "45px"]}></Image>
+              <ModalHeader p="5px"fontSize="2xl">Cadastrar-se</ModalHeader>
+            </Flex>
+
+            <ModalBody>
+              <ModalCloseButton />
+
+              <form onSubmit={handleSubmit(submitRegister)}>
+
               <FormControl isInvalid={!!errors?.name?.message}>
-                <FormLabel>Nome</FormLabel>
-                <Input
-                  type="text"
-                  variant="flushed"
-                  id="name"
-                  {...register("name")}
-                />
-                <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors?.email?.message}>
-                <FormLabel>E-mail</FormLabel>
-                <Input
-                  type="text"
-                  variant="flushed"
-                  id="email"
-                  {...register("email")}
-                />
-                <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors?.password?.message}>
-                <FormLabel>Senha</FormLabel>
-                <InputGroup>
+                  <FormLabel >Nome</FormLabel>
                   <Input
+                    borderRadius="20px"
+                    p="20px"
+                    backgroundColor="#F0F0F0"
+                    type="text"
                     variant="flushed"
-                    type={show ? "text" : "password"}
-                    placeholder="Enter password"
-                    id="password"
-                    {...register("password")}
+                    id="name"
+                    {...register("name")}
                   />
-                  <InputRightElement width="4.5rem">
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      onClick={() => setShow(!show)}
-                    >
-                      {show ? (
-                        <Image src="./aberto.png" w="25px" h="25px"></Image>
-                      ) : (
-                        <Image src="./olho.png" w="25px" h="25px"></Image>
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors?.confirmPassword?.message}>
-                <FormLabel>Confirmar senha</FormLabel>
-                <InputGroup>
+                  <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
+                </FormControl>
+
+                <FormControl isInvalid={!!errors?.email?.message}>
+                  <FormLabel>E-mail</FormLabel>
                   <Input
+                    borderRadius="20px"
+                    p="20px"
+                    backgroundColor="#F0F0F0"
+                    type="text"
                     variant="flushed"
-                    type={showConfirm ? "text" : "password"}
-                    placeholder="Enter password"
-                    id="confirmPassword"
-                    {...register("confirmPassword")}
+                    id="email"
+                    {...register("email")}
                   />
-                  <InputRightElement width="4.5rem">
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      onClick={() => setShowConfirm(!showConfirm)}
-                    >
-                      {showConfirm ? (
-                        <Image src="./aberto.png" w="25px" h="25px"></Image>
-                      ) : (
-                        <Image src="./olho.png" w="25px" h="25px"></Image>
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <FormErrorMessage>
-                  {errors?.confirmPassword?.message}
-                </FormErrorMessage>
-              </FormControl>
-              <Button type="submit">Cadastre-se!</Button>
-            </form>
-          </ModalBody>
+                  <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+                </FormControl>
+
+                <FormControl my="20px" isInvalid={!!errors?.password?.message}>
+                  <FormLabel>Senha</FormLabel>
+                  <InputGroup>
+                    <Input
+                      borderRadius="20px"
+                      p="20px"
+                      backgroundColor="#F0F0F0"
+                      variant="flushed"
+                      type={show ? "text" : "password"}
+                      id="password"
+                      {...register("password")}
+                    />
+
+                    <InputRightElement width="4.5rem">
+                      <Button
+                        backgroundColor="none"
+                        h="1.75rem"
+                        size="sm"
+                        onClick={() => setShow(!show)}
+                      >
+                        {show ? (
+                          <Image src="./aberto.png" w="25px" h="25px"></Image>
+                        ) : (
+                          <Image src="./olho.png" w="25px" h="25px"></Image>
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>
+                    {errors?.password?.message}
+                  </FormErrorMessage>
+                </FormControl>
+
+                <FormControl my="20px" isInvalid={!!errors?.confirmPassword?.message}>
+                  <FormLabel>Confirmar senha</FormLabel>
+                  <InputGroup>
+                    <Input
+                      borderRadius="20px"
+                      p="20px"
+                      backgroundColor="#F0F0F0"
+                      variant="flushed"
+                      type={showConfirm ? "text" : "password"}
+                      id="confirmPassword"
+                      {...register("confirmPassword")}
+                    />
+
+                    <InputRightElement width="4.5rem">
+                      <Button
+                        backgroundColor="none"
+                        h="1.75rem"
+                        size="sm"
+                        onClick={()=>setShowConfirm(!showConfirm)}
+                      >
+                        {showConfirm ? (
+                          <Image src="./aberto.png" w="25px" h="25px"></Image>
+                        ) : (
+                          <Image src="./olho.png" w="25px" h="25px"></Image>
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>
+                    {errors?.confirmPassword?.message}
+                  </FormErrorMessage>
+                </FormControl>
+
+                <Flex justify="center">
+                  <Button
+                    borderRadius="20px"
+                    p="25px"
+                    w="500px"
+                    type="submit"
+                    backgroundColor="#21BA71"
+                    color="white"
+                  >
+                    Entrar
+                  </Button>
+                </Flex>
+              </form>
+            </ModalBody>
+          </Box>
         </ModalContent>
       </Modal>
+
     </>
   );
 };
