@@ -83,19 +83,23 @@ export const Login = () => {
           h="60px"
           borderRadius="30px"
           color="white"
-          backgroundColor="#21BA71"
+          backgroundColor="#FFFFFF"
           _hover={{ backgroundColor: "#3fc4a1" }}
           _active={{ backgroundColor: "#21BA71" }}
           onClick={onOpen}
         >
-          Login
+          Não logado
         </Button>
       ) : (
         <Button
-          background="#2B2945"
-          box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
-          border-radius="23px"
-          color="#FFFFFF"
+          boxShadow="2xl"
+          w="250px"
+          h="60px"
+          borderRadius="30px"
+          color="white"
+          backgroundColor="#21BA71"
+          _hover={{ backgroundColor: "#3fc4a1" }}
+          _active={{ backgroundColor: "#21BA71" }}
           onClick={onOpen}
         >
           Login

@@ -12,7 +12,6 @@ export const LandingPage = () => {
 
   return (
     <div className="App">
-
       <Flex
         h="100%"
         w={["100%", "80%", "80%", "80%"]}
@@ -80,8 +79,11 @@ export const LandingPage = () => {
         </Flex>
 
         <Flex align="center">
-          <Img src="./image.png" w={["0","0", "350px", "450px"]} h={["0", "0", "470px", "600px"]}></Img>
-
+          <Img
+            src="./image.png"
+            w={["0", "0", "350px", "450px"]}
+            h={["0", "0", "470px", "600px"]}
+          ></Img>
         </Flex>
       </Flex>
     </div>
