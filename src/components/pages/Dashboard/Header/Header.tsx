@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Input, Spacer } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -31,25 +32,11 @@ export const Header = () => {
           </Button>
         </Flex>
         <Spacer />
-        {localStorage.getItem("@TOKEN") ? (
-          <Flex>
-            <Button>+</Button>
-            <Button>+</Button>
-            <Button>+</Button>
-          </Flex>
-        ) : (
-          <Flex>
-            <Button
-              background="#2B2945"
-              box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
-              border-radius="23px"
-              color="#FFFFFF"
-              onClick={handleClick}
-            >
-              Faça login ou cadastre-se!
-            </Button>
-          </Flex>
-        )}
+        <Flex>
+          <Button>Add post</Button>
+          <CityRegister />
+          <Button>+</Button>
+        </Flex>
       </Flex>
     </>
   );
