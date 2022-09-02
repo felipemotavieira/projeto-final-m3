@@ -12,6 +12,7 @@ export const LandingPage = () => {
 
   return (
     <div className="App">
+
       <Flex
         h="100%"
         w={["100%", "80%", "80%", "80%"]}
@@ -21,8 +22,9 @@ export const LandingPage = () => {
           <Flex gap="3" align="center" justify={["center", "start"]}>
             <Image
               src="./icone.png"
-              w={["80px", "80px", "80px", "80px"]}
-              h={["100px", "90px", "110px", "110px"]}
+              w={["60px", "80px", "80px", "80px"]}
+              h={["80px", "90px", "110px", "110px"]}
+              mt={["10px", 0]}
             ></Image>
             <Heading as="h1" fontSize={["50px"]}>
               Checkin
@@ -78,11 +80,8 @@ export const LandingPage = () => {
         </Flex>
 
         <Flex align="center">
-          <Img
-            src="./image.png"
-            w={["0", "200px", "350px", "450px"]}
-            h={["0", "300px", "550px", "600px"]}
-          ></Img>
+          <Img src="./image.png" w={["0","0", "350px", "450px"]} h={["0", "0", "470px", "600px"]}></Img>
+
         </Flex>
       </Flex>
     </div>
