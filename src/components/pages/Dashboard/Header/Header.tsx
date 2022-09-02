@@ -1,8 +1,12 @@
 import { Box, Button, Flex, Input, Spacer } from "@chakra-ui/react";
-import { Login } from "../../../modals/Login/Login";
-import { Register } from "../../../modals/Register/Register";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <Flex
@@ -35,8 +39,15 @@ export const Header = () => {
           </Flex>
         ) : (
           <Flex>
-            <Login />
-            <Register />
+            <Button
+              background="#2B2945"
+              box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
+              border-radius="23px"
+              color="#FFFFFF"
+              onClick={handleClick}
+            >
+              Faça login ou cadastre-se!
+            </Button>
           </Flex>
         )}
       </Flex>

@@ -16,7 +16,7 @@ import {
   useToast,
   Image,
   Flex,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import * as yup from "yup";
@@ -81,31 +81,18 @@ export const Register = () => {
 
   return (
     <>
-      {localStorage.getItem("@TOKEN") ? (
-        <Button
-          color="black"
-          _hover={{ color: "#21a968" }}
-          bg="none"
-          onClick={onOpen}
-        >
-          Cadastre-se aqui
-        </Button>
-      ) : (
-        <Button
-          background="#2B2945"
-          box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
-          border-radius="23px"
-          color="#FFFFFF"
-          onClick={onOpen}
-        >
-          Cadastrar
-        </Button>
-      )}
+      <Button
+        color="black"
+        _hover={{ color: "#21a968" }}
+        bg="none"
+        onClick={onOpen}
+      >
+        Cadastre-se aqui
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent
-          
           display="flex"
           justifyContent="center"
           backgroundColor="#fff"
@@ -117,30 +104,22 @@ export const Register = () => {
               : "550px",
           ]}
           mb={["auto"]}
-          mt={["105px","auto"]}
-          //py="0px"
-          
+          mt={["105px", "auto"]}
         >
-          <Box
-            
-            display="flex"
-            flexDirection="column"
-            
-            
-            
-          >
+          <Box display="flex" flexDirection="column">
             <Flex w="100%" align="center" direction="column" mt="10px">
               <Image src="./icone.png" w={[0, "40px"]} h={[0, "45px"]}></Image>
-              <ModalHeader p="5px"fontSize="2xl">Cadastrar-se</ModalHeader>
+              <ModalHeader p="5px" fontSize="2xl">
+                Cadastrar-se
+              </ModalHeader>
             </Flex>
 
             <ModalBody>
               <ModalCloseButton />
 
               <form onSubmit={handleSubmit(submitRegister)}>
-
-              <FormControl isInvalid={!!errors?.name?.message}>
-                  <FormLabel >Nome</FormLabel>
+                <FormControl isInvalid={!!errors?.name?.message}>
+                  <FormLabel>Nome</FormLabel>
                   <Input
                     borderRadius="20px"
                     p="20px"
@@ -200,7 +179,10 @@ export const Register = () => {
                   </FormErrorMessage>
                 </FormControl>
 
-                <FormControl my="20px" isInvalid={!!errors?.confirmPassword?.message}>
+                <FormControl
+                  my="20px"
+                  isInvalid={!!errors?.confirmPassword?.message}
+                >
                   <FormLabel>Confirmar senha</FormLabel>
                   <InputGroup>
                     <Input
@@ -218,7 +200,7 @@ export const Register = () => {
                         backgroundColor="none"
                         h="1.75rem"
                         size="sm"
-                        onClick={()=>setShowConfirm(!showConfirm)}
+                        onClick={() => setShowConfirm(!showConfirm)}
                       >
                         {showConfirm ? (
                           <Image src="./aberto.png" w="25px" h="25px"></Image>
@@ -250,7 +232,6 @@ export const Register = () => {
           </Box>
         </ModalContent>
       </Modal>
-
     </>
   );
 };
