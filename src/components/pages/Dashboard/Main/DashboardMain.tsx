@@ -1,3 +1,9 @@
+import { Header } from "../Header/Header";
+
 export const DashboardMain = () => {
-  return <h1>Dashboard</h1>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };

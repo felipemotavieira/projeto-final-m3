@@ -79,14 +79,26 @@ export const Register = () => {
 
   return (
     <>
-      <Button
-        color="black"
-        _hover={{ color: "#21a968" }}
-        bg="none"
-        onClick={onOpen}
-      >
-        Cadastre-se aqui
-      </Button>
+      {localStorage.getItem("@TOKEN") ? (
+        <Button
+          color="black"
+          _hover={{ color: "#21a968" }}
+          bg="none"
+          onClick={onOpen}
+        >
+          Cadastre-se aqui
+        </Button>
+      ) : (
+        <Button
+          background="#2B2945"
+          box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
+          border-radius="23px"
+          color="#FFFFFF"
+          onClick={onOpen}
+        >
+          Cadastrar
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
