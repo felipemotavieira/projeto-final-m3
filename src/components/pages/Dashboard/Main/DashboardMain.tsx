@@ -1,18 +1,23 @@
 import { UserContext } from "../../../../context/Context";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 export const DashboardMain = () => {
-  const { user } = useContext(UserContext);
-  console.log(user);
+  const { posts, getPosts } = useContext(UserContext);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
-    <ul>
-      {user.posts?.map((post) => (
-        <li key={post.id}>
-          <p>{post.postImage}</p>
-          <p>{post.title}</p>
-          <p>{post.description}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <p>{post.postImage}</p>
+            <p>{post.title}</p>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
