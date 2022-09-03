@@ -30,6 +30,7 @@ export const CityRegister = () => {
   const [cities, setCities] = useState<Item[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
   const toast = useToast();
+
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
@@ -55,7 +56,7 @@ export const CityRegister = () => {
           <ModalBody>
             <form onSubmit={handleSubmit(handleSubmitCity)}>
               <Select onChange={(e) => handleOnChange(e.target.value)}>
-                <option>Escolha o estado</option>
+                <option value="">Escolha o estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
@@ -88,7 +89,9 @@ export const CityRegister = () => {
               {cities.length > 0 ? (
                 <Select {...register("city")}>
                   {cities.map((elem) => (
-                    <option key={elem.id}>{elem.nome} </option>
+                    <option value={elem.id} key={elem.id}>
+                      {elem.nome}
+                    </option>
                   ))}
                 </Select>
               ) : (
@@ -96,6 +99,7 @@ export const CityRegister = () => {
               )}
 
               <Button
+                type="submit"
                 boxShadow="2xl"
                 w="250px"
                 h="60px"
