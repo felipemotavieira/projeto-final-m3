@@ -91,11 +91,7 @@ export const Context = ({ children }: IContextProviderProps) => {
       .then((response) => {
         setUser(response.data.user);
         localStorage.setItem("@TOKEN", response.data.accessToken);
-<<<<<<< HEAD
-        localStorage.setItem("@USERID", response.data.user);
-=======
         localStorage.setItem("@USERID", response.data.user.id);
->>>>>>> 777ed35a21ffe586059500bd1b1376d6bcd57190
         return true;
       })
       .catch((error: any) => {
