@@ -11,23 +11,30 @@ import { useState, MouseEvent, Dispatch, SetStateAction } from "react";
 import { ProfileForm } from "./styles";
 import { ModalDeleteProfile } from "../../modals/ModalDeleteProfile/ModalDeleteProfile";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
+import {Idata} from "../../pages/Profile/Profile"
+
 
 interface ImodalDeleteOpen {
   setModalDeleteOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function ProfileMain() {
+interface IProfileMainProps {
+  data:Idata;
+}
+
+
+
+function ProfileMain({data}:IProfileMainProps) {
+  const {email, name, userPhoto} = data;
   const [modalDeleteOpen, setModalDeleteOpen] = useState<ImodalDeleteOpen | boolean>(false)
   const [modalEditeOpen, setModalEditeOpen] = useState<ImodalDeleteOpen | boolean>(false)
 
   const handleToEditeProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("edite")
     setModalEditeOpen(true)
   }
   const handleToDeleteProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("deletar perfil")
     setModalDeleteOpen(true)
   }
 
@@ -58,7 +65,7 @@ function ProfileMain() {
             borderRadius="42px"
             height="50px"
             type="text"
-            value="adicionar no javascript"
+            value={name}
             padding=" 0 25px"
           />
         </FormControl>
@@ -70,8 +77,9 @@ function ProfileMain() {
             borderRadius="42px"
             height="50px"
             type="text"
-            value="adicionar no javascript"
             padding=" 0 25px"
+            placeholder= { !userPhoto ? "Adicione uma URL para completar o seu perfil": ''}
+            value={ userPhoto? userPhoto :''}
           />
         </FormControl>
         <FormControl>
@@ -81,8 +89,7 @@ function ProfileMain() {
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
-            type="text"
-            value="adicionar no javascript"
+            value={email}
             padding=" 0 25px"
           />
         </FormControl>
@@ -93,15 +100,18 @@ function ProfileMain() {
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
-            value="adicionar no javascript"
           >
             <option value="adicionar">
               Adicionar funcionalidade no javascript
             </option>
+
+
             {/* {
               array?.map(ele => <option value={}>{}</option>)
 
             } */}
+
+
           </Select>
         </FormControl>
         <Flex

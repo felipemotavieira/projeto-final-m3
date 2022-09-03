@@ -74,7 +74,7 @@ export const Context = ({ children }: IContextProviderProps) => {
           })
       : localStorage.clear();
   }, []);
-
+  
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
     const response = await InternalAPI.post("/register", data)
       .then(() => true)
@@ -86,10 +86,9 @@ export const Context = ({ children }: IContextProviderProps) => {
     console.log(data);
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
-        console.log(response);
-        setUser(response.data);
-        localStorage.setItem("@TOKEN", response.data);
-        localStorage.setItem("@USERID", response.data);
+        setUser(response.data.user);
+        localStorage.setItem("@TOKEN", response.data.accessToken);
+        localStorage.setItem("@USERID", response.data.user);
         return true;
       })
       .catch((error: any) => {

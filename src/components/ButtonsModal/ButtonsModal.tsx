@@ -5,7 +5,7 @@ import {
 interface IbuttonsModal {
     type: string;
     titlebtn: string;
-    functionOnclick:() => void;
+    functionOnclick?:() => void;
   }
 
 export const ButtonsModal = ({titlebtn, type, functionOnclick}:IbuttonsModal) => {
@@ -19,7 +19,6 @@ export const ButtonsModal = ({titlebtn, type, functionOnclick}:IbuttonsModal) =>
         backgroundColor="#180548"
     }
         
-
     return (
 
         <Button
