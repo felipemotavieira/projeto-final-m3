@@ -51,7 +51,7 @@ interface IUsers {
   id: number;
 }
 
-interface IUserId {
+interface IUsersId {
   email: string;
   name: string;
   userPhoto: string;
@@ -89,9 +89,9 @@ interface IPosts {
 interface IUserProviderData {
   user: IUser;
   users: IUsers[];
-  userId: IUserId;
+  usersId: IUsersId;
   getUsers: () => Promise<any>;
-  getUserId: () => Promise<any>;
+  getUsersId: () => Promise<any>;
   patchUser: (data: IUserData) => Promise<boolean>;
   deleteUser: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
@@ -101,6 +101,7 @@ interface IUserProviderData {
   getPostsId: () => Promise<any>;
   patchPost: (data: IPostData) => Promise<boolean>;
   deletePost: () => Promise<any>;
+  token: string | null;
 }
 
 export const UserContext = createContext<IUserProviderData>(
@@ -108,24 +109,27 @@ export const UserContext = createContext<IUserProviderData>(
 );
 
 export const Context = ({ children }: IContextProviderProps) => {
-  const [user, setUser] = useState<IUsers>({} as IUsers);
-  const [userId, setUserId] = useState<IUserId>({} as IUserId);
+  const [user, setUser] = useState<IUser>({} as IUser);
+  const [usersId, setUsersId] = useState<IUsersId>({} as IUsersId);
   const [users, setUsers] = useState<IUsers[]>([]);
   const [posts, setPosts] = useState<IPosts[]>([]);
+  const token = localStorage.getItem("@TOKEN");
+  const userId = localStorage.getItem("@USERID");
 
   useEffect(() => {
-    let token = localStorage.getItem("@TOKEN");
-    token
-      ? InternalAPI.get("/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    token &&
+      InternalAPI.get(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          setUser(response.data);
         })
-          .then((response) => setUser(response.data))
-          .catch((error: any) => {
-            console.log(error);
-          })
-      : localStorage.clear();
+        .catch((error: any) => {
+          console.log(error);
+        });
   }, []);
 
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
@@ -138,9 +142,9 @@ export const Context = ({ children }: IContextProviderProps) => {
   const onSubmitLogin = async (data: ILoginData | boolean) => {
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
-        setUser(response.data);
-        localStorage.setItem("@TOKEN", response.data);
-        localStorage.setItem("@USERID", response.data);
+        setUser(response.data.user);
+        localStorage.setItem("@TOKEN", response.data.accessToken);
+        localStorage.setItem("@USERID", response.data.user.id);
         return true;
       })
       .catch((error: any) => {
@@ -184,11 +188,11 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const getUserId = async () => {
+  const getUsersId = async () => {
     const userId = localStorage.getItem("@USERID");
     const response = await InternalAPI.get(`/users/${userId}`)
       .then((response) => {
-        setUserId(response.data);
+        setUsersId(response.data);
       })
       .catch((error: any) => {
         console.log(error);
@@ -233,9 +237,9 @@ export const Context = ({ children }: IContextProviderProps) => {
       value={{
         user,
         users,
-        userId,
+        usersId,
         getUsers,
-        getUserId,
+        getUsersId,
         patchUser,
         deleteUser,
         onSubmitRegister,
@@ -245,6 +249,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         getPostsId,
         patchPost,
         deletePost,
+        token,
       }}
     >
       {children}
