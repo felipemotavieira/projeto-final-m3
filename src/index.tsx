@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Context } from "./context/Context";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
+import GlobalStyle from "./GlobalStyle";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,6 +16,7 @@ root.render(
     <ChakraProvider>
       <BrowserRouter>
         <Context>
+          <GlobalStyle />
           <App />
         </Context>
       </BrowserRouter>

@@ -1,3 +1,12 @@
+import ProfileMain from "../../../components/modals/ProfileMain/ProfileMain"
+import ModalInfo from "../../modals/ModalInfo/ModalInfo"
 export const Profile = () => {
-  return <h1>Profile</h1>;
+  return (
+    <>
+    <div>Header em construção </div>
+    <ProfileMain/>
+    <ModalInfo/>
+    </>
+    
+  );
 };
