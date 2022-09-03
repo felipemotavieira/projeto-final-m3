@@ -50,6 +50,7 @@ interface IUserProviderData {
   getPosts: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
   onSubmitLogin: (data: ILoginData) => Promise<boolean>;
+  token: string | null;
 }
 
 export const UserContext = createContext<IUserProviderData>(
@@ -59,20 +60,22 @@ export const UserContext = createContext<IUserProviderData>(
 export const Context = ({ children }: IContextProviderProps) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [posts, setPosts] = useState<IPosts[]>([]);
+  const token = localStorage.getItem('@TOKEN');
+  const userId = localStorage.getItem('@USERID')
 
-  useEffect(() => {
-    let token = localStorage.getItem("@TOKEN");
-    token
-      ? InternalAPI.get("/profile", {
+  useEffect(() => { 
+    token && InternalAPI.get(`/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
-          .then((response) => setUser(response.data))
+          .then((response) => {
+            console.log(response)
+            setUser(response.data)
+          })
           .catch((error: any) => {
             console.log(error);
           })
-      : localStorage.clear();
   }, []);
   
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
@@ -88,7 +91,11 @@ export const Context = ({ children }: IContextProviderProps) => {
       .then((response) => {
         setUser(response.data.user);
         localStorage.setItem("@TOKEN", response.data.accessToken);
+<<<<<<< HEAD
         localStorage.setItem("@USERID", response.data.user);
+=======
+        localStorage.setItem("@USERID", response.data.user.id);
+>>>>>>> 777ed35a21ffe586059500bd1b1376d6bcd57190
         return true;
       })
       .catch((error: any) => {
@@ -111,7 +118,7 @@ export const Context = ({ children }: IContextProviderProps) => {
 
   return (
     <UserContext.Provider
-      value={{ user, posts, getPosts, onSubmitRegister, onSubmitLogin }}
+      value={{ user, posts, getPosts, onSubmitRegister, onSubmitLogin, token }}
     >
       {children}
     </UserContext.Provider>
