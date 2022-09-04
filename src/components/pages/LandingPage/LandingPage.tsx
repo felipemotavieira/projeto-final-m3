@@ -1,7 +1,10 @@
-import { Button, Flex, Heading, Image, Img, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../../modals/Login/Login";
 import { Register } from "../../modals/Register/Register";
+import AnimationWindows from "../../Animation/AnimationWindows";
+import Logo from "../../Logo/Logo"
+import AnimationMobile from "../../AnimationMobile/AnimationMobile";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -11,11 +14,14 @@ export const LandingPage = () => {
   };
 
   return (
+    
     <div className="App">
+      
       <Flex
         h="100%"
         w={["100%", "100%", "80%", "80%"]}
         justify={["center", "center", "space-around"]}
+        maxW="1300px"
       >
         <Flex
           direction="column"
@@ -25,22 +31,14 @@ export const LandingPage = () => {
           justify="center"
         >
           <Flex gap="3" align="center" justify={["center", "center", "start"]}>
-            <Image
-              src="./icone.png"
-              w={["60px", "80px", "80px", "80px"]}
-              h={["80px", "90px", "110px", "110px"]}
-              mt={["10px", 0]}
-            ></Image>
+            <Logo/>
             <Heading as="h1" fontSize={["50px"]}>
               Checkin
             </Heading>
           </Flex>
 
-          <Img
-            src="./imagemMobile.png"
-            w={["100vw", "100vw", "0", "0"]}
-            h={["270px", "270", "0", "0px"]}
-          ></Img>
+          <AnimationMobile/>
+          
 
           <Flex justify={["center", "center", "start"]}>
             <Heading as="h3" size="lg">
@@ -78,18 +76,15 @@ export const LandingPage = () => {
 
           <Flex justify={["center", "center", "start"]}>
             <Text textAlign={["center", "start"]} w="max-content">
-              Ainda não tem conta?
+              {" "}
+              " Ainda não tem conta?
               <Register />
             </Text>
           </Flex>
         </Flex>
 
         <Flex align="center">
-          <Img
-            src="./image.png"
-            w={["0", "0", "350px", "450px"]}
-            h={["0", "0", "470px", "600px"]}
-          ></Img>
+          <AnimationWindows />
         </Flex>
       </Flex>
     </div>

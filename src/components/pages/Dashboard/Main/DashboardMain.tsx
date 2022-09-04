@@ -19,7 +19,7 @@ export const DashboardMain = () => {
     getPosts();
   }, []);
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleToProfile = () => {
     navigate("/profile", { replace: true });
@@ -28,7 +28,6 @@ export const DashboardMain = () => {
   return (
     <Box display="flex" flexDirection="column" gap={5}>
       <Header />
-      <ButtonsModal titlebtn="Vai para o profile" type="1" functionOnclick={handleToProfile} />
 
       <UnorderedList
         gap={5}
