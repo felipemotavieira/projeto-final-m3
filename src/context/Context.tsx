@@ -20,7 +20,7 @@ interface IUserData {
   email: string;
   name: string;
   userPhoto: string;
-  locations: object[];
+  locations: object;
   id: number;
 }
 
@@ -67,17 +67,13 @@ interface IUser {
   id: number;
 }
 
-interface ILocal {
-  cityId: string;
-  state: string;
-  cityName: string;
-}
-
 interface IPosts {
   postImage: string;
   title: string;
   description: string;
-  localization: ILocal;
+  cityId: string;
+  state: string;
+  cityName: string;
   category: null;
   likes: null;
   saved: null;

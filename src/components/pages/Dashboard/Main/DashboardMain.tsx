@@ -9,6 +9,8 @@ import {
   UnorderedList,
   Text,
 } from "@chakra-ui/react";
+import { ButtonsModal } from "../../../ButtonsModal/ButtonsModal";
+import { useNavigate } from "react-router-dom";
 
 export const DashboardMain = () => {
   const { users, getUsers, posts, getPosts } = useContext(UserContext);
@@ -20,12 +22,19 @@ export const DashboardMain = () => {
   }, []);
 
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" gap={5}>
       <Header />
 
-      <Box>
-        <UnorderedList display="flex" justifyContent="center" margin="0px">
-          {posts.map((post) => {
+      <UnorderedList
+        gap={5}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        margin="0px"
+      >
+        {posts.length > 0 ? (
+          posts.map((post) => {
             let filterUser = users.find((user) => user.id === post.userId);
             return (
               <ListItem
@@ -70,7 +79,7 @@ export const DashboardMain = () => {
                           {filterUser?.name}
                         </Heading>
                         <Heading as="h3" fontSize={["20px", "20px", "0"]}>
-                          {post.localization.cityName}-{post.localization.state}
+                          {post.cityName}-{post.state}
                         </Heading>
                       </Box>
                     </Box>
@@ -87,15 +96,19 @@ export const DashboardMain = () => {
                     </Heading>
                     <Text>{post.description}</Text>
                     <Heading as="h3" fontSize={[0, 0, "20px"]}>
-                      {post.localization.cityName}-{post.localization.state}
+                      {post.cityName}-{post.state}
                     </Heading>
                   </Box>
                 </Box>
               </ListItem>
             );
-          })}
-        </UnorderedList>
-      </Box>
+          })
+        ) : (
+          <Box w="50vw" h="80vh" mb="auto">
+            <Image src="./Atenção.png"></Image>
+          </Box>
+        )}
+      </UnorderedList>
     </Box>
   );
 };
