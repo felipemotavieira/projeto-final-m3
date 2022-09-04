@@ -5,6 +5,7 @@ import { Register } from "../../modals/Register/Register";
 import AnimationWindows from "../../Animation/AnimationWindows";
 import Logo from "../../Logo/Logo"
 import AnimationMobile from "../../AnimationMobile/AnimationMobile";
+import { Post } from "../../modals/Post/Post";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const LandingPage = () => {
 
   return (
     
-    <div className="App">
+    <>
       
       <Flex
         h="100%"
@@ -80,6 +81,7 @@ export const LandingPage = () => {
               " Ainda não tem conta?
               <Register />
             </Text>
+            <Post></Post>
           </Flex>
         </Flex>
 
@@ -87,6 +89,6 @@ export const LandingPage = () => {
           <AnimationWindows />
         </Flex>
       </Flex>
-    </div>
+    </>
   );
 };

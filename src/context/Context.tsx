@@ -114,7 +114,7 @@ export const Context = ({ children }: IContextProviderProps) => {
 
   return (
     <UserContext.Provider
-      value={{ user, posts, getPosts, onSubmitRegister, onSubmitLogin, token }}
+      value={{ user, posts, getPosts, onSubmitRegister, onSubmitLogin, token}}
     >
       {children}
     </UserContext.Provider>
