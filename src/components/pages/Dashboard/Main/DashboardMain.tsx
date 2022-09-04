@@ -1,6 +1,6 @@
 import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -9,6 +9,8 @@ import {
   UnorderedList,
   Text,
 } from "@chakra-ui/react";
+import { ButtonsModal } from "../../../ButtonsModal/ButtonsModal";
+import { useNavigate } from "react-router-dom";
 
 export const DashboardMain = () => {
   const { posts, getPosts } = useContext(UserContext);
@@ -17,9 +19,16 @@ export const DashboardMain = () => {
     getPosts();
   }, []);
 
+ const navigate = useNavigate();
+
+  const handleToProfile = () => {
+    navigate("/profile", { replace: true });
+  };
+
   return (
     <Box display="flex" flexDirection="column" gap={5}>
       <Header />
+      <ButtonsModal titlebtn="Vai para o profile" type="1" functionOnclick={handleToProfile} />
 
       <UnorderedList
         gap={5}
