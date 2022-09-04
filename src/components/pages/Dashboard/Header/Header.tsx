@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from '../../../../assets/logout.svg'
@@ -6,6 +6,7 @@ import Person from '../../../../assets/person-icon.svg'
 import NoPhoto from '../../../../assets/no-photo.png' 
 import { useContext } from "react";
 import { UserContext } from '../../../../context/Context' 
+import { SearchCity } from "../../../modals/SearchCity";
 
 export const Header = () => {
 
@@ -39,15 +40,7 @@ export const Header = () => {
         </Box>
         <Spacer />
         <Flex justify-self="center">
-          <Input placeholder="Procurar destino" background="#FFFFFF"></Input>
-          <Button
-            background="#2B2945"
-            box-shadow="0px 4px 27px 1px rgba(0, 0, 0, 0.12)"
-            border-radius="23px"
-            color="#FFFFFF"
-          >
-            Pesquisar
-          </Button>
+          <SearchCity/>
         </Flex>
         <Spacer />
         {

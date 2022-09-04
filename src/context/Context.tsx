@@ -35,7 +35,7 @@ interface IPosts {
   postImage: string;
   title: string;
   description: string;
-  localization: ILocal[];
+  localization: ILocal;
   category: null;
   likes: null;
   saved: null;
