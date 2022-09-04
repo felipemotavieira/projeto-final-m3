@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import {
   
@@ -8,6 +9,9 @@ import {
 
 import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image } from "@chakra-ui/react";
 
+=======
+import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure } from "@chakra-ui/react";
+>>>>>>> 631a66139ce3f42a4e87d4cf569db817107ec2d9
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from '../../../../assets/logout.svg'
@@ -15,6 +19,7 @@ import Person from '../../../../assets/person-icon.svg'
 import NoPhoto from '../../../../assets/no-photo.png' 
 import { useContext } from "react";
 import { UserContext } from '../../../../context/Context' 
+import { SearchCity } from "../../../modals/SearchCity";
 
 export const Header = () => {
 
@@ -36,6 +41,7 @@ export const Header = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="App">
       {localStorage.getItem("@TOKEN") ? (
 
@@ -53,6 +59,44 @@ export const Header = () => {
 
             <Image src="./icone.png" w={["40px","40px",0,0]} h={["50px","50px",0,0]}></Image>
             <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
+=======
+    <>
+      <Flex
+        minWidth="100vw"
+        background="#21BA71"
+        maxHeight="7vh"
+        alignItems="center"
+      >
+        <Box>
+          <h1>LOGO</h1>
+        </Box>
+        <Spacer />
+        <Flex justify-self="center">
+          <SearchCity/>
+        </Flex>
+        <Spacer />
+        {
+          token ?
+          <Flex>
+            <Button>Add post</Button>
+            <CityRegister />
+            <Menu>
+                <MenuButton>
+                  <Avatar name='User Photo' src={user.userPhoto ? user.userPhoto : NoPhoto} />
+                </MenuButton>
+                <MenuList minW='70px' h='120px'>
+                  <MenuItem w='100%' mb='10px'>
+                    <Button onClickCapture={toUserPage} w='100%' h='35px' colorScheme='green'> <Image src={Person} h='24px' pr='10px'/> Perfil </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button onClickCapture={leave} w='100%' h='35px' colorScheme='red'>
+                    <Image src={Logout} h='24px' pr='10px'/>
+                      Sair
+                    </Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>   
+>>>>>>> 631a66139ce3f42a4e87d4cf569db817107ec2d9
           </Flex>
 
           <Box  
