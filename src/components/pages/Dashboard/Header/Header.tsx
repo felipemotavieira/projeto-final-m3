@@ -173,8 +173,8 @@ export const Header = () => {
 
               <Box alignItems="center" justifyContent="center" display={["flex"]} gap={10} w={[0,0,"80%"]} minWidth={[0,0,"80%"]} maxWidth={[0,0,"80%"]} h={[0,0,"70px"]}> 
           
-                <Box   display={["flex","flex","none"]} justifyContent="center" gap={["5","5",0]} alignItems="center" minW="100vw" >
-                  <Box ml={["25%","10%"]} display={["flex","flex","none"]}  alignItems="center"  gap="5">
+                <Box  bg="pink" display={["flex","flex","none"]} justifyContent="center" gap={["5","5",0]} alignItems="center" minW="100vw" m="0px">
+                  <Box ml={["25%","10%"]} display={["flex","flex","none"]} justifyContent="center" alignItems="center"  gap="5">
                     <Button color="#fff" bg="rgba(43, 41, 69, 1)" border="none" w="max-content" h={["30px","35px"]} fontSize={["13px","15px"]} borderRadius="15px">Pesquisar</Button>
                     <Button color="#fff" w="max-content" h={["30px","35px"]} fontSize={["13px","15px"]} bg="rgba(43, 41, 69, 1)" borderRadius="15px">Entrar</Button>
                     <Button color="#fff" w="max-content" h={["30px","35px"]} fontSize={["13px","15px"]} bg="rgba(43, 41, 69, 1)" borderRadius="15px">Cadastrar</Button>
