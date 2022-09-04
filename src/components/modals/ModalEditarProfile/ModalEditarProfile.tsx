@@ -39,7 +39,13 @@ export const ModalEditarProfile = (data: any) => {
 
 
   const editarProfile = (data: any) => {
-       console.log(data)      
+
+    for (const property in data) {
+      if(data[property].trim() === "" || data[property].trim() === undefined ){
+          delete data[property];
+      }
+    }
+           
        InternalAPI.patch(`/users/${user.id}`, data,  {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,8 +117,6 @@ export const ModalEditarProfile = (data: any) => {
               type="cancelar"
               functionOnclick={closeModalEditar}
             ></ButtonsModal>
-
-
             </form>
             
           </ContainerModal>
