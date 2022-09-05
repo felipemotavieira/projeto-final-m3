@@ -49,16 +49,16 @@ export const CityRegister = () => {
   const getCurrentLocations = (data: ICityData) => {
     InternalAPI.get(`/users/${user.id}`)
       .then((res) => {
-        console.log(res.data.locations);
-        setLocations(res.data.locations);
-        handleSubmitCity.apply(locations, data);
+        console.log(res.data.cityId);
+        setLocations(res.data.cityId);
+        handleSubmitCity(locations, data);
       })
       .catch((err) => console.log(err));
   };
 
   const handleSubmitCity = (data: ICityData) => {
     console.log(data);
-    InternalAPI.patch(`/users/${user.id}`, data, {
+    InternalAPI.post(`/users/${user.id}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
