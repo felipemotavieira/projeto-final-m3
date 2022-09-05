@@ -17,7 +17,7 @@ export interface Idata {
 
 export const Profile = () => {
   const [data, setData] = useState<Idata>({} as Idata);
-  const { user } = useContext(UserContext);
+  const { user, getPostsId } = useContext(UserContext);
   
   useEffect(() => {
     let token = localStorage.getItem("@TOKEN");

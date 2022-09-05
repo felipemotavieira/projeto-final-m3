@@ -39,6 +39,7 @@ function ProfileMain({data}:IProfileMainProps) {
       maxWidth="892px"
       flexDirection="column"
       alignItems="center"
+      marginTop={"45px"}
     >
      
       {

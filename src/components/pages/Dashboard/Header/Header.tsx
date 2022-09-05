@@ -1,13 +1,4 @@
-
-import {
-  
-  FormControl,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
-
-import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image } from "@chakra-ui/react";
-
+import { Box, Button, Flex, Input, Spacer, Text, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure, Heading } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from '../../../../assets/logout.svg'
@@ -15,6 +6,7 @@ import Person from '../../../../assets/person-icon.svg'
 import NoPhoto from '../../../../assets/no-photo.png' 
 import { useContext } from "react";
 import { UserContext } from '../../../../context/Context' 
+import { SearchCity } from "../../../modals/SearchCity";
 
 export const Header = () => {
 
@@ -31,12 +23,14 @@ export const Header = () => {
     navigate('/', {replace: true})
   }
 
-  const handleClick = () => {
-    navigate("/");
-  };
+  // const handleClick = () => {
+  //   navigate("/");
+  // };
 
   return (
+
     <>
+
       {localStorage.getItem("@TOKEN") ? (
 
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
@@ -53,6 +47,7 @@ export const Header = () => {
 
             <Image src="./icone.png" w={["40px","40px",0,0]} h={["50px","50px",0,0]}></Image>
             <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
+
           </Flex>
 
           <Box  
