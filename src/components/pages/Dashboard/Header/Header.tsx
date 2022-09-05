@@ -36,7 +36,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="App">
+    <>
       {localStorage.getItem("@TOKEN") ? (
 
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
@@ -215,6 +215,6 @@ export const Header = () => {
         
       )}
       
-    </div>
+      </>
 
 )};

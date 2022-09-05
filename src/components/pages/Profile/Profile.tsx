@@ -3,6 +3,9 @@ import ProfileMain from "../../../components/modals/ProfileMain/ProfileMain";
 import ModalInfo from "../../modals/ModalInfo/ModalInfo";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
+import { Header } from "../Dashboard/Header/Header";
+import ContainerPost from "../../../ContainerPosts/ContainerPost";
+
 
 export interface Idata {
   email: string;
@@ -30,12 +33,21 @@ export const Profile = () => {
       })
       : localStorage.clear();
   });
-
+ 
   return (
     <>
-      <div>Header em construção </div>
+      <Header/>
       <ProfileMain data={data} />
+      
       <ModalInfo />
+      
+      <ContainerPost id= {1} title="Olá" message="The quick brown fox jumps over the lazy dog is an
+              English-language sentence that contains all of the
+              letters of the English alphabet. Owing to its existence, Chakra
+              was created." 
+              photo="https://veja.abril.com.br/wp-content/uploads/2019/12/amazonia-floresta-coraccca7ao.jpg.jpg"
+              localization="Manaus-Amazona"
+              />
     </>
   );
 };

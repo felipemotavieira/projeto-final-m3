@@ -9,25 +9,20 @@ import {
 } from "@chakra-ui/react";
 import { useState, MouseEvent, Dispatch, SetStateAction } from "react";
 import { ProfileForm } from "./styles";
-import { ModalDeleteProfile } from "../../modals/ModalDeleteProfile/ModalDeleteProfile";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
 import {Idata} from "../../pages/Profile/Profile"
+import {ModalDelete} from "../ModalDelete/ModalDelete"
 
 
-interface ImodalDeleteOpen {
-  setModalDeleteOpen: Dispatch<SetStateAction<boolean>>;
-}
 
 interface IProfileMainProps {
   data:Idata;
 }
 
-
-
 function ProfileMain({data}:IProfileMainProps) {
   const {email, name, userPhoto} = data;
-  const [modalDeleteOpen, setModalDeleteOpen] = useState<ImodalDeleteOpen | boolean>(false)
-  const [modalEditeOpen, setModalEditeOpen] = useState<ImodalDeleteOpen | boolean>(false)
+  const [modalDeleteOpen, setModalDeleteOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
+  const [modalEditeOpen, setModalEditeOpen] = useState<  boolean| Dispatch<SetStateAction<boolean>>>(false)
 
   const handleToEditeProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -41,14 +36,15 @@ function ProfileMain({data}:IProfileMainProps) {
   return (
     <Flex
       width="100%"
-      maxWidth="780px"
+      maxWidth="892px"
       flexDirection="column"
       alignItems="center"
     >
-
+     
       {
-        modalDeleteOpen && <ModalDeleteProfile setModalDeleteOpen={setModalDeleteOpen} modalDeleteOpen={modalDeleteOpen} />
+        modalDeleteOpen && <ModalDelete setModalOpen ={setModalDeleteOpen}  title={"Confirmação de Exclusão"} message={"Você tem certeza de que deseja exluir?"}message2={"Não é possível recuperar novamente"} />
       }
+
       {
         modalEditeOpen && <ModalEditarProfile setModalEditeOpen={setModalEditeOpen} modalEditeOpen={modalEditeOpen} />
       }
@@ -106,10 +102,6 @@ function ProfileMain({data}:IProfileMainProps) {
             </option>
 
 
-            {/* {
-              array?.map(ele => <option value={}>{}</option>)
-
-            } */}
 
 
           </Select>
