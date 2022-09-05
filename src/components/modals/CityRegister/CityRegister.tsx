@@ -25,6 +25,9 @@ interface Item {
 
 interface ICityData {
   cityId: string;
+  state: string;
+  userId?: string;
+  cityName: Promise<string>;
 }
 
 export const CityRegister = () => {
@@ -55,10 +58,21 @@ export const CityRegister = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const captureCityValue = async (cityId: string) => {
+    const response = await ExternalAPI.get(`/municipios/${cityId}`);
+    return response.data.nome;
+  };
+
+  const addCity = async (data: ICityData) => {
+    if (userId) {
+      data.userId = userId;
+      data.cityName = await captureCityValue(data.cityId);
+    }
+    handleSubmitCity(data);
+  };
+
   const handleSubmitCity = async (data: ICityData) => {
-    const response = await ExternalAPI.get(`/municipios/${data.cityId}`);
-    const patchData = { cityName: response.data.nome, data };
-    InternalAPI.patch(`/users/${userId}`, patchData, {
+    InternalAPI.patch(`/users/${userId}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,8 +90,11 @@ export const CityRegister = () => {
           <ModalHeader>Para onde gostaria de ir?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={handleSubmit(handleSubmitCity)}>
-              <Select onChange={(e) => handleOnChange(e.target.value)}>
+            <form onSubmit={handleSubmit(addCity)}>
+              <Select
+                {...register("state")}
+                onChange={(e) => handleOnChange(e.target.value)}
+              >
                 <option value="">Escolha o estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -106,7 +123,6 @@ export const CityRegister = () => {
                 <option value="SP">São Paulo</option>
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
-                <option value="EX">Estrangeiro</option>
               </Select>
               {cities.length > 0 ? (
                 <Select {...register("cityId")}>
