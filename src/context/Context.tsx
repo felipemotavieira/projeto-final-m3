@@ -150,6 +150,7 @@ export const Context = ({ children }: IContextProviderProps) => {
                 .then((response) => {
                   setCityPost(response.data)
                   setLoading(false)
+                  // window.location.reload()
                 })
                 .catch((error: any) => {
                   console.log(error);
@@ -189,6 +190,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         setUser(response.data.user);
         localStorage.setItem("@TOKEN", response.data.accessToken);
         localStorage.setItem("@USERID", response.data.user.id);
+        window.location.reload()
         return true;
       })
       .catch((error: any) => {
@@ -318,6 +320,7 @@ export const Context = ({ children }: IContextProviderProps) => {
             .then((response) => {
               setCityPost(response.data)
               setLoading(false)
+              window.location.reload()
             })
             .catch((error: any) => {
               console.log(error);

@@ -42,10 +42,11 @@ export const DashboardMain = () => {
         .then((response) => {
           setCityPost(response.data)
           setLoading(false)
+          window.location.reload()
         })
         .catch((error: any) => {
           console.log(error);
-
+          
         });
       return response;
     }; 
@@ -68,7 +69,6 @@ export const DashboardMain = () => {
       <>
       {/* fazer verificação se o token existe se existe faz o headerLogin se não faz o Header (sem login) */}
       <Header />
-      
       { 
         loading ? <span>Carregando...</span> 
         :      
