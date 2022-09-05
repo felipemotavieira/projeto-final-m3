@@ -73,7 +73,6 @@ export const Register = () => {
   };
 
   const submitRegister = async (data: ISubmitData) => {
-    console.log(data);
     let verify = await onSubmitRegister(data);
 
     verify ? handleSuccess() : console.log(verify);

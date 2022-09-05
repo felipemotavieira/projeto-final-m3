@@ -9,14 +9,44 @@ import {
 } from "@chakra-ui/react";
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 
-export const DashboardMain = () => {
-  const { users, getUsers, posts, getPosts } = useContext(UserContext);
 
-  useEffect(() => {
-    getPosts();
-    getUsers();
-    // eslint-disable-next-line
-  }, []);
+export const DashboardMain = () => {
+  const { users, user, posts, getPosts, token, postsFiltered, setPostsFiltered, setPosts, cityPost, setCityPost, loading, setLoading } = useContext(UserContext)
+
+  const {cityId} = user
+
+  useEffect(()=> {
+
+    getPosts()
+   
+    const getPostsCity = async (id: string) => { // encontrar post de cidades
+      const response = await InternalAPI.get(`/posts/`, {
+        params:{
+          cityId: id
+        }
+      })
+        .then((response) => {
+          setCityPost(response.data)
+          setLoading(false)
+        })
+        .catch((error: any) => {
+          console.log(error);
+
+        });
+      return response;
+    }; 
+
+    if(cityId){ // cidade definida
+      getPostsCity(cityId)
+      setPostsFiltered([])
+    } 
+    else{ // sem cidade definida 
+        setPosts([])
+        setPostsFiltered([])
+        setCityPost([...posts])
+      setLoading(false)
+    }
+  },[])
 
   return (
     <>
@@ -47,8 +77,5 @@ export const DashboardMain = () => {
       )}
     
     </>
-      
-      
-    
   );
 };
