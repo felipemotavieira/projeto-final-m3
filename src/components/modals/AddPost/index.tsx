@@ -1,6 +1,5 @@
 import {
     Button,
-    Image,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -10,14 +9,14 @@ import {
     ModalOverlay,
     Select,
     useDisclosure,
-    useToast,
   } from "@chakra-ui/react";
-  import { useContext, useState } from "react";
-  import { useForm } from "react-hook-form";
-  import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
-  import SearchIcon from '../../../assets/search-icon.svg'
+import { useContext, useState } from "react";
+import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
 import { UserContext } from "../../../context/Context";
-  
+import { useForm } from "react-hook-form";
+import * as yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
+
   interface Item {
     id: number;
     nome: string;
@@ -25,17 +24,40 @@ import { UserContext } from "../../../context/Context";
     regiaoimediata: any;
   }
   
-  interface ICityData {
+  interface IPosts {
+    postImage: string;
+    title: string;
+    description: string;
+    cityId: string;
     state: string;
-    cityId: string // id da cidade da para fazer uma requisição na api do IBGE e trazer o nome da cidade
+    cityName: Promise<string>;
+    category: null;
+    likes: null;
+    saved: null;
+    comments: null;
+    userId?: string;
+    id?: number;
   }
   
-  export const SearchCity = () => {
+  export const AddPost = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [cities, setCities] = useState<Item[]>([]);
-    const { register, handleSubmit } = useForm<ICityData>();
-    const {posts, getPosts, searchCityPost, postsFiltered} = useContext(UserContext)
+    const {posts, addPost} = useContext(UserContext)
     // const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([])
+    const userId = localStorage.getItem('@USERID')
+    
+    const formSchema = yup.object({
+        postImage: yup.string().required('Url da imagem é obrigatório'),
+        title: yup.string().required('Título é obrigatório'),
+        description: yup.string().required('Descrição é obrigatório'),
+        state: yup.string().required('Estado é obrigatório'),
+        cityId: yup.string().required('Cidade é obrigatório'),
+    })
+    
+    const { register, handleSubmit, formState: {errors} } = useForm<IPosts>({
+        resolver: yupResolver(formSchema)
+    });
+
     const handleOnChange = (uf: string) => {
       uf === "Escolha o estado"
         ? setCities([])
@@ -49,25 +71,37 @@ import { UserContext } from "../../../context/Context";
             })
             .catch((error) => console.log(error));
     };
-  
-    const handleSubmitCity = (data: ICityData) => {
-        if(data.cityId){
-            searchCityPost(data.cityId);
-            onClose()
+
+    const captureCityValue = async (cityId: string) => {
+        const response = await ExternalAPI.get(`/municipios/${cityId}`)
+        return response.data.nome
+    }
+    
+    const handleAddPost = async (data: IPosts) => {
+        if (userId){
+            data.userId = userId
+            data.cityName = await captureCityValue(data.cityId)
         }
+        addPost(data)
     };
 
     return (
       <>
-        <Button onClick={onOpen}><Image src={SearchIcon} h='24px' pr='10px'/>
-            Pesquisar</Button>
+        <Button onClick={onOpen}>
+            +</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Encontrar destino</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <form onSubmit={handleSubmit(handleSubmitCity)}>
+              <form onSubmit={handleSubmit(handleAddPost)}>
+                <input type="text" placeholder='foto' {...register('postImage')}/>
+                <p>{errors.postImage?.message}</p>
+                <input type="text" placeholder='título' {...register('title')}/>
+                <p>{errors.title?.message}</p>
+                <input type="text" placeholder='descrição' {...register('description')}/>
+                <p>{errors.description?.message}</p>
                 <Select {...register('state')} onChange={(e) => handleOnChange(e.target.value)}>
                   <option value="">Escolha o estado</option>
                   <option value="AC">Acre</option>
@@ -101,7 +135,7 @@ import { UserContext } from "../../../context/Context";
                 {cities.length > 0 ? (
                   <Select {...register("cityId")}> 
                     {cities.map((elem) => {
-                      return <option value={elem.id} key={elem.id}>
+                        return <option value={elem.id} key={elem.id}>
                         {elem.nome}
                       </option>
                     })}

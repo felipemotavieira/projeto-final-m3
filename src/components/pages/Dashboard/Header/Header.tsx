@@ -7,6 +7,7 @@ import NoPhoto from '../../../../assets/no-photo.png'
 import { useContext } from "react";
 import { UserContext } from '../../../../context/Context' 
 import { SearchCity } from "../../../modals/SearchCity";
+import { AddPost } from "../../../modals/AddPost";
 
 export const Header = () => {
 
@@ -46,8 +47,8 @@ export const Header = () => {
         {
           token ?
           <Flex>
-            <Button>Add post</Button>
-            <CityRegister />
+            <AddPost />
+            <CityRegister/>
             <Menu>
                 <MenuButton>
                   <Avatar name='User Photo' src={user.userPhoto ? user.userPhoto : NoPhoto} />

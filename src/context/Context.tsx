@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import InternalAPI from "../services/InternalAPI/InternalAPI";
 
 interface IContextProviderProps {
@@ -20,26 +20,24 @@ interface IUserData {
   email: string;
   name: string;
   userPhoto: string;
-  locations: object[];
-  id: number;
-}
-
-interface ILocalData {
   cityId: string;
   state: string;
   cityName: string;
+  id: string;
 }
 
 interface IPostData {
   postImage: string;
   title: string;
   description: string;
-  localization: ILocalData;
+  cityId: string;
+  state: string;
+  cityName: Promise<string> | string;
   category: null;
   likes: null;
   saved: null;
   comments: null;
-  userId: number;
+  userId?: string;
   id?: number;
 }
 
@@ -47,24 +45,30 @@ interface IUsers {
   email: string;
   name: string;
   userPhoto: string;
-  locations: object[];
-  id: number;
+  cityId: string;
+  state: string;
+  cityName: string;
+  id: string;
 }
 
 interface IUsersId {
   email: string;
   name: string;
   userPhoto: string;
-  locations: object[];
-  id: number;
+  cityId: string;
+  state: string;
+  cityName: string;
+  id: string;
 }
 
 interface IUser {
   email: string;
   name: string;
   userPhoto: string;
-  locations: object[];
-  id: number;
+  cityId: string;
+  state: string;
+  cityName: string;
+  id: string;
 }
 
 interface ILocal {
@@ -77,13 +81,15 @@ interface IPosts {
   postImage: string;
   title: string;
   description: string;
-  localization: ILocal;
+  cityId: string;
+  state: string;
+  cityName: Promise<string> | string;
   category: null;
   likes: null;
   saved: null;
   comments: null;
-  userId: number;
-  id?: number;
+  userId: string;
+  id?: string;
 }
 
 interface IUserProviderData {
@@ -100,8 +106,13 @@ interface IUserProviderData {
   getPosts: () => Promise<any>;
   getPostsId: () => Promise<any>;
   patchPost: (data: IPostData) => Promise<boolean>;
+  addPost: ((data: IPostData) => Promise<boolean>);
   deletePost: () => Promise<any>;
   token: string | null;
+  searchCityPost: (id: string) => void;
+  postsFiltered: IPosts[];
+  setPostsFiltered: Dispatch<SetStateAction<IPosts[]>>
+  setPosts: Dispatch<SetStateAction<IPosts[]>>
 }
 
 export const UserContext = createContext<IUserProviderData>(
@@ -113,6 +124,7 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [usersId, setUsersId] = useState<IUsersId>({} as IUsersId);
   const [users, setUsers] = useState<IUsers[]>([]);
   const [posts, setPosts] = useState<IPosts[]>([]);
+  const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([])
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
 
@@ -177,6 +189,13 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
+  // função para pesquisar cidade
+  const searchCityPost = (id: string) => { 
+    getPosts()
+    const cityFilter = posts.filter(post =>  post.cityId == id)
+    setPostsFiltered(cityFilter) 
+}
+
   const getUsers = async () => {
     const response = await InternalAPI.get(`/users`)
       .then((response) => {
@@ -216,17 +235,28 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const patchPost = async (data: IPostData | boolean) => {
-    const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.patch(`/posts/${userId}`, data)
+  const addPost = async (data: IPostData | boolean) => {
+    InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const response = await InternalAPI.post(`/posts/`, data) // adicionar post
       .then(() => true)
       .catch(() => false);
     return response;
   };
 
+  //editar post
+  const patchPost = async (data: IPostData | boolean) => {
+    const userId = localStorage.getItem("@USERID");
+    const response = await InternalAPI.patch(`/posts/${userId}`, data) // precisa do id do post e não do usuário, do usuario só é necessário para colocar no obj data como userData
+      .then(() => true)
+      .catch(() => false);
+    return response;
+  };
+
+  //deletar post
+
   const deletePost = async () => {
     const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.delete(`/posts/${userId}`)
+    const response = await InternalAPI.delete(`/posts/${userId}`) // precisa do id do post e não do usuário
       .then(() => true)
       .catch(() => false);
     return response;
@@ -244,12 +274,17 @@ export const Context = ({ children }: IContextProviderProps) => {
         deleteUser,
         onSubmitRegister,
         onSubmitLogin,
-        posts,
         getPosts,
+        posts,
         getPostsId,
         patchPost,
         deletePost,
+        addPost,
         token,
+        searchCityPost,
+        postsFiltered,
+        setPostsFiltered,
+        setPosts
       }}
     >
       {children}
