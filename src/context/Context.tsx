@@ -83,8 +83,9 @@ interface IPosts {
   likes: null;
   saved: null;
   comments: null;
-  userId: string;
-  id?: string;
+  id?: number;
+  userId:number;
+
 }
 
 interface IUserProviderData {
@@ -92,8 +93,8 @@ interface IUserProviderData {
   users: IUsers[];
   usersId: IUsersId;
   getUsers: () => Promise<any>;
-  getUsersId: () => Promise<any>;
-  patchUser: (data: IUser | boolean) => Promise<boolean>;
+  getUsersId: (id:number) => Promise<any>;
+  patchUser: (data: IUserData) => Promise<boolean>;
   deleteUser: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
   onSubmitLogin: (data: ILoginData) => Promise<boolean>;
@@ -244,9 +245,10 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const getUsersId = async () => { // traz o usuario logado
-    const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.get(`/users/${userId}`) 
+
+  const getUsersId = async (id: number) => {
+ 
+    const response = await InternalAPI.get(`/users/${id}`)
       .then((response) => {
         setUsersId(response.data);
       })

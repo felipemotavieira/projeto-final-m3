@@ -1,20 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Spacer,
-  Menu,
-  MenuButton,
-  MenuList,
-  Avatar,
-  MenuItem,
-  Image,
-  useDisclosure,
-} from "@chakra-ui/react";
-
-import { FormControl, Heading, Text } from "@chakra-ui/react";
-
+import { Box, Button, Flex, Text, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure, Heading } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from "../../../../assets/logout.svg";
@@ -39,16 +23,13 @@ export const Header = () => {
     navigate("/", { replace: true });
   };
 
-  // const handleClick = () => {
-  //   navigate("/");
-  // };
 
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
 
-        <Box w="100vw">
+        <Box w="100%">
           <Flex
             backgroundColor="#F0F0F0"
             h={["10vh", "9vh", 0, 0]}
@@ -70,81 +51,47 @@ export const Header = () => {
             display="flex"
             justifyContent={["center", "center", "center"]}
             background="#21BA71"
-            h={["8vh", "8vh", "10vh", "11vh"]}
-            w={["100vw"]}
-            alignItems="center"
-          >
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              display="flex"
-              gap={10}
-              w={[0, 0, "80%"]}
-              minWidth={[0, 0, "80%"]}
-              maxWidth={[0, 0, "80%"]}
-              h={[0, 0, "70px"]}
-            >
-              <Box
-                bg="red"
-                display="flex"
-                gap={["5", "5", 0]}
-                alignItems="center"
-                w={["100%", "100%", "0px"]}
-              >
-                <Box
-                  display="flex"
-                  w="max-content"
-                  alignItems="center"
-                  justifyContent="center"
-                  gap="5"
-                >
-                  <Menu>
-                    <MenuButton display={["flex", "flex", "none"]}>
-                      <Avatar
-                        name="User Photo"
-                        w="40px"
-                        h="40px"
-                        src={user.userPhoto ? user.userPhoto : NoPhoto}
-                      />
-                    </MenuButton>
-                    <MenuList minW="70px" h="120px">
-                      <MenuItem w="100%" mb="10px">
-                        <Button
-                          onClickCapture={toUserPage}
-                          w="100%"
-                          h="35px"
-                          colorScheme="green"
-                        >
-                          {" "}
-                          <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
-                        </Button>
-                      </MenuItem>
-                      <MenuItem>
-                        <Button
-                          onClickCapture={leave}
-                          w="100%"
-                          h="35px"
-                          colorScheme="red"
-                        >
-                          <Image src={Logout} h="24px" pr="10px" />
-                          Sair
-                        </Button>
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
-                  <Heading color="#fff" fontSize={["15px", "17px", 0, 0]}>
-                    Péricles
-                  </Heading>
-                  <Image
-                    src="./icone+.png"
-                    w={["30px", "35px", 0, 0]}
-                    h={["30px", "35px", 0, 0]}
-                  ></Image>
-                  <Image
-                    src="./iconeaviao.png"
-                    w={["30px", "35px", 0, 0]}
-                    h={["30px", "35px", 0, 0]}
-                  ></Image>
+            h={["8vh","8vh","10vh", "11vh"]}
+            alignItems="center">
+
+              <Box  alignItems="center" justifyContent="center" display="flex" gap={10} w={[0,0,"80%"]} minWidth={[0,0,"80%"]} maxWidth={[0,0,"80%"]} h={[0,0,"70px"]}> 
+          
+                <Box bg="red" maxWidth={"500px"} display="flex" gap={["5","5",0]} alignItems="center" w={["100%","100%", "0px"] } >
+                  <Box display="flex" w="max-content" alignItems="center" justifyContent="center" gap="5">
+                        <Menu>
+                          <MenuButton display={["flex", "flex", "none"]}>
+                            <Avatar name='User Photo' w="40px" h="40px" src={user.userPhoto ? user.userPhoto : NoPhoto} />
+                          </MenuButton>
+                          <MenuList minW='70px' h='120px'>
+                            <MenuItem w='100%' mb='10px'>
+                              <Button onClickCapture={toUserPage} w='100%' h='35px' colorScheme='green'> <Image src={Person} h='24px' pr='10px'/> Perfil </Button>
+                            </MenuItem>
+                            <MenuItem>
+                              <Button onClickCapture={leave} w='100%' h='35px' colorScheme='red'>
+                              <Image src={Logout} h='24px' pr='10px'/>
+                                Sair
+                              </Button>
+                            </MenuItem>
+                          </MenuList>
+                        </Menu>
+                    <Heading color="#fff" fontSize={["15px","17px",0,0]} >Péricles</Heading>
+                    <Image src="./icone+.png" w={["30px","35px",0,0]} h={["30px","35px",0,0]}></Image>
+                    <Image src="./iconeaviao.png" w={["30px","35px",0,0]} h={["30px","35px",0,0]}></Image>
+                  
+                  </Box>
+
+                  
+                </Box> 
+
+          
+
+              
+                  
+                <Box display="flex" alignItems="center" w={[0,0,"max-content"]} gap={3}>
+                  <Image src="./iconebranco.png" w={[0,0,"30px","40px"]} h={[0,0,"40px","50px"]}></Image>
+                  <Text fontSize={[0,0,"20px","30px"]} color="#fff">Checkin</Text>
+                  
+
                 </Box>
               </Box>
 

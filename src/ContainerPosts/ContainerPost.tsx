@@ -10,27 +10,37 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { ModalDelete as Modal } from "../components/modals/ModalDelete/ModalDelete";
 import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
-
+import { UserContext } from "../context/Context";
 
 interface Idata {
   title: string;
   message: string;
   photo: string;
-  localization: string;
-  id: number;
+  cidade: string;
+  id: number | undefined;
+  photoUser?: string;
+  nameUser?: string;
+  estado: string;
+  userId: number;
 }
 
-function ContainerPost({ title, message, photo, localization, id }: Idata) {
+function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
+  nameUser, userId}: Idata) {
+
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
+
+  const {user} = useContext(UserContext);
+  
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
-
+ 
+  
   const handleEdite = () => {
     setIsOpenEdite(true)
   };
@@ -97,22 +107,23 @@ function ContainerPost({ title, message, photo, localization, id }: Idata) {
               alignItems="center"
               gap={3}
             >
+            
               <Wrap>
                 <WrapItem>
-                  <Avatar src={photo} />
+                  <Avatar src={photoUser} />
                 </WrapItem>
               </Wrap>
-
+            
               <Box>
                 <Heading as="h1" fontSize="20px">
-                  {"nome"}
+                  {nameUser}
                 </Heading>
                 <Heading
                   as="h3"
                   fontSize={["18px", "18px", "0"]}
                   fontWeight="500"
                 >
-                  {localization}
+                  
                 </Heading>
               </Box>
             </Box>
@@ -130,10 +141,13 @@ function ContainerPost({ title, message, photo, localization, id }: Idata) {
             </Heading>
             <Text>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
-              {"cidade"}-{"estado"}
+            {cidade}-{estado}
             </Heading>
 
-            <Flex width={"100%"} display="flex" gap={3}>
+            {
+             user.id === userId &&
+
+             <Flex width={"100%"} display="flex" gap={3}>
               <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
                 <EditIcon color={"white"}></EditIcon>
               </Button>
@@ -141,6 +155,8 @@ function ContainerPost({ title, message, photo, localization, id }: Idata) {
                 <DeleteIcon color={"white"}></DeleteIcon>
               </Button>
             </Flex>
+            }
+
           </Box>
         </Box>
       </Flex>
