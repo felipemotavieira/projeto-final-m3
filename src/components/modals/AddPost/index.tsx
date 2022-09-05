@@ -36,7 +36,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
     saved: null;
     comments: null;
     userId?: string;
-    id?: number;
+    id?: string;
   }
   
   export const AddPost = () => {

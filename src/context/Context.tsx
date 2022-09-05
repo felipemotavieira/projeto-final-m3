@@ -1,3 +1,4 @@
+import { useDisclosure } from "@chakra-ui/react";
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import InternalAPI from "../services/InternalAPI/InternalAPI";
 
@@ -38,7 +39,7 @@ interface IPostData {
   saved: null;
   comments: null;
   userId?: string;
-  id?: number;
+  id?: string;
 }
 
 interface IUsers {
@@ -71,12 +72,6 @@ interface IUser {
   id: string;
 }
 
-interface ILocal {
-  cityId: string;
-  state: string;
-  cityName: string;
-}
-
 interface IPosts {
   postImage: string;
   title: string;
@@ -98,21 +93,26 @@ interface IUserProviderData {
   usersId: IUsersId;
   getUsers: () => Promise<any>;
   getUsersId: () => Promise<any>;
-  patchUser: (data: IUserData) => Promise<boolean>;
+  patchUser: (data: IUser | boolean) => Promise<boolean>;
   deleteUser: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
   onSubmitLogin: (data: ILoginData) => Promise<boolean>;
   posts: IPosts[];
   getPosts: () => Promise<any>;
   getPostsId: () => Promise<any>;
-  patchPost: (data: IPostData) => Promise<boolean>;
+  patchPost: (data: IPostData | boolean, id: string) => Promise<boolean>;
   addPost: ((data: IPostData) => Promise<boolean>);
-  deletePost: () => Promise<any>;
+  deletePost: (id: string) => Promise<any>;
   token: string | null;
   searchCityPost: (id: string) => void;
   postsFiltered: IPosts[];
-  setPostsFiltered: Dispatch<SetStateAction<IPosts[]>>
-  setPosts: Dispatch<SetStateAction<IPosts[]>>
+  setPostsFiltered: Dispatch<SetStateAction<IPosts[]>>;
+  setPosts: Dispatch<SetStateAction<IPosts[]>>;
+  cityPost: IPostData[];
+  setCityPost: Dispatch<SetStateAction<IPostData[]>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>
+  // getPostsCity: (id: string) => void;
 }
 
 export const UserContext = createContext<IUserProviderData>(
@@ -125,10 +125,14 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [users, setUsers] = useState<IUsers[]>([]);
   const [posts, setPosts] = useState<IPosts[]>([]);
   const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([])
+  const [cityPost, setCityPost] = useState<IPostData[]>([]) 
+  const [loading, setLoading] = useState<boolean>(true)
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
+  const {onClose} = useDisclosure()
 
-  useEffect(() => {
+  useEffect(() => { //autologin
+
     token &&
       InternalAPI.get(`/users/${userId}`, {
         headers: {
@@ -136,14 +140,43 @@ export const Context = ({ children }: IContextProviderProps) => {
         },
       })
         .then((response) => {
-          console.log(response);
-          setUser(response.data);
-        })
+          setUser(response.data)
+          if(response.data.cityId){
+            const getPostsCity = async (id: string) => { // encontrar post de cidades
+              const response = await InternalAPI.get(`/posts/`, {
+                params:{
+                  cityId: id
+                }
+              })
+                .then((response) => {
+                  setCityPost(response.data)
+                  setLoading(false)
+                })
+                .catch((error: any) => {
+                  console.log(error);
+                  setLoading(false)
+        
+                });
+              return response;
+            }
+        
+            if(response.data.cityId){ // cidade definida
+              getPostsCity(response.data.cityId)
+              setPostsFiltered([])
+            } 
+            else{ // sem cidade definida 
+                setPosts([])
+                setPostsFiltered([])
+                setCityPost([...posts])
+                setLoading(false)
+          }
+        }
+      })
         .catch((error: any) => {
           console.log(error);
         });
   }, []);
-
+  
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
     const response = await InternalAPI.post("/register", data)
       .then(() => true)
@@ -166,7 +199,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const getPosts = async () => {
+  const getPosts = async () => {  // listar todos os posts
     const response = await InternalAPI.get(`/posts`)
       .then((response) => {
         setPosts(response.data);
@@ -177,9 +210,13 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const getPostsId = async () => {
+  const getPostsId = async () => {  // encontrar posts do usuário
     const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.get(`/posts?userId=${userId}`)
+    const response = await InternalAPI.get(`/posts`, {
+      params: {
+        userId:userId
+      }
+    })
       .then((response) => {
         setPosts(response.data);
       })
@@ -192,11 +229,11 @@ export const Context = ({ children }: IContextProviderProps) => {
   // função para pesquisar cidade
   const searchCityPost = (id: string) => { 
     getPosts()
-    const cityFilter = posts.filter(post =>  post.cityId == id)
+    const cityFilter = posts.filter(post =>  post.cityId == id) // [] ou [{...}, {...}]
     setPostsFiltered(cityFilter) 
 }
 
-  const getUsers = async () => {
+  const getUsers = async () => { // listar usuarios 
     const response = await InternalAPI.get(`/users`)
       .then((response) => {
         setUsers(response.data);
@@ -207,9 +244,9 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const getUsersId = async () => {
+  const getUsersId = async () => { // traz o usuario logado
     const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.get(`/users/${userId}`)
+    const response = await InternalAPI.get(`/users/${userId}`) 
       .then((response) => {
         setUsersId(response.data);
       })
@@ -219,23 +256,27 @@ export const Context = ({ children }: IContextProviderProps) => {
     return response;
   };
 
-  const patchUser = async (data: IUserData | boolean) => {
-    const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.patch(`/users/${userId}`, data)
+  // // editar info de usuário
+  const patchUser = async (data: IUser | boolean) => {
+    InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const response = await InternalAPI.patch(`users/${userId}`, data)
       .then(() => true)
-      .catch(() => false);
-    return response;
+      .catch(() => false)
+    return response
   };
 
+  // deletar usuario
   const deleteUser = async () => {
-    const userId = localStorage.getItem("@USERID");
+    InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
     const response = await InternalAPI.delete(`/users/${userId}`)
       .then(() => true)
       .catch(() => false);
     return response;
   };
 
+  // fazer nova postagem
   const addPost = async (data: IPostData | boolean) => {
+    const token = localStorage.getItem('TOKEN')
     InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
     const response = await InternalAPI.post(`/posts/`, data) // adicionar post
       .then(() => true)
@@ -244,23 +285,61 @@ export const Context = ({ children }: IContextProviderProps) => {
   };
 
   //editar post
-  const patchPost = async (data: IPostData | boolean) => {
-    const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.patch(`/posts/${userId}`, data) // precisa do id do post e não do usuário, do usuario só é necessário para colocar no obj data como userData
+  const patchPost = async (data: IPostData | boolean, id: string) => {
+    const token = localStorage.getItem('TOKEN')
+    InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const response = await InternalAPI.patch(`/posts/${id}`, data)
       .then(() => true)
       .catch(() => false);
     return response;
   };
 
-  //deletar post
-
-  const deletePost = async () => {
-    const userId = localStorage.getItem("@USERID");
-    const response = await InternalAPI.delete(`/posts/${userId}`) // precisa do id do post e não do usuário
+  // Deletar post
+  const deletePost = async (id: string) => {
+    const token = localStorage.getItem('TOKEN')
+    InternalAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const response = await InternalAPI.delete(`posts/${id}`)
       .then(() => true)
       .catch(() => false);
     return response;
   };
+
+  // procurar se o usuario tem cidades
+  
+  useEffect(() => {
+    
+      const {cityId} = user
+      if(cityId){
+        const getPostsCity = async (id: string) => { // encontrar post de cidades
+          const response = await InternalAPI.get(`/posts/`, {
+            params:{
+              cityId: id
+            }
+          })
+            .then((response) => {
+              setCityPost(response.data)
+              setLoading(false)
+            })
+            .catch((error: any) => {
+              console.log(error);
+              setLoading(false)
+    
+            });
+          return response;
+        }; 
+      
+        if(cityId){ // cidade definida
+          getPostsCity(cityId)
+          setPostsFiltered([])
+        } 
+        else{ // sem cidade definida 
+            setPosts([])
+            setPostsFiltered([])
+            setCityPost([...posts])
+            setLoading(false)
+        }
+    }
+  }, [])
 
   return (
     <UserContext.Provider
@@ -284,7 +363,11 @@ export const Context = ({ children }: IContextProviderProps) => {
         searchCityPost,
         postsFiltered,
         setPostsFiltered,
-        setPosts
+        setPosts,
+        setCityPost,
+        cityPost,
+        loading,
+        setLoading
       }}
     >
       {children}

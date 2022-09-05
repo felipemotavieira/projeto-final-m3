@@ -35,7 +35,7 @@ import { UserContext } from "../../../context/Context";
     const [cities, setCities] = useState<Item[]>([]);
     const { register, handleSubmit } = useForm<ICityData>();
     const {posts, getPosts, searchCityPost, postsFiltered} = useContext(UserContext)
-    // const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([])
+
     const handleOnChange = (uf: string) => {
       uf === "Escolha o estado"
         ? setCities([])
