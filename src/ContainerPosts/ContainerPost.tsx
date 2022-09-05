@@ -144,7 +144,6 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
             {cidade}-{estado}
             </Heading>
 
-
             {
              user.id === userId &&
 
