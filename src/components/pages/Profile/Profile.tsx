@@ -6,7 +6,6 @@ import { UserContext } from "../../../context/Context";
 import { Header } from "../Dashboard/Header/Header";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
 
-
 export interface Idata {
   email: string;
   password: string;
@@ -17,54 +16,55 @@ export interface Idata {
 
 export const Profile = () => {
   const [data, setData] = useState<Idata>({} as Idata);
-  const { user, getPostsId ,posts } = useContext(UserContext);
+  const { users, user, getPosts, posts, getUsers } = useContext(UserContext);
 
-  useEffect(() =>{
-    getPostsId()
-  },[])
+  useEffect(() => {
+    getPosts();
+    getUsers();
+  }, []);
 
-  console.log(posts)
-  console.log(user,"haushu")
-  
   useEffect(() => {
     let token = localStorage.getItem("@TOKEN");
-    token?
-    InternalAPI.get(`/users/${user.id}`, 
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response: { data: SetStateAction<Idata> }) => setData(response.data))
-      .catch((error: any) => {console.log(error)
-      })
+    token
+      ? InternalAPI.get(`/users/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response: { data: SetStateAction<Idata> }) =>
+            setData(response.data)
+          )
+          .catch((error: any) => {
+            console.log(error);
+          })
       : localStorage.clear();
-  },[]);
- 
+  }, []);
+
   return (
     <>
-      <Header/>
+      <Header />
       <ProfileMain data={data} />
-      
-      
-      {
-        posts ? posts.map(ele=> 
-          <ContainerPost 
-          photoUser={user.userPhoto}
-          nameUser={user.name}
-          id = {ele.id} 
-          title={ele.title} 
-          message = {ele.description}
-          photo={ele.postImage}
-          cidade= {ele.cityName}
-          estado ={ele.state}
-          /> )
-          :
-          <ModalInfo />
 
-      }
-      
-      
+      {posts ? (
+        posts.filter(post => post.userId === user.id).map((post) => {
+          let filter = users.find((user) => user.id === post.userId);
+          return (
+            <ContainerPost
+              nameUser={filter?.name}
+              id={post.id}
+              title={post.title}
+              message={post.description}
+              photo={post.postImage}
+              cidade={post.cityName}
+              estado={post.state}
+              photoUser={filter?.userPhoto}
+              userId={post.userId}
+            />
+          );
+        })
+      ) : (
+        <ModalInfo />
+      )}
     </>
   );
 };

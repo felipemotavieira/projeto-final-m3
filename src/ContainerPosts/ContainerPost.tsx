@@ -10,10 +10,10 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { ModalDelete as Modal } from "../components/modals/ModalDelete/ModalDelete";
 import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
-
+import { UserContext } from "../context/Context";
 
 interface Idata {
   title: string;
@@ -21,20 +21,26 @@ interface Idata {
   photo: string;
   cidade: string;
   id: number | undefined;
-  photoUser: string;
-  nameUser: string;
-  estado: string
+  photoUser?: string;
+  nameUser?: string;
+  estado: string;
+  userId: number;
 }
 
 function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
-  nameUser}: Idata) {
+  nameUser, userId}: Idata) {
+
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
+
+  const {user} =useContext(UserContext);
+  
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
-
+ 
+  
   const handleEdite = () => {
     setIsOpenEdite(true)
   };
@@ -101,12 +107,13 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
               alignItems="center"
               gap={3}
             >
+            
               <Wrap>
                 <WrapItem>
                   <Avatar src={photoUser} />
                 </WrapItem>
               </Wrap>
-
+            
               <Box>
                 <Heading as="h1" fontSize="20px">
                   {nameUser}
@@ -137,7 +144,11 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
             {cidade}-{estado}
             </Heading>
 
-            <Flex width={"100%"} display="flex" gap={3}>
+
+            {
+             user.id === userId &&
+
+             <Flex width={"100%"} display="flex" gap={3}>
               <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
                 <EditIcon color={"white"}></EditIcon>
               </Button>
@@ -145,6 +156,8 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
                 <DeleteIcon color={"white"}></DeleteIcon>
               </Button>
             </Flex>
+            }
+
           </Box>
         </Box>
       </Flex>
