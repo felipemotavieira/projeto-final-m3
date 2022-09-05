@@ -10,9 +10,11 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../../context/Context";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
+import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 
 interface Item {
   id: number;
@@ -22,14 +24,19 @@ interface Item {
 }
 
 interface ICityData {
-  city: string;
+  cityId: string;
 }
 
 export const CityRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
+  const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
- 
+  const { user } = useContext(UserContext);
+  let userId = localStorage.getItem("@USERID");
+  let token = localStorage.getItem("@TOKEN");
+  const toast = useToast();
+
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
@@ -40,8 +47,24 @@ export const CityRegister = () => {
           .catch((error) => console.log(error));
   };
 
-  const handleSubmitCity = (data: ICityData) => {
-    console.log(data);
+  useEffect(() => {
+    InternalAPI.get(`/users/${userId}`)
+      .then((res) => {
+        setLocations(res.data.cityId);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleSubmitCity = async (data: ICityData) => {
+    const response = await ExternalAPI.get(`/municipios/${data.cityId}`);
+    const patchData = { cityName: response.data.nome, data };
+    InternalAPI.patch(`/users/${userId}`, patchData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -86,7 +109,7 @@ export const CityRegister = () => {
                 <option value="EX">Estrangeiro</option>
               </Select>
               {cities.length > 0 ? (
-                <Select {...register("city")}>
+                <Select {...register("cityId")}>
                   {cities.map((elem) => (
                     <option value={elem.id} key={elem.id}>
                       {elem.nome}
