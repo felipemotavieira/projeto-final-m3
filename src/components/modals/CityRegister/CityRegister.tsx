@@ -77,7 +77,11 @@ export const CityRegister = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        onClose();
+        window.location.reload();
+      })
       .catch((err) => console.log(err));
   };
 
