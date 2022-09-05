@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import { CityRegister } from "../../../modals/CityRegister/CityRegister";
+import Logout from "../../../../assets/logout.svg";
+import Person from "../../../../assets/person-icon.svg";
+import NoPhoto from "../../../../assets/no-photo.png";
+import { useContext } from "react";
 import {
+  Heading,
+  Text,
   Box,
   Button,
   Flex,
@@ -10,44 +18,28 @@ import {
   Avatar,
   MenuItem,
   Image,
-  useDisclosure,
 } from "@chakra-ui/react";
-
-import { FormControl, Heading, Text } from "@chakra-ui/react";
-
-import { useNavigate } from "react-router-dom";
-import { CityRegister } from "../../../modals/CityRegister/CityRegister";
-import Logout from "../../../../assets/logout.svg";
-import Person from "../../../../assets/person-icon.svg";
-import NoPhoto from "../../../../assets/no-photo.png";
-import { useContext } from "react";
 import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
-
 export const Header = () => {
-  const { user, token } = useContext(UserContext);
-
+  <CityRegister />;
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-
   const toUserPage = () => {
     navigate("/profile", { replace: true });
   };
-
   const leave = () => {
     localStorage.clear();
     navigate("/", { replace: true });
   };
-
   // const handleClick = () => {
   //   navigate("/");
   // };
-
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
-
         <Box w="100vw">
           <Flex
             backgroundColor="#F0F0F0"
@@ -64,7 +56,6 @@ export const Header = () => {
             ></Image>
             <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
           </Flex>
-
           <Box
             gap={[0, 0, 20]}
             display="flex"
@@ -144,10 +135,9 @@ export const Header = () => {
                     src="./iconeaviao.png"
                     w={["30px", "35px", 0, 0]}
                     h={["30px", "35px", 0, 0]}
-                  ></Image>
+                  />
                 </Box>
               </Box>
-
               <Box
                 display="flex"
                 alignItems="center"
@@ -163,9 +153,8 @@ export const Header = () => {
                   Checkin
                 </Text>
               </Box>
-
               <Box
-                display="flex"
+                display={["none", "none", "flex"]}
                 alignItems="center"
                 justifyContent={"center"}
                 w={[0, 0, "400px"]}
@@ -176,7 +165,6 @@ export const Header = () => {
                 {/* <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button> */}
                 <SearchCity />
               </Box>
-
               <Box
                 display="flex"
                 w={[0, 0, "200px"]}
@@ -186,8 +174,6 @@ export const Header = () => {
               >
                 {/* <Image src="./icone+.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
                 {/* <Image src="./iconeaviao.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
-                <AddPost />
-                <CityRegister />
                 <Menu>
                   <MenuButton display={["none", "none", "flex"]}>
                     <Avatar
@@ -225,7 +211,6 @@ export const Header = () => {
               </Box>
             </Box>
           </Box>
-
           <Box
             p="5px"
             display={["flex", "flex", "none", "none"]}
@@ -236,7 +221,6 @@ export const Header = () => {
             w={["100vw", "100vw", 0]}
           >
             <SearchCity />
-            {/*  <Button gap={5} bg="#fff" fontSize="15px">Pesquisar<Image src="./iconelupa.png" w={["30px","30px"]} h={["28px","30px",0,0]}></Image></Button> */}
           </Box>
         </Box>
       ) : (
@@ -256,7 +240,6 @@ export const Header = () => {
             ></Image>
             <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
           </Flex>
-
           <Box
             gap={[0, 0, 20]}
             display="flex"
@@ -290,8 +273,17 @@ export const Header = () => {
                   alignItems="center"
                   gap="5"
                 >
-                  <SearchCity />
-                  {/* <Button color="#fff" bg="rgba(43, 41, 69, 1)" border="none" w="max-content" h={["30px","35px"]} fontSize={["13px","15px"]} borderRadius="15px">Pesquisar</Button> */}
+                  <Button
+                    color="#fff"
+                    bg="rgba(43, 41, 69, 1)"
+                    border="none"
+                    w="max-content"
+                    h={["30px", "35px"]}
+                    fontSize={["13px", "15px"]}
+                    borderRadius="15px"
+                  >
+                    Pesquisar
+                  </Button>
                   <Button
                     color="#fff"
                     w="max-content"
@@ -314,7 +306,6 @@ export const Header = () => {
                   </Button>
                 </Box>
               </Box>
-
               <Box
                 display="flex"
                 alignItems="center"
@@ -330,7 +321,6 @@ export const Header = () => {
                   Checkin
                 </Text>
               </Box>
-
               <Box
                 display="flex"
                 alignItems="center"
@@ -340,10 +330,24 @@ export const Header = () => {
                 border="none"
                 gap={3}
               >
-                <SearchCity />
-                {/* <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button> */}
+                <Button
+                  justifyContent={"space-between"}
+                  w="200px"
+                  bg="#fff"
+                  color="#666666"
+                  gap={5}
+                  fontSize={[0, 0, "15px"]}
+                  display={["none", "none", "flex"]}
+                >
+                  Pesquisar{" "}
+                  <Image
+                    src="./iconelupa.png"
+                    border="none"
+                    w={[0, 0, "30px", "30px"]}
+                    h={[0, 0, "30px", "30px"]}
+                  ></Image>
+                </Button>
               </Box>
-
               <Box
                 display={["none", "none", "flex"]}
                 w={[0, 0, "200px"]}
@@ -370,7 +374,6 @@ export const Header = () => {
               </Box>
             </Box>
           </Box>
-
           <Box
             p="5px"
             display={["flex", "flex", "none", "none"]}
@@ -380,8 +383,14 @@ export const Header = () => {
             mt="10px"
             w={["100vw", "100vw", 0]}
           >
-            <SearchCity />
-            {/* <Button gap={5} w="250px" bg="#fff" fontSize="15px">Pesquisar<Image src="./iconelupa.png" w={["30px","30px"]} h={["28px","30px",0,0]}></Image></Button> */}
+            <Button gap={5} w="250px" bg="#fff" fontSize="15px">
+              Pesquisar
+              <Image
+                src="./iconelupa.png"
+                w={["30px", "30px"]}
+                h={["28px", "30px", 0, 0]}
+              ></Image>
+            </Button>
           </Box>
         </Box>
       )}
