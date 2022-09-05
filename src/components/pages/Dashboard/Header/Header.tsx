@@ -1,38 +1,31 @@
-import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure } from "@chakra-ui/react";
 
-import {
-  FormControl,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
-
+import { Box, Button, Flex, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, Heading, Text } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
-import Logout from '../../../../assets/logout.svg'
-import Person from '../../../../assets/person-icon.svg' 
-import NoPhoto from '../../../../assets/no-photo.png' 
+import Logout from "../../../../assets/logout.svg";
+import Person from "../../../../assets/person-icon.svg";
+import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
-import { UserContext } from '../../../../context/Context' 
+import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
 import { Login } from "../../../modals/Login/Login";
 import { RegisterDash } from "../../../modals/Register-dash/Register";
 
 export const Header = () => {
+  const { user, token } = useContext(UserContext);
 
-  const { user, token } = useContext(UserContext)
- 
   const navigate = useNavigate();
 
   const toUserPage = () => {
-    navigate('/profile', {replace: true})
-  }
+    navigate("/profile", { replace: true });
+  };
 
   const leave = () => {
-    localStorage.clear()
-    navigate('/', {replace: true})
-  }
+    localStorage.clear();
+    navigate("/", { replace: true });
+  };
 
   return (
     <>
@@ -41,8 +34,8 @@ export const Header = () => {
         <Box w="100vw">
           <Flex
             backgroundColor="#F0F0F0"
-            h={["10vh","9vh",0,0]}
-            w={["100vw", "100vw",0,0]}
+            h={["10vh", "9vh", 0, 0]}
+            w={["100vw", "100vw", 0, 0]}
             justify="center"
             align="center"
             gap={3}
@@ -51,12 +44,12 @@ export const Header = () => {
             <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
           </Flex>
 
-          <Box  
-            gap={[0,0,20]}
+          <Box
+            gap={[0, 0, 20]}
             display="flex"
             justifyContent={["center","center","center"]}
             background="#21BA71"
-            h={["8vh","8vh","10vh", "11vh"]}
+            h={["8vh", "8vh", "10vh", "11vh"]}
             w={["100vw"]}
             alignItems="center">
 
@@ -94,15 +87,13 @@ export const Header = () => {
           </Box>
         </Box>
       ) : (
-
         <Box w="100vw">
           <Box  
             gap={[0,0,20]}
             display="flex"
             justifyContent={"center"}
-            
             background="#21BA71"
-            h={["8vh","8vh","10vh", "11vh"]}
+            h={["8vh", "8vh", "10vh", "11vh"]}
             w={["100vw"]}
             maxW="100vw"
             alignItems="center">
