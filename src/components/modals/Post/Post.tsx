@@ -17,11 +17,9 @@ import {
     Box,
     Select,
   } from "@chakra-ui/react";
-  import { useContext, useState } from "react";
   import * as yup from "yup";
   import { useForm } from "react-hook-form";
   import { yupResolver } from "@hookform/resolvers/yup";
-  import { UserContext } from "../../../context/Context";
 
 export const Post = () => {
 
@@ -217,6 +215,7 @@ export const Post = () => {
                       type="submit"
                       backgroundColor="rgba(234, 65, 65, 1)"
                       color="white"
+                      onClick={onClose}
                     >
                       Cancelar
                     </Button>
@@ -242,22 +241,18 @@ export const Post = () => {
     FormLabel,
     Input,
     InputGroup,
-    InputRightElement,
     Button,
     FormErrorMessage,
     useToast,
-    Image,
     Flex,
     Box,
     Select,
   } from "@chakra-ui/react";
-  import { useContext, useState } from "react";
   import * as yup from "yup";
   import { useForm } from "react-hook-form";
   import { yupResolver } from "@hookform/resolvers/yup";
-  import { UserContext } from "../../../context/Context";
 
-export const Post = () => {
+ export const Post = () => {
 
   
   interface ISubmitData {
@@ -270,8 +265,6 @@ export const Post = () => {
   
   
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [showConfirm, setShowConfirm] = useState(false);
-    //const { onSubmitPost } = useContext(UserContext);
     const toast = useToast();
   
     const formSchema = yup.object().shape({
@@ -446,6 +439,7 @@ export const Post = () => {
                     </Button>
 
                     <Button
+                      onClick={onClose}
                       borderRadius="20px"
                       p="25px"
                       w="400px"
@@ -463,6 +457,6 @@ export const Post = () => {
         </Modal>
       </>
     );
-  };
+  };*/
 
-*/
+
