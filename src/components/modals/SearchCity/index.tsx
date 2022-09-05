@@ -77,8 +77,9 @@ import { UserContext } from "../../../context/Context";
     };
 
     const searchCityPost = (id: string) => { // função que será realizada quando o usuário pesquisar uma cidade
-        const cityFilter = posts.filter(post => post.localization.cityId === id)
-        setPostsFiltered(cityFilter) // array dos post da cidade que o usuário pesquisou -- acho q seria interessante deixar no contexto pois esse array é utilizado para renderizar os posts que o usuário selecionou q quer ir
+        const cityFilter = posts.filter(post => post.cityId=== id)
+        // setPostsFiltered(cityFilter) 
+        // array dos post da cidade que o usuário pesquisou -- acho q seria interessante deixar no contexto pois esse array é utilizado para renderizar os posts que o usuário selecionou q quer ir
         setCities([])
         onClose()
     }

@@ -1,16 +1,28 @@
 import {useState} from 'react'
 import { Janela } from './styles'
-import JanelaMoldura from "../../assets/janela.png"
+import JanelaMoldura from "../../assets/JanelaMoldura.png"
 function AnimationWindows() {
     const [valuex, setValuex] = useState<number>(0);
 
     window.addEventListener("mousemove", (e) => { if(e.screenY < 492 && e.screenY > 268 ){setValuex(e.screenY)}});
 
+    const [imageLoading, setImageLoading] = useState(false)
+
+    const ViewImg = () =>{
+
+      setImageLoading(true)
+
+    }
+
   return (
     
     <Janela valuex={valuex} >
-        <img src={JanelaMoldura} alt="janela" />
-        <div>
+        <img onLoad={ViewImg} src={JanelaMoldura} alt="janela" />
+
+        {
+          imageLoading && 
+          <>
+          <div>
         <svg
           viewBox="0 0 1421 1873"
           xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +151,9 @@ function AnimationWindows() {
         </svg>
 
         </div>
+          </>
+        }
+        
         
       </Janela>
   )

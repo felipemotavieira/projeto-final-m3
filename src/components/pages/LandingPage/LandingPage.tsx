@@ -5,23 +5,27 @@ import { Register } from "../../modals/Register/Register";
 import AnimationWindows from "../../Animation/AnimationWindows";
 import Logo from "../../Logo/Logo"
 import AnimationMobile from "../../AnimationMobile/AnimationMobile";
+import { useState } from "react";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
+
 
   const handleToDashboard = () => {
     navigate("/dashboard", { replace: true });
   };
 
+
+
+
   return (
     
-    <div className="App">
-      
       <Flex
-        h="100%"
+        minHeight="inherit"
         w={["100%", "100%", "80%", "80%"]}
         justify={["center", "center", "space-around"]}
         maxW="1300px"
+        alignItems={"center"}
       >
         <Flex
           direction="column"
@@ -82,11 +86,14 @@ export const LandingPage = () => {
             </Text>
           </Flex>
         </Flex>
-
-        <Flex align="center">
-          <AnimationWindows />
-        </Flex>
+        
+           
+          <Flex align="center">
+            <AnimationWindows />
+          </Flex>
+        
+       
       </Flex>
-    </div>
+    
   );
 };

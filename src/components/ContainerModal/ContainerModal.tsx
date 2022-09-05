@@ -2,6 +2,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Button, Flex, Box, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import Logo from '../Logo/Logo'
+
 interface IContainerProps {
   functionClose: () => void;
   title: string;
@@ -24,7 +25,7 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
         <Flex justify="flex-end">
         <Flex width={"100%"} justify="center"><Logo/></Flex>
           
-          <Button position={"fixed"} width={"30px"} onClick={functionClose} background="none">
+          <Button position={"relative"} width={"30px"} onClick={functionClose} background="none">
             <CloseIcon></CloseIcon>
           </Button>
         </Flex>
