@@ -176,7 +176,7 @@ export const Context = ({ children }: IContextProviderProps) => {
           console.log(error);
         });
   }, []);
-  
+
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
     const response = await InternalAPI.post("/register", data)
       .then(() => true)

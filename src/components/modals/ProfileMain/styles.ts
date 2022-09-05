@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProfileForm = styled.form`
-  max-width: 798px;
+  max-width: 100%;
   width: 100%;
   background-color: #FFFFFF ;
   border-radius: 42px;
