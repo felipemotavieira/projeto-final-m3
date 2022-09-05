@@ -1,4 +1,14 @@
-import { Box, Button, Flex, Input, Spacer, Text, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure, Heading } from "@chakra-ui/react";
+
+import { Box, Button, Flex, Input, Spacer, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, useDisclosure } from "@chakra-ui/react";
+
+import {
+  
+  FormControl,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
+
+
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from '../../../../assets/logout.svg'
@@ -7,6 +17,7 @@ import NoPhoto from '../../../../assets/no-photo.png'
 import { useContext } from "react";
 import { UserContext } from '../../../../context/Context' 
 import { SearchCity } from "../../../modals/SearchCity";
+import { AddPost } from "../../../modals/AddPost";
 
 export const Header = () => {
 
@@ -47,7 +58,6 @@ export const Header = () => {
 
             <Image src="./icone.png" w={["40px","40px",0,0]} h={["50px","50px",0,0]}></Image>
             <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
-
           </Flex>
 
           <Box  
@@ -89,10 +99,7 @@ export const Header = () => {
                   
                 </Box> 
 
-          
-
-              
-                  
+    
                 <Box display="flex" alignItems="center" w={[0,0,"max-content"]} gap={3}>
                   <Image src="./iconebranco.png" w={[0,0,"30px","40px"]} h={[0,0,"40px","50px"]}></Image>
                   <Text fontSize={[0,0,"20px","30px"]} color="#fff">Checkin</Text>
@@ -100,14 +107,16 @@ export const Header = () => {
                 </Box>
 
                 <Box display="flex" alignItems="center" justifyContent={"center"} w={[0,0,"400px"]} h={[0,0,"70px"]} border="none" gap={3}>
-                  <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button>
+                  {/* <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button> */}
+                  <SearchCity/>
                 </ Box> 
 
                 
-                
                 <Box display="flex" w={[0,0,"200px"]} h={[0,0,"70px"]} alignItems="center" gap={[0,0,3,5]}>
-                <Image src="./icone+.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image>
-                <Image src="./iconeaviao.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image>
+                {/* <Image src="./icone+.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
+                {/* <Image src="./iconeaviao.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
+                <AddPost />
+                <CityRegister/>
                 <Menu>
                           <MenuButton display={["none","none","flex"]}>
                             <Avatar name='User Photo' w="40px" h="40px" src={user.userPhoto ? user.userPhoto : NoPhoto} />

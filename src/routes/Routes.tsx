@@ -9,12 +9,11 @@ import { UserContext } from "../context/Context";
 export const AppRoutes = () => {
 
   const { user, token } = useContext(UserContext)
-  console.log(user)
-
+ 
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/dashboard" element={<DashboardMain />} />
+      <Route path="/dashboard" element={<DashboardMain/>} />
       <Route path="/profile" element={token ? <Profile /> : <Navigate to='/' replace/>} />
       <Route path="*" element={<Navigate replace to='/'/>}/>
     </Routes>
