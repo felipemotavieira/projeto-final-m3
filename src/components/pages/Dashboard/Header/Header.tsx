@@ -32,7 +32,7 @@ export const Header = () => {
 
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
 
-        <Box w="100vw">
+        <Box w="100%">
           <Flex
             backgroundColor="#F0F0F0"
             h={["10vh","9vh",0,0]}
@@ -54,12 +54,11 @@ export const Header = () => {
             
             background="#21BA71"
             h={["8vh","8vh","10vh", "11vh"]}
-            w={["100vw"]}
             alignItems="center">
 
               <Box  alignItems="center" justifyContent="center" display="flex" gap={10} w={[0,0,"80%"]} minWidth={[0,0,"80%"]} maxWidth={[0,0,"80%"]} h={[0,0,"70px"]}> 
           
-                <Box bg="red" display="flex" gap={["5","5",0]} alignItems="center" w={["100%","100%", "0px"]} >
+                <Box bg="red" maxWidth={"500px"} display="flex" gap={["5","5",0]} alignItems="center" w={["100%","100%", "0px"] } >
                   <Box display="flex" w="max-content" alignItems="center" justifyContent="center" gap="5">
                         <Menu>
                           <MenuButton display={["flex", "flex", "none"]}>

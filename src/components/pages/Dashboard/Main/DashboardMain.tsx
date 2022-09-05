@@ -19,40 +19,36 @@ export const DashboardMain = () => {
   }, []);
 
   return (
-    <Box display="flex" flexDirection="column" gap={5}>
-      <Header />
+    <>
+    <Header />
       
-      <UnorderedList
-        gap={5}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        margin="0px"
-      >
-        {posts.length > 0 ? (
-          posts.map((post) => {
-            let filterUser = users.find((user) => user.id === post.userId);
-            return (
-              <ContainerPost
-              nameUser={filterUser?.name}
-              id={post.id}
-              title={post.title}
-              message={post.description}
-              photo={post.postImage}
-              cidade={post.cityName}
-              estado={post.state}
-              photoUser={filterUser?.userPhoto}
-              userId={post.userId}
-            />
-            );
-          })
-        ) : (
-          <Box w="50vw" h="80vh" mb="auto">
-            <Image src="./Atenção.png"></Image>
-          </Box>
-        )}
-      </UnorderedList>
-    </Box>
+      
+      {posts.length > 0 ? (
+        posts.map((post) => {
+          let filterUser = users.find((user) => user.id === post.userId);
+          return (
+            <ContainerPost
+            nameUser={filterUser?.name}
+            id={post.id}
+            title={post.title}
+            message={post.description}
+            photo={post.postImage}
+            cidade={post.cityName}
+            estado={post.state}
+            photoUser={filterUser?.userPhoto}
+            userId={post.userId}
+          />
+          );
+        })
+      ) : (
+        <Box w="50vw" h="80vh" mb="auto">
+          <Image src="./Atenção.png"></Image>
+        </Box>
+      )}
+    
+    </>
+      
+      
+    
   );
 };

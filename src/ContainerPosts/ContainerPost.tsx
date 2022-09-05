@@ -34,7 +34,7 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const {user} =useContext(UserContext);
+  const {user} = useContext(UserContext);
   
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
