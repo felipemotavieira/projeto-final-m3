@@ -19,11 +19,15 @@ interface Idata {
   title: string;
   message: string;
   photo: string;
-  localization: string;
-  id: number;
+  cidade: string;
+  id: number | undefined;
+  photoUser: string;
+  nameUser: string;
+  estado: string
 }
 
-function ContainerPost({ title, message, photo, localization, id }: Idata) {
+function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
+  nameUser}: Idata) {
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
@@ -99,20 +103,20 @@ function ContainerPost({ title, message, photo, localization, id }: Idata) {
             >
               <Wrap>
                 <WrapItem>
-                  <Avatar src={photo} />
+                  <Avatar src={photoUser} />
                 </WrapItem>
               </Wrap>
 
               <Box>
                 <Heading as="h1" fontSize="20px">
-                  {"nome"}
+                  {nameUser}
                 </Heading>
                 <Heading
                   as="h3"
                   fontSize={["18px", "18px", "0"]}
                   fontWeight="500"
                 >
-                  {localization}
+                  
                 </Heading>
               </Box>
             </Box>
@@ -130,7 +134,7 @@ function ContainerPost({ title, message, photo, localization, id }: Idata) {
             </Heading>
             <Text>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
-              {"cidade"}-{"estado"}
+            {cidade}-{estado}
             </Heading>
 
             <Flex width={"100%"} display="flex" gap={3}>

@@ -17,7 +17,14 @@ export interface Idata {
 
 export const Profile = () => {
   const [data, setData] = useState<Idata>({} as Idata);
-  const { user, getPostsId } = useContext(UserContext);
+  const { user, getPostsId ,posts } = useContext(UserContext);
+
+  useEffect(() =>{
+    getPostsId()
+  },[])
+
+  console.log(posts)
+  console.log(user,"haushu")
   
   useEffect(() => {
     let token = localStorage.getItem("@TOKEN");
@@ -32,22 +39,32 @@ export const Profile = () => {
       .catch((error: any) => {console.log(error)
       })
       : localStorage.clear();
-  });
+  },[]);
  
   return (
     <>
       <Header/>
       <ProfileMain data={data} />
       
-      <ModalInfo />
       
-      <ContainerPost id= {1} title="Olá" message="The quick brown fox jumps over the lazy dog is an
-              English-language sentence that contains all of the
-              letters of the English alphabet. Owing to its existence, Chakra
-              was created." 
-              photo="https://veja.abril.com.br/wp-content/uploads/2019/12/amazonia-floresta-coraccca7ao.jpg.jpg"
-              localization="Manaus-Amazona"
-              />
+      {
+        posts ? posts.map(ele=> 
+          <ContainerPost 
+          photoUser={user.userPhoto}
+          nameUser={user.name}
+          id = {ele.id} 
+          title={ele.title} 
+          message = {ele.description}
+          photo={ele.postImage}
+          cidade= {ele.cityName}
+          estado ={ele.state}
+          /> )
+          :
+          <ModalInfo />
+
+      }
+      
+      
     </>
   );
 };
