@@ -62,7 +62,44 @@ export const DashboardMain = () => {
     <>
       <Header />
 
-      {posts.length > 0 ? (
+      {loading ? (
+        <span>Carregando...</span>
+      ) : postsFiltered.length > 0 ? (
+        postsFiltered.map((post) => {
+          console.log(post);
+          const filterUser = users.find((user) => user.id === post.userId);
+          return (
+            <ContainerPost
+              nameUser={filterUser?.name}
+              id={post.id}
+              title={post.title}
+              message={post.description}
+              photo={post.postImage}
+              cidade={post.cityName}
+              estado={post.state}
+              photoUser={filterUser?.userPhoto}
+              userId={post.userId}
+            />
+          );
+        })
+      ) : cityPost.length && token ? ( // usuario logado e com cidade
+        cityPost.map((post) => {
+          const filterUser = users.find((user) => user.id === post.userId);
+          return (
+            <ContainerPost
+              nameUser={filterUser?.name}
+              id={post.id}
+              title={post.title}
+              message={post.description}
+              photo={post.postImage}
+              cidade={post.cityName}
+              estado={post.state}
+              photoUser={filterUser?.userPhoto}
+              userId={post.userId}
+            />
+          );
+        })
+      ) : posts.length > 0 ? (
         posts.map((post) => {
           let filterUser = users.find((user) => user.id === post.userId);
           console.log(users);
