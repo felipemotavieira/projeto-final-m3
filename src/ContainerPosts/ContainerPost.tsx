@@ -19,33 +19,40 @@ interface Idata {
   title: string;
   message: string;
   photo: string;
-  cidade: string;
-  id: number | undefined;
+  cidade: string | Promise<string>;
+  id: string | undefined;
   photoUser?: string;
   nameUser?: string;
   estado: string;
-  userId: number;
+  userId: string;
 }
 
-function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
-  nameUser, userId}: Idata) {
-
+function ContainerPost({
+  title,
+  message,
+  photo,
+  cidade,
+  estado,
+  id,
+  photoUser,
+  nameUser,
+  userId,
+}: Idata) {
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const {user} = useContext(UserContext);
-  
+  const { user } = useContext(UserContext);
+
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
- 
-  
+
   const handleEdite = () => {
-    setIsOpenEdite(true)
+    setIsOpenEdite(true);
   };
   const handleDeleta = () => {
-    setIsOpenDelete(true)
+    setIsOpenDelete(true);
   };
 
   const deletePost = () => {
@@ -73,7 +80,7 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
           functionAction={EditaPost}
           setModalOpen={setIsOpenEdite}
         >
-        <FormEditarPost></FormEditarPost>
+          <FormEditarPost></FormEditarPost>
         </Modal>
       )}
       <Flex
@@ -107,13 +114,12 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
               alignItems="center"
               gap={3}
             >
-            
               <Wrap>
                 <WrapItem>
                   <Avatar src={photoUser} />
                 </WrapItem>
               </Wrap>
-            
+
               <Box>
                 <Heading as="h1" fontSize="20px">
                   {nameUser}
@@ -122,9 +128,7 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
                   as="h3"
                   fontSize={["18px", "18px", "0"]}
                   fontWeight="500"
-                >
-                  
-                </Heading>
+                ></Heading>
               </Box>
             </Box>
 
@@ -141,22 +145,19 @@ function ContainerPost({ title, message, photo, cidade, estado , id , photoUser,
             </Heading>
             <Text>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
-            {cidade}-{estado}
+              {`${cidade}-${estado}`}
             </Heading>
 
-            {
-             user.id === userId &&
-
-             <Flex width={"100%"} display="flex" gap={3}>
-              <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
-                <EditIcon color={"white"}></EditIcon>
-              </Button>
-              <Button backgroundColor={"#EA4141"} onClick={handleDeleta}>
-                <DeleteIcon color={"white"}></DeleteIcon>
-              </Button>
-            </Flex>
-            }
-
+            {user.id === userId && (
+              <Flex width={"100%"} display="flex" gap={3}>
+                <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
+                  <EditIcon color={"white"}></EditIcon>
+                </Button>
+                <Button backgroundColor={"#EA4141"} onClick={handleDeleta}>
+                  <DeleteIcon color={"white"}></DeleteIcon>
+                </Button>
+              </Flex>
+            )}
           </Box>
         </Box>
       </Flex>

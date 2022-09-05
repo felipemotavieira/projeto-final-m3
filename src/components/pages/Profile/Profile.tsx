@@ -46,22 +46,24 @@ export const Profile = () => {
       <ProfileMain data={data} />
 
       {posts ? (
-        posts.filter(post => post.userId === user.id).map((post) => {
-          let filter = users.find((user) => user.id === post.userId);
-          return (
-            <ContainerPost
-              nameUser={filter?.name}
-              id={post.id}
-              title={post.title}
-              message={post.description}
-              photo={post.postImage}
-              cidade={post.cityName}
-              estado={post.state}
-              photoUser={filter?.userPhoto}
-              userId={post.userId}
-            />
-          );
-        })
+        posts
+          .filter((post) => post.userId === user.id)
+          .map((post) => {
+            let filter = users.find((user) => user.id === post.userId);
+            return (
+              <ContainerPost
+                nameUser={filter?.name}
+                id={post.id}
+                title={post.title}
+                message={post.description}
+                photo={post.postImage}
+                cidade={post.cityName}
+                estado={post.state}
+                photoUser={filter?.userPhoto}
+                userId={post.userId}
+              />
+            );
+          })
       ) : (
         <ModalInfo />
       )}
