@@ -40,7 +40,7 @@ export const CityRegister = () => {
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
-      : ExternalAPI.get(`/${uf}/municipios`)
+      : ExternalAPI.get(`estados/${uf}/municipios`)
           .then((response) => {
             setCities(response.data);
           })
@@ -48,18 +48,17 @@ export const CityRegister = () => {
   };
 
   useEffect(() => {
-    console.log(userId);
     InternalAPI.get(`/users/${userId}`)
       .then((res) => {
-        console.log(res.data.cityId);
         setLocations(res.data.cityId);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleSubmitCity = (data: ICityData) => {
-    console.log(data);
-    InternalAPI.patch(`/users/${userId}`, data, {
+  const handleSubmitCity = async (data: ICityData) => {
+    const response = await ExternalAPI.get(`/municipios/${data.cityId}`);
+    const patchData = { cityName: response.data.nome, data };
+    InternalAPI.patch(`/users/${userId}`, patchData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

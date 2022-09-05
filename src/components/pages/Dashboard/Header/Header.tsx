@@ -1,5 +1,3 @@
-import { FormControl, Heading, Text } from "@chakra-ui/react";
-
 import {
   Box,
   Button,
@@ -12,7 +10,10 @@ import {
   Avatar,
   MenuItem,
   Image,
+  useDisclosure,
 } from "@chakra-ui/react";
+
+import { FormControl, Heading, Text } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
@@ -21,6 +22,8 @@ import Person from "../../../../assets/person-icon.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
 import { UserContext } from "../../../../context/Context";
+import { SearchCity } from "../../../modals/SearchCity";
+import { AddPost } from "../../../modals/AddPost";
 
 export const Header = () => {
   const { user, token } = useContext(UserContext);
@@ -36,12 +39,12 @@ export const Header = () => {
     navigate("/", { replace: true });
   };
 
-  const handleClick = () => {
-    navigate("/");
-  };
+  // const handleClick = () => {
+  //   navigate("/");
+  // };
 
   return (
-    <div className="App">
+    <>
       {localStorage.getItem("@TOKEN") ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
 
@@ -170,23 +173,8 @@ export const Header = () => {
                 border="none"
                 gap={3}
               >
-                <Button
-                  justifyContent={"space-between"}
-                  w="200px"
-                  bg="#fff"
-                  color="#666666"
-                  gap={5}
-                  fontSize={[0, 0, "15px"]}
-                  display={["none", "none", "flex"]}
-                >
-                  Pesquisar{" "}
-                  <Image
-                    src="./iconelupa.png"
-                    border="none"
-                    w={[0, 0, "30px", "30px"]}
-                    h={[0, 0, "30px", "30px"]}
-                  ></Image>
-                </Button>
+                {/* <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button> */}
+                <SearchCity />
               </Box>
 
               <Box
@@ -196,12 +184,9 @@ export const Header = () => {
                 alignItems="center"
                 gap={[0, 0, 3, 5]}
               >
-                <Image
-                  src="./icone+.png"
-                  w={[0, 0, "40px", "40px"]}
-                  h={[0, 0, "40px", "40px"]}
-                ></Image>
+                {/* <Image src="./icone+.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
                 {/* <Image src="./iconeaviao.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
+                <AddPost />
                 <CityRegister />
                 <Menu>
                   <MenuButton display={["none", "none", "flex"]}>
@@ -436,6 +421,6 @@ export const Header = () => {
           </Box>
         </Box>
       )}
-    </div>
+    </>
   );
 };

@@ -5,7 +5,7 @@ import {
 interface IbuttonsModal {
     type: string;
     titlebtn: string;
-    functionOnclick?:() => void;
+    functionOnclick?:(dataF:any) => void;
   }
 
 export const ButtonsModal = ({titlebtn, type, functionOnclick}:IbuttonsModal) => {
