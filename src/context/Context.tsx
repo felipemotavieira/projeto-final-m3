@@ -129,7 +129,6 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true)
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
-  const {onClose} = useDisclosure()
 
   useEffect(() => { //autologin
 
