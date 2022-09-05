@@ -73,6 +73,7 @@ export const SearchCity = () => {
   const handleSubmitCity = (data: ICityData) => {
     if (data.cityId) {
       searchCityPost(data.cityId);
+
     }
   };
 

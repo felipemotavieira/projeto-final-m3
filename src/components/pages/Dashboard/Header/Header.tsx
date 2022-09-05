@@ -1,5 +1,4 @@
 
-
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from '../../../../assets/logout.svg'
@@ -28,12 +27,15 @@ export const Header = () => {
     navigate('/', {replace: true})
   }
 
-  const handleClick = () => {
-    navigate("/");
-  };
+  // const handleClick = () => {
+  //   navigate("/");
+  // };
 
   return (
-    <div className="App">
+
+
+    <>
+
       {localStorage.getItem("@TOKEN") ? (
 
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
@@ -210,6 +212,6 @@ export const Header = () => {
         
       )}
       
-    </div>
+      </>
 
 )};
