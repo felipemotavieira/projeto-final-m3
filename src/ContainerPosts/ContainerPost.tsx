@@ -24,7 +24,7 @@ interface Idata {
   photoUser?: string;
   nameUser?: string;
   estado: string;
-  userId: string;
+  userId?: string;
 }
 
 function ContainerPost({
