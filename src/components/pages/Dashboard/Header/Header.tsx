@@ -42,6 +42,7 @@ export const Header = () => {
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
           <Flex
+            onClick={leave}
             backgroundColor="#F0F0F0"
             h={["10vh", "9vh", 0, 0]}
             w={["100vw", "100vw", 0, 0]}
@@ -226,6 +227,7 @@ export const Header = () => {
       ) : (
         <Box w="100vw">
           <Flex
+            onClick={leave}
             backgroundColor="#F0F0F0"
             h={["10vh", "9vh", 0, 0]}
             w={["100vw", "100vw", 0, 0]}
