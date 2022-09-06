@@ -40,7 +40,6 @@ export const DashboardMain = () => {
         .then((response) => {
           setCityPost(response.data)
           setLoading(false)
-          window.location.reload()
         })
         .catch((error: any) => {
           console.log(error);
@@ -106,7 +105,6 @@ export const DashboardMain = () => {
       ) : posts.length > 0 ? (
         posts.map((post) => {
           let filterUser = users.find((user) => user.id === post.userId);
-          console.log(users);
           return (
             <ContainerPost
               nameUser={filterUser?.name}

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from "../../../../assets/logout.svg";
 import Person from "../../../../assets/person-icon.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
@@ -38,22 +37,6 @@ export const Header = () => {
       {localStorage.getItem("@TOKEN") ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
-          <Flex
-            onClick={leave}
-            backgroundColor="#F0F0F0"
-            h={["10vh", "9vh", 0, 0]}
-            w={["100vw", "100vw", 0, 0]}
-            justify="center"
-            align="center"
-            gap={3}
-          >
-            <Image
-              src="./icone.png"
-              w={["40px", "40px", 0, 0]}
-              h={["50px", "50px", 0, 0]}
-            ></Image>
-            <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
-          </Flex>
           <Box
             gap={[0, 0, 20]}
             display="flex"

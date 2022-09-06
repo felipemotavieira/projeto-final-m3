@@ -107,7 +107,7 @@ interface IUserProviderData {
   posts: IPosts[];
   getPosts: () => Promise<any>;
   getPostsId: () => Promise<any>;
-  patchPost: (data: IPostData | boolean, id: string) => Promise<boolean>;
+  patchPost: (data: any , id: string) => Promise<boolean>;
   addPost: (data: IPostData) => Promise<boolean>;
   deletePost: (id: string) => Promise<any>;
   token: string | null;
@@ -183,7 +183,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         .catch((error: any) => {
           console.log(error);
         });
-  }, []);
+  }, [user]);
 
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
     const response = await InternalAPI.post("/register", data)
@@ -280,34 +280,44 @@ export const Context = ({ children }: IContextProviderProps) => {
   const deleteUser = async () => {
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.delete(`/users/${userId}`)
-      .then(() => true)
+      .then(() => true).then(() => window.localStorage.clear())
       .catch(() => false);
+    
     return response;
   };
 
   // fazer nova postagem
   const addPost = async (data: IPostData | boolean) => {
-    const token = localStorage.getItem("TOKEN");
+    const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await InternalAPI.post(`/posts/`, data) // adicionar post
+    const response = await InternalAPI.post(`/posts`, data) // adicionar post
       .then(() => true)
-      .catch(() => false);
-    return response;
+      .catch((err) =>{
+        console.log(err)
+       return false
+      } );
+      return response;
+   
   };
 
   //editar post
-  const patchPost = async (data: IPostData | boolean, id: string) => {
-    const token = localStorage.getItem("TOKEN");
+  const patchPost = async (data: IPostData, id: string) => {
+    const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.patch(`/posts/${id}`, data)
-      .then(() => true)
-      .catch(() => false);
+      .then((res) => {
+        console.log(res)
+        return true})
+      .catch((err) => {
+        console.log(err)
+        return false
+      });
     return response;
   };
 
   // Deletar post
   const deletePost = async (id: string) => {
-    const token = localStorage.getItem("TOKEN");
+    const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.delete(`posts/${id}`)
       .then(() => true)

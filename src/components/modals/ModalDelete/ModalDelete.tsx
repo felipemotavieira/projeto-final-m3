@@ -21,7 +21,6 @@ export const ModalDelete = ({
   message,
   message2,
   message3,
-  functionAction,
   children,
 }: Idata) => {
   const closeModal = () => {
@@ -32,8 +31,7 @@ export const ModalDelete = ({
     <>
       <>
         <ContainerModal title={title} functionClose={closeModal}>
-          {children}
-
+          
           {message && (
             <Text mt="20px" fontSize={"18px"}>
               {message}
@@ -45,18 +43,13 @@ export const ModalDelete = ({
               {message2}
             </Text>
           )}
-
+          
           {message3 && (
             <Text mt="20px" fontSize={"15px"}>
               {message3}
             </Text>
           )}
-
-          <ButtonsModal
-            titlebtn={"Confirmar"}
-            type={"prosseguir"}
-            functionOnclick={functionAction}
-          />
+          {children}
           <ButtonsModal
             titlebtn={"Cancelar"}
             type={"cancelar"}

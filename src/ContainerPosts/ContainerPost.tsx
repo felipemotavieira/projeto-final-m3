@@ -14,17 +14,26 @@ import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { ModalDelete as Modal } from "../components/modals/ModalDelete/ModalDelete";
 import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
 import { UserContext } from "../context/Context";
-
+import {ButtonsModal} from "../components/ButtonsModal/ButtonsModal"
 interface Idata {
   title: string;
   message: string;
   photo: string;
   cidade: string | Promise<string>;
-  id: string | undefined;
+  id?: string;
   photoUser?: string;
   nameUser?: string;
   estado: string;
   userId?: string;
+}
+
+interface IData{
+cityId: string,
+cityName: string,
+description: string,
+postImage: string,
+state: string,
+title: string,
 }
 
 function ContainerPost({
@@ -42,7 +51,7 @@ function ContainerPost({
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const { user } = useContext(UserContext);
+  const { user, deletePost , patchPost } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
@@ -55,13 +64,14 @@ function ContainerPost({
     setIsOpenDelete(true);
   };
 
-  const deletePost = () => {
-    console.log(id);
+  const delPost = () => {
+    deletePost(`${id}`)
+    setIsOpenDelete(false);
   };
 
-  const EditaPost = () => {
-    console.log(id);
-  };
+const editePost = (data: IData) =>{
+  console.log(data)
+}
 
   return (
     <>
@@ -69,20 +79,27 @@ function ContainerPost({
         <Modal
           title={"Corfimação de exclusão"}
           message={"Você tem certeza de que deseja excluir? "}
-          functionAction={deletePost}
+          functionAction={delPost}
           setModalOpen={setIsOpenDelete}
-        ></Modal>
+        >
+          <ButtonsModal
+            titlebtn={"Confirmar"}
+            type={"prosseguir"}
+            functionOnclick={delPost}
+          />
+        </Modal>
       )}
 
       {isOpenEdite && (
         <Modal
           title={"Edição de post"}
-          functionAction={EditaPost}
           setModalOpen={setIsOpenEdite}
+          functionAction={editePost}
         >
-          <FormEditarPost></FormEditarPost>
+          <FormEditarPost id ={id}></FormEditarPost>
         </Modal>
       )}
+
       <Flex
         margin={"25px"}
         backgroundColor="#ffffff"
@@ -148,7 +165,7 @@ function ContainerPost({
               {`${cidade}-${estado}`}
             </Heading>
 
-            {user.id === userId && (
+            {user.id == userId && (
               <Flex width={"100%"} display="flex" gap={3}>
                 <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
                   <EditIcon color={"white"}></EditIcon>

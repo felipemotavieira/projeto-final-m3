@@ -5,25 +5,46 @@ import {
   FormErrorMessage,
   Textarea,
   Select,
+  Button,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import ExternalAPI from "../../services/ExternalAPI/ExternalAPI";
+import { useState, useContext } from "react";
+import { UserContext } from "../../context/Context";
 
 interface IEditeData {
-  name?: string;
-  email?: string;
-  userPhoto?: string;
-  describe?: string;
-  estado?: string;
-  cidade?:string;
+   cityId: string,
+   cityName: string,
+   description: string,
+   postImage: string,
+   state: string,
+   title: string,
 }
 
-export const FormEditarPost = (data: any) => {
+interface Idata {
+  id: any;
+}
+
+interface Item {
+  id: string;
+  nome: string;
+  microregiao: any;
+  regiaoimediata: any;
+}
+
+
+export const FormEditarPost = (data:Idata) => {
+  const {id} = data
+  const {user, patchPost} = useContext(UserContext)
+
   const formSchema = yup.object().shape({
     email: yup.string().email("E-mail inválido"),
-    describe: yup.string()
+    describe: yup.string(),
   });
+
+  const [cities, setCities] = useState<Item[]>([]);
 
   const {
     register,
@@ -33,23 +54,43 @@ export const FormEditarPost = (data: any) => {
     resolver: yupResolver(formSchema),
   });
 
-  const editarProfile = (data: any) => {
-    for (const property in data) {
-      if (data[property].trim() === "" || data[property].trim() === undefined) {
-        delete data[property];
+
+  const handleOnChange = (uf: string) => {
+    uf === "Escolha o estado"
+      ? setCities([])
+      : ExternalAPI.get(`estados/${uf}/municipios`, {
+          params: {
+            orderBy: "nome",
+          },
+        })
+          .then((response) => {
+            setCities(response.data);
+          })
+          .catch((error) => console.log(error));
+  };
+
+
+  const editarProfile = (dados: any) => {
+
+    for (const property in dados) {
+      if (dados[property].trim() === "" || dados[property].trim() === undefined) {
+        delete dados[property];
+      }else{
+        dados.userId = user.id
       }
     }
-    // colocar api
-    console.log(data);
+    console.log(dados)
+    patchPost({...dados}, id)
   };
+
 
   return (
     <>
       <form onSubmit={handleSubmit(editarProfile)}>
-        <FormControl mb="10px" width="100%" isInvalid={!!errors?.name?.message}>
-          <FormLabel>Foto</FormLabel>
+        <FormControl mb="10px" width="100%" isInvalid={!!errors?.title?.message}>
+          <FormLabel>Imagem</FormLabel>
           <Input
-            {...register("name")}
+            {...register('title')}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
@@ -58,13 +99,13 @@ export const FormEditarPost = (data: any) => {
             placeholder="Seu nome"
             padding=" 0 25px"
           />
-          <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.title?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl mb="10px" isInvalid={!!errors?.userPhoto?.message}>
+        <FormControl mb="10px" isInvalid={!!errors?.postImage?.message}>
           <FormLabel>Título</FormLabel>
           <Input
-            {...register("userPhoto")}
+            {...register("postImage")}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
@@ -73,54 +114,100 @@ export const FormEditarPost = (data: any) => {
             placeholder="URL da imagem"
             padding=" 0 25px"
           />
-          <FormErrorMessage>{errors?.userPhoto?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.postImage?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl mb="10px" isInvalid={!!errors?.describe?.message}>
+        <FormControl mb="10px" isInvalid={!!errors?.description?.message}>
           <FormLabel>Descrição</FormLabel>
           <Textarea
-          {...register("describe")}
-          id ="descricao"
-          width="100%"
-          backgroundColor="#dedede"
-          borderRadius="22px"
-          height="50px"
-          placeholder="Digite aqui a descrição..."
-          padding=" 10px 25px"
+            {...register("description")}
+            id="descricao"
+            width="100%"
+            backgroundColor="#dedede"
+            borderRadius="22px"
+            height="50px"
+            placeholder="Digite aqui a descrição..."
+            padding=" 10px 25px"
           />
         </FormControl>
 
         <FormControl mb="10px">
-        <FormLabel>Adicionar estado (UF)</FormLabel>
+          <FormLabel>Adicionar estado (UF)</FormLabel>
           <Select
+            {...register("state")}
+            onChange={(e) => handleOnChange(e.target.value)}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
-            id ="estado"
+            id="estado"
           >
-            <option value="adicionar">
-              Adicionar estado (UF)
-            </option>
+            <option value="">Escolha o estado</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
           </Select>
         </FormControl>
 
         <FormControl>
-        <FormLabel>Adicionar cidade</FormLabel>
-          <Select
-            width="100%"
-            backgroundColor="#dedede"
-            borderRadius="42px"
-            height="50px"
-            id ="estado"
-          >
-            <option value="adicionar">
-              Adicionar cidade
-            </option>
-
-          </Select>
+          <FormLabel>Adicionar cidade</FormLabel>
+          {cities.length > 0 ? (
+            <Select
+              {...register('cityName')}
+              width="100%"
+              backgroundColor="#dedede"
+              borderRadius="42px"
+              height="50px"
+              id ="cidade"
+            >
+              {cities.map((elem) => {
+                return (
+                  <option value={elem.nome} key={elem.id}>
+                    {elem.nome}
+                  </option>
+                );
+              })}
+            </Select>
+          ) : (
+            <Select isDisabled={true} placeholder="Cidades"></Select>
+          )}
+          
         </FormControl>
-
+        <Button
+            width="100%"
+            borderRadius="25px"
+            height="50px"
+            color="white"
+            type="submit"
+            mt="20px"
+            backgroundColor= "#21BA71" 
+          >
+            Editar
+          </Button>
       </form>
     </>
   );
