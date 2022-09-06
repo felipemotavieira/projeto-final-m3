@@ -44,8 +44,7 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
         position={"fixed"}
         opacity={"0.15"}
         backgroundColor={"black"}
-        zIndex={9000}
-      >dfdf</Box>
+              >dfdf</Box>
     </>
   );
 }
