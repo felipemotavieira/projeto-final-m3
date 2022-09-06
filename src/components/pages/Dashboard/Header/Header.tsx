@@ -1,47 +1,44 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  Avatar,
-  MenuItem,
-  Image,
-  useDisclosure,
-  Heading,
-} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from "../../../../assets/logout.svg";
 import Person from "../../../../assets/person-icon.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
+import {
+  Heading,
+  Text,
+  Box,
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  Avatar,
+  MenuItem,
+  Image,
+} from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
-import { Login } from "../../../modals/Login/Login";
 import { RegisterDash } from "../../../modals/Register-dash/Register";
+import { Login } from "../../../modals/Login/Login";
 
 export const Header = () => {
+ 
   const { user, token } = useContext(UserContext);
-
   const navigate = useNavigate();
-
   const toUserPage = () => {
     navigate("/profile", { replace: true });
   };
-
   const leave = () => {
     localStorage.clear();
     navigate("/", { replace: true });
   };
-
+ 
   return (
     <>
-      {
-        token ? (
+      {localStorage.getItem("@TOKEN") ? (
+        //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
           <Flex
             backgroundColor="#F0F0F0"
@@ -54,7 +51,6 @@ export const Header = () => {
             <Image src="./icone.png" w={["40px","40px",0,0]} h={["50px","50px",0,0]}></Image>
             <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
           </Flex>
-
           <Box
             gap={[0, 0, 20]}
             display="flex"
