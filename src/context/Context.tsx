@@ -172,11 +172,11 @@ export const Context = ({ children }: IContextProviderProps) => {
             if (response.data.cityId) {
               // cidade definida
               getPostsCity(response.data.cityId);
-              setPostsFiltered([]);
+              // setPostsFiltered([]);
             } else {
               // sem cidade definida
               setPosts([]);
-              setPostsFiltered([]);
+              // setPostsFiltered([]);
               setCityPost([...posts]);
               setTimeout(() => {
                 setLoading(false)
