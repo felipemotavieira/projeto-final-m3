@@ -1,4 +1,4 @@
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import {
   createContext,
   Dispatch,
@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { string } from "yup";
 import InternalAPI from "../services/InternalAPI/InternalAPI";
 
 interface IContextProviderProps {
@@ -119,7 +120,6 @@ interface IUserProviderData {
   setCityPost: Dispatch<SetStateAction<IPostData[]>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  // getPostsCity: (id: string) => void;
 }
 
 export const UserContext = createContext<IUserProviderData>(
@@ -136,10 +136,9 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
+  const toast = useToast()
 
   useEffect(() => {
-    //autologin
-
     token &&
       InternalAPI.get(`/users/${userId}`, {
         headers: {
@@ -150,19 +149,22 @@ export const Context = ({ children }: IContextProviderProps) => {
           setUser(response.data);
           if (response.data.cityId) {
             const getPostsCity = async (id: string) => {
-              // encontrar post de cidades
               const response = await InternalAPI.get(`/posts/`, {
                 params: {
                   cityId: id,
                 },
               })
                 .then((response) => {
-                  setCityPost(response.data);
-                  setLoading(false);
+                  setCityPost(response.data);                
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 3000)
                 })
                 .catch((error: any) => {
                   console.log(error);
-                  setLoading(false);
+                  setTimeout(() => {
+                    setLoading(false)
+                  }, 3000);
                 });
               return response;
             };
@@ -176,7 +178,10 @@ export const Context = ({ children }: IContextProviderProps) => {
               setPosts([]);
               setPostsFiltered([]);
               setCityPost([...posts]);
-              setLoading(false);
+              setTimeout(() => {
+                setLoading(false)
+              }, 3000);
+              // setLoading(false);
             }
           }
         })
@@ -242,6 +247,30 @@ export const Context = ({ children }: IContextProviderProps) => {
     getPosts();
     const cityFilter = posts.filter((post) => post.cityId == id); // [] ou [{...}, {...}]
     setPostsFiltered(cityFilter);
+      if(cityFilter.length > 0){
+        toast({
+          title: "Você está visualizando postagens da cidade pesquisada.",
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        })
+      }else{
+        if(token){
+          toast({
+                title: "Está cidade não possui postagens. Você está visualizando postagens da cidade que gostaria de conhecer.",
+                status: "error",
+                duration: 2500,
+                isClosable: true,
+              });
+        }else{
+          toast({
+            title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
+            status: "error",
+            duration: 2500,
+            isClosable: true,
+          });
+        }
+      }
   };
 
   const getUsers = async () => {
@@ -324,44 +353,6 @@ export const Context = ({ children }: IContextProviderProps) => {
       .catch(() => false);
     return response;
   };
-
-  // procurar se o usuario tem cidades
-
-  useEffect(() => {
-    const { cityId } = user;
-    if (cityId) {
-      const getPostsCity = async (id: string) => {
-        // encontrar post de cidades
-        const response = await InternalAPI.get(`/posts/`, {
-          params: {
-            cityId: id,
-          },
-        })
-          .then((response) => {
-            setCityPost(response.data);
-            setLoading(false)
-            window.location.reload()
-          })
-            .catch((error: any) => {
-              console.log(error);
-              setLoading(false)
-    
-            });
-          return response;
-        }; 
-      
-        if(cityId){ // cidade definida
-          getPostsCity(cityId)
-          setPostsFiltered([])
-        } 
-        else{ // sem cidade definida 
-            setPosts([])
-            setPostsFiltered([])
-            setCityPost([...posts])
-            setLoading(false)
-        }
-    }
-  }, []);
 
   return (
     <UserContext.Provider

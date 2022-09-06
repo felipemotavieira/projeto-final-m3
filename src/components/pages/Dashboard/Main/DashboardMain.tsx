@@ -39,16 +39,17 @@ export const DashboardMain = () => {
       })
         .then((response) => {
           setCityPost(response.data)
-          setLoading(false)
+          setTimeout(() => {
+            setLoading(false)
+          }, 2000);
         })
         .catch((error: any) => {
-          console.log(error);
-          
+          console.log(error);    
         });
       return response;
     };
 
-    if (cityId) {
+    if (cityId && token) {
       // cidade definida
       getPostsCity(cityId);
       setPostsFiltered([]);
@@ -57,7 +58,9 @@ export const DashboardMain = () => {
       setPosts([]);
       setPostsFiltered([]);
       setCityPost([...posts]);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
     }
   }, []);
 
@@ -65,7 +68,8 @@ export const DashboardMain = () => {
     <>
       <Header />
 
-      {loading ? (
+      {
+      loading ? (
         <span>Carregando...</span>
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
