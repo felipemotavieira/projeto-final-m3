@@ -15,39 +15,23 @@ export interface Idata {
 }
 
 export const Profile = () => {
-  const [data, setData] = useState<Idata>({} as Idata);
   const { users, user, getPosts, posts, getUsers } = useContext(UserContext);
 
   useEffect(() => {
     getPosts();
     getUsers();
-  }, []);
+  }, [posts]);
 
-  useEffect(() => {
-    let token = localStorage.getItem("@TOKEN");
-    token
-      ? InternalAPI.get(`/users/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((response: { data: SetStateAction<Idata> }) =>
-            setData(response.data)
-          )
-          .catch((error: any) => {
-            console.log(error);
-          })
-      : localStorage.clear();
-  }, []);
+ 
 
   return (
     <>
       <HeaderProfile />
-      <ProfileMain data={data} />
+      <ProfileMain  />
 
       {posts ? (
         posts
-          .filter((post) => post.userId === user.id)
+          .filter((post) => post.userId == user.id)
           .map((post) => {
             let filter = users.find((user) => user.id === post.userId);
             return (

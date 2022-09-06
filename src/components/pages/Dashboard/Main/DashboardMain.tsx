@@ -1,7 +1,7 @@
 import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
-import { Box, Image, UnorderedList, useToast } from "@chakra-ui/react";
+import { Box, Image} from "@chakra-ui/react";
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
 
@@ -23,7 +23,6 @@ export const DashboardMain = () => {
   } = useContext(UserContext);
 
   const { cityId } = user;
-  const toast = useToast()
 
   useEffect(() => {
     getPosts();
@@ -38,34 +37,10 @@ export const DashboardMain = () => {
       })
         .then((response) => {
           setCityPost(response.data)
-          console.log(response)
-          console.log(cityPost)
-          if(response.data.length > 0){
-            toast({
-              title: "Você está visualizando postagens da cidade definida.",
-              status: "success",
-              duration: 2500,
-              isClosable: true,
-            });
-          }else {
-            toast({
-              title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-              status: "error",
-              duration: 2500,
-              isClosable: true,
-            });
-          }
           setLoading(false)
-          // window.location.reload()
         })
         .catch((error: any) => {
           console.log(error);
-          // toast({
-          //   title: "Está cidade não possui postagens.",
-          //   status: "error",
-          //   duration: 9000,
-          //   isClosable: true,
-          // });
           
         });
       return response;
@@ -128,7 +103,6 @@ export const DashboardMain = () => {
       ) : posts.length > 0 ? (
         posts.map((post) => {
           let filterUser = users.find((user) => user.id === post.userId);
-          // console.log(users);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
