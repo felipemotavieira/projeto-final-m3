@@ -35,7 +35,7 @@ export const CityRegister = () => {
   const [cities, setCities] = useState<Item[]>([]);
   const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { user } = useContext(UserContext);
+  const { user, setLoading, setCityPost, posts } = useContext(UserContext);
   let userId = localStorage.getItem("@USERID");
   let token = localStorage.getItem("@TOKEN");
   const toast = useToast();
@@ -83,11 +83,30 @@ export const CityRegister = () => {
         toast({
           title: "Cidade definida com sucesso.",
           status: "success",
-          duration: 9000,
+          duration: 1500,
           isClosable: true,
         });
+        setLoading(true)
         setTimeout(() => {
-          window.location.reload();
+          const filter = posts.filter(post => post.cityId == res.data.cityId) //[] ou [{...}, {...}]
+          setCityPost([...filter])
+          setLoading(false)
+          console.log(filter)
+          if(filter.length > 0){
+            toast({
+              title: "Você está visualizando postagens da cidade que gostaria de conhecer.",
+              status: "success",
+              duration: 2500,
+              isClosable: true,
+            })
+          }else{
+            toast({
+                    title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
+                    status: "error",
+                    duration: 2500,
+                    isClosable: true,
+                  });
+            }
         }, 2000);
       })
       .catch((err) => console.log(err));

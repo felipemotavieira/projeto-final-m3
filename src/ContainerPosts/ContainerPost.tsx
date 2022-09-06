@@ -145,7 +145,7 @@ function ContainerPost({
             </Heading>
             <Text>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
-              {`${cidade}-${estado}`}
+              {`${cidade} - ${estado}`}
             </Heading>
 
             {user.id === userId && token &&  (

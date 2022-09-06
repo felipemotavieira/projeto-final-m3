@@ -38,40 +38,18 @@ export const DashboardMain = () => {
       })
         .then((response) => {
           setCityPost(response.data)
-          console.log(response)
-          console.log(cityPost)
-          if(response.data.length > 0){
-            toast({
-              title: "Você está visualizando postagens da cidade definida.",
-              status: "success",
-              duration: 2500,
-              isClosable: true,
-            });
-          }else {
-            toast({
-              title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-              status: "error",
-              duration: 2500,
-              isClosable: true,
-            });
-          }
-          setLoading(false)
+          setTimeout(() => {
+            setLoading(false)
+          }, 2000);
           // window.location.reload()
         })
         .catch((error: any) => {
-          console.log(error);
-          // toast({
-          //   title: "Está cidade não possui postagens.",
-          //   status: "error",
-          //   duration: 9000,
-          //   isClosable: true,
-          // });
-          
+          console.log(error);    
         });
       return response;
     };
 
-    if (cityId) {
+    if (cityId && token) {
       // cidade definida
       getPostsCity(cityId);
       setPostsFiltered([]);
@@ -80,7 +58,9 @@ export const DashboardMain = () => {
       setPosts([]);
       setPostsFiltered([]);
       setCityPost([...posts]);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
     }
   }, []);
 
@@ -88,7 +68,8 @@ export const DashboardMain = () => {
     <>
       <Header />
 
-      {loading ? (
+      {
+      loading ? (
         <span>Carregando...</span>
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
