@@ -155,22 +155,7 @@ export const Context = ({ children }: IContextProviderProps) => {
                 },
               })
                 .then((response) => {
-                  setCityPost(response.data);
-                  // if(response.data.length > 0){
-                  //   toast({
-                  //     title: "Você está visualizando postagens da cidade definida.",
-                  //     status: "success",
-                  //     duration: 2500,
-                  //     isClosable: true,
-                  //   });
-                  // }else {
-                  //   toast({
-                  //     title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-                  //     status: "error",
-                  //     duration: 2500,
-                  //     isClosable: true,
-                  //   });
-                  // }
+                  setCityPost(response.data);                
                   setTimeout(() => {
                     setLoading(false);
                   }, 3000)
