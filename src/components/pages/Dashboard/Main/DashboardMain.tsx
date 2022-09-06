@@ -1,7 +1,7 @@
 import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
-import { Box, Image} from "@chakra-ui/react";
+import { Box, Image, UnorderedList } from "@chakra-ui/react";
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
 
