@@ -29,12 +29,11 @@ export const CityRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const toast = useToast();
-
+ 
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
-      : ExternalAPI.get(`/${uf}/municipios`)
+      : ExternalAPI.get(`estados/${uf}/municipios`)
           .then((response) => {
             setCities(response.data);
           })

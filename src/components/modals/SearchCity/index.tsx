@@ -89,7 +89,7 @@ export const SearchCity = () => {
     <>
       
       <Button
-        display={["flex"]}
+        display="flex"
         onClick={onOpen}
         gap={5}
         bg="#fff"
@@ -147,6 +147,7 @@ export const SearchCity = () => {
                   {cities.map((elem) => {
                     return (
                       <option value={elem.id} key={elem.id}>
+
                         {elem.nome}
                       </option>
                     );
