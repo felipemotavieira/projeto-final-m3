@@ -10,8 +10,6 @@ import {
   Box,
   Button,
   Flex,
-  Input,
-  Spacer,
   Menu,
   MenuButton,
   MenuList,
@@ -22,9 +20,11 @@ import {
 import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
+import { RegisterDash } from "../../../modals/Register-dash/Register";
+import { Login } from "../../../modals/Login/Login";
+
 export const Header = () => {
-  <CityRegister />;
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const navigate = useNavigate();
   const toUserPage = () => {
     navigate("/profile", { replace: true });
@@ -33,9 +33,6 @@ export const Header = () => {
     localStorage.clear();
     navigate("/", { replace: true });
   };
-  // const handleClick = () => {
-  //   navigate("/");
-  // };
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
@@ -163,7 +160,6 @@ export const Header = () => {
                 border="none"
                 gap={3}
               >
-                {/* <Button justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button> */}
                 <SearchCity />
               </Box>
               <Box
@@ -275,17 +271,7 @@ export const Header = () => {
                   alignItems="center"
                   gap="5"
                 >
-                  <Button
-                    color="#fff"
-                    bg="rgba(43, 41, 69, 1)"
-                    border="none"
-                    w="max-content"
-                    h={["30px", "35px"]}
-                    fontSize={["13px", "15px"]}
-                    borderRadius="15px"
-                  >
-                    Pesquisar
-                  </Button>
+                  <SearchCity />
                   <Button
                     color="#fff"
                     w="max-content"
@@ -332,23 +318,7 @@ export const Header = () => {
                 border="none"
                 gap={3}
               >
-                <Button
-                  justifyContent={"space-between"}
-                  w="200px"
-                  bg="#fff"
-                  color="#666666"
-                  gap={5}
-                  fontSize={[0, 0, "15px"]}
-                  display={["none", "none", "flex"]}
-                >
-                  Pesquisar{" "}
-                  <Image
-                    src="./iconelupa.png"
-                    border="none"
-                    w={[0, 0, "30px", "30px"]}
-                    h={[0, 0, "30px", "30px"]}
-                  ></Image>
-                </Button>
+                <SearchCity />
               </Box>
               <Box
                 display={["none", "none", "flex"]}
@@ -385,14 +355,7 @@ export const Header = () => {
             mt="10px"
             w={["100vw", "100vw", 0]}
           >
-            <Button gap={5} w="250px" bg="#fff" fontSize="15px">
-              Pesquisar
-              <Image
-                src="./iconelupa.png"
-                w={["30px", "30px"]}
-                h={["28px", "30px", 0, 0]}
-              ></Image>
-            </Button>
+            <SearchCity />
           </Box>
         </Box>
       )}

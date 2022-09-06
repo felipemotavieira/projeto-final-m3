@@ -30,7 +30,16 @@ interface ILoginData {
   email: string;
   password: string;
 }
-export const Login = () => {
+
+interface PropsStyle{
+  bg?: string;
+  w?: string;
+  h?: string;
+  borderRadius?: string
+  text?: string
+}
+
+export const Login = ({bg, w, borderRadius, h, text}: PropsStyle) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSubmitLogin } = useContext(UserContext);
   const [show, setShow] = useState(false);
@@ -78,16 +87,19 @@ export const Login = () => {
     <>
       <Button
         boxShadow="2xl"
-        w="250px"
-        h="60px"
-        borderRadius="30px"
+        w={w ? [0, 0, "100px","100px"] :"250px"}
+        h={h ? [0,0,"40px","40px"] :"60px"}
+        borderRadius={borderRadius ? "30px" : '0.375rem'}
         color="white"
-        backgroundColor="#21BA71"
-        _hover={{ backgroundColor: "#3fc4a1" }}
-        _active={{ backgroundColor: "#21BA71" }}
+        backgroundColor= {bg ? "rgba(43, 41, 69, 1)" : "#21BA71"}
+        _hover={{ backgroundColor: bg ? "#201d5a" : "#3fc4a1"  }}
+        _active={{ backgroundColor: bg ? "rgba(43, 41, 69, 1)" : "#21BA71" }}
         onClick={onOpen}
       >
-        Login
+        {
+         text ? 'Entrar' : 
+        'Login'
+        }
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

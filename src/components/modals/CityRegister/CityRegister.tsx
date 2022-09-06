@@ -10,9 +10,11 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../../context/Context";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
+import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 
 interface Item {
   id: number;
@@ -22,14 +24,22 @@ interface Item {
 }
 
 interface ICityData {
-  city: string;
+  cityId: string;
+  state: string;
+  userId?: string;
+  cityName: Promise<string>;
 }
 
 export const CityRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
+  const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
- 
+  const { user } = useContext(UserContext);
+  let userId = localStorage.getItem("@USERID");
+  let token = localStorage.getItem("@TOKEN");
+  const toast = useToast();
+
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
@@ -40,8 +50,39 @@ export const CityRegister = () => {
           .catch((error) => console.log(error));
   };
 
-  const handleSubmitCity = (data: ICityData) => {
-    console.log(data);
+  useEffect(() => {
+    InternalAPI.get(`/users/${userId}`)
+      .then((res) => {
+        setLocations(res.data.cityId);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const captureCityValue = async (cityId: string) => {
+    const response = await ExternalAPI.get(`/municipios/${cityId}`);
+    return response.data.nome;
+  };
+
+  const addCity = async (data: ICityData) => {
+    if (userId) {
+      data.userId = userId;
+      data.cityName = await captureCityValue(data.cityId);
+    }
+    handleSubmitCity(data);
+  };
+
+  const handleSubmitCity = async (data: ICityData) => {
+    InternalAPI.patch(`/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        onClose();
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -53,8 +94,11 @@ export const CityRegister = () => {
           <ModalHeader>Para onde gostaria de ir?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={handleSubmit(handleSubmitCity)}>
-              <Select onChange={(e) => handleOnChange(e.target.value)}>
+            <form onSubmit={handleSubmit(addCity)}>
+              <Select
+                {...register("state")}
+                onChange={(e) => handleOnChange(e.target.value)}
+              >
                 <option value="">Escolha o estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -83,10 +127,9 @@ export const CityRegister = () => {
                 <option value="SP">São Paulo</option>
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
-                <option value="EX">Estrangeiro</option>
               </Select>
               {cities.length > 0 ? (
-                <Select {...register("city")}>
+                <Select {...register("cityId")}>
                   {cities.map((elem) => (
                     <option value={elem.id} key={elem.id}>
                       {elem.nome}
