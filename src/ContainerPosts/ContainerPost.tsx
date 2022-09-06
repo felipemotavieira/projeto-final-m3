@@ -50,7 +50,7 @@ function ContainerPost({
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
-
+  
   const { user, deletePost , patchPost } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<

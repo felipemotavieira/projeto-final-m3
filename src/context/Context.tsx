@@ -188,7 +188,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         .catch((error: any) => {
           console.log(error);
         });
-  }, [user]);
+  }, []);
 
   const onSubmitRegister = async (data: ISubmitData | boolean) => {
     const response = await InternalAPI.post("/register", data)
@@ -325,8 +325,8 @@ export const Context = ({ children }: IContextProviderProps) => {
         console.log(err)
        return false
       } );
+      getPosts();
       return response;
-   
   };
 
   //editar post
@@ -341,6 +341,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         console.log(err)
         return false
       });
+      getPosts();
     return response;
   };
 
@@ -351,6 +352,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.delete(`posts/${id}`)
       .then(() => true)
       .catch(() => false);
+      getPosts();
     return response;
   };
 

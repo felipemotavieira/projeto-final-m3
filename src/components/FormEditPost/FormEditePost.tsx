@@ -79,7 +79,6 @@ export const FormEditarPost = (data:Idata) => {
         dados.userId = user.id
       }
     }
-    console.log(dados)
     patchPost({...dados}, id)
   };
 
