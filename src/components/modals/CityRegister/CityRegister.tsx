@@ -80,7 +80,15 @@ export const CityRegister = () => {
       .then((res) => {
         console.log(res);
         onClose();
-        window.location.reload();
+        toast({
+          title: "Cidade definida com sucesso.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => console.log(err));
   };

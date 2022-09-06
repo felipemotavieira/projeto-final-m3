@@ -57,7 +57,7 @@ export const LandingPage = () => {
             </Text>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
-            <Login bg={undefined} borderRadius="btn_land"/>
+            <Login />
           </Flex>
           <Flex justify={["center", "center", "start"]}>
             <Button
