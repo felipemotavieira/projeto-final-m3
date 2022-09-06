@@ -6,7 +6,6 @@ import { UserContext } from "../../../context/Context";
 import { Header } from "../Dashboard/Header/Header";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
 
-
 export interface Idata {
   email: string;
   password: string;
@@ -17,37 +16,57 @@ export interface Idata {
 
 export const Profile = () => {
   const [data, setData] = useState<Idata>({} as Idata);
-  const { user, getPostsId } = useContext(UserContext);
-  
+  const { users, user, getPosts, posts, getUsers } = useContext(UserContext);
+
+  useEffect(() => {
+    getPosts();
+    getUsers();
+  }, []);
+
   useEffect(() => {
     let token = localStorage.getItem("@TOKEN");
-    token?
-    InternalAPI.get(`/users/${user.id}`, 
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response: { data: SetStateAction<Idata> }) => setData(response.data))
-      .catch((error: any) => {console.log(error)
-      })
+    token
+      ? InternalAPI.get(`/users/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response: { data: SetStateAction<Idata> }) =>
+            setData(response.data)
+          )
+          .catch((error: any) => {
+            console.log(error);
+          })
       : localStorage.clear();
-  });
- 
+  }, []);
+
   return (
     <>
-      <Header/>
+      <Header />
       <ProfileMain data={data} />
-      
-      <ModalInfo />
-      
-      <ContainerPost id= {1} title="Olá" message="The quick brown fox jumps over the lazy dog is an
-              English-language sentence that contains all of the
-              letters of the English alphabet. Owing to its existence, Chakra
-              was created." 
-              photo="https://veja.abril.com.br/wp-content/uploads/2019/12/amazonia-floresta-coraccca7ao.jpg.jpg"
-              localization="Manaus-Amazona"
+
+      {posts ? (
+        posts
+          .filter((post) => post.userId === user.id)
+          .map((post) => {
+            let filter = users.find((user) => user.id === post.userId);
+            return (
+              <ContainerPost
+                nameUser={filter?.name}
+                id={post.id}
+                title={post.title}
+                message={post.description}
+                photo={post.postImage}
+                cidade={post.cityName}
+                estado={post.state}
+                photoUser={filter?.userPhoto}
+                userId={post.userId}
               />
+            );
+          })
+      ) : (
+        <ModalInfo />
+      )}
     </>
   );
 };

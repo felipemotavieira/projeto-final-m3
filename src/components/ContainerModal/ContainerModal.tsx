@@ -18,9 +18,10 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
         width="100%"
         padding="50px"
         borderRadius="25px"
-        position="absolute"
+        position="fixed"
         zIndex="500"
         flexDirection="column"
+        top="2vh"
       >
         <Flex justify="flex-end">
         <Flex width={"100%"} justify="center"><Logo/></Flex>
@@ -41,9 +42,10 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
         width={"100%"}
         minH={"100%"}
         position={"fixed"}
+        opacity={"0.15"}
         backgroundColor={"black"}
-        opacity="0.15"
-      ></Box>
+        zIndex={9000}
+      >dfdf</Box>
     </>
   );
 }

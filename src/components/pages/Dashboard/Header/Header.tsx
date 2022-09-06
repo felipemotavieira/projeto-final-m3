@@ -1,6 +1,17 @@
-
-import { Box, Button, Flex, Menu, MenuButton, MenuList, Avatar, MenuItem, Image, Heading, Text } from "@chakra-ui/react";
-
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  Avatar,
+  MenuItem,
+  Image,
+  useDisclosure,
+  Heading,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import Logout from "../../../../assets/logout.svg";
