@@ -14,7 +14,7 @@ import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { ModalDelete as Modal } from "../components/modals/ModalDelete/ModalDelete";
 import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
 import { UserContext } from "../context/Context";
-import {ButtonsModal} from "../components/ButtonsModal/ButtonsModal"
+import { ButtonsModal } from "../components/ButtonsModal/ButtonsModal";
 interface Idata {
   title: string;
   message: string;
@@ -27,13 +27,13 @@ interface Idata {
   userId?: string;
 }
 
-interface IData{
-cityId: string,
-cityName: string,
-description: string,
-postImage: string,
-state: string,
-title: string,
+interface IData {
+  cityId: string;
+  cityName: string;
+  description: string;
+  postImage: string;
+  state: string;
+  title: string;
 }
 
 function ContainerPost({
@@ -50,8 +50,8 @@ function ContainerPost({
   const [isOpenEdite, setIsOpenEdite] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
-  
-  const { user, deletePost , patchPost } = useContext(UserContext);
+
+  const { user, deletePost, patchPost, token } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
@@ -65,13 +65,13 @@ function ContainerPost({
   };
 
   const delPost = () => {
-    deletePost(`${id}`)
+    deletePost(`${id}`);
     setIsOpenDelete(false);
   };
 
-const editePost = (data: IData) =>{
-  console.log(data)
-}
+  const editePost = (data: IData) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -96,7 +96,7 @@ const editePost = (data: IData) =>{
           setModalOpen={setIsOpenEdite}
           functionAction={editePost}
         >
-          <FormEditarPost id ={id}></FormEditarPost>
+          <FormEditarPost id={id}></FormEditarPost>
         </Modal>
       )}
 
@@ -165,7 +165,7 @@ const editePost = (data: IData) =>{
               {`${cidade} - ${estado}`}
             </Heading>
 
-            {user.id == userId && (
+            {user.id == userId && token && (
               <Flex width={"100%"} display="flex" gap={3}>
                 <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
                   <EditIcon color={"white"}></EditIcon>
