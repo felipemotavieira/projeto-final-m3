@@ -44,14 +44,14 @@ export const DashboardMain = () => {
             toast({
               title: "Você está visualizando postagens da cidade definida.",
               status: "success",
-              duration: 9000,
+              duration: 2500,
               isClosable: true,
             });
           }else {
             toast({
               title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
               status: "error",
-              duration: 9000,
+              duration: 2500,
               isClosable: true,
             });
           }
@@ -60,12 +60,12 @@ export const DashboardMain = () => {
         })
         .catch((error: any) => {
           console.log(error);
-          toast({
-            title: "Está cidade não possui postagens.",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
+          // toast({
+          //   title: "Está cidade não possui postagens.",
+          //   status: "error",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
           
         });
       return response;
@@ -82,7 +82,7 @@ export const DashboardMain = () => {
       setCityPost([...posts]);
       setLoading(false);
     }
-  }, [cityId]);
+  }, []);
 
   return (
     <>

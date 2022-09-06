@@ -35,23 +35,16 @@ export const Header = () => {
     localStorage.clear();
     navigate("/", { replace: true });
   };
+
+  const dashboard = () => {
+    window.location.reload()
+  }
  
   return (
     <>
       {token ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
-          <Flex
-            backgroundColor="#F0F0F0"
-            h={["10vh", "9vh", 0, 0]}
-            w={["100vw", "100vw", 0, 0]}
-            justify="center"
-            align="center"
-            gap={3}
-          >
-            <Image src="./icone.png" w={["40px","40px",0,0]} h={["50px","50px",0,0]}></Image>
-            <Heading fontSize={["30px","30px",0,0]}>Checkin</Heading>
-          </Flex>
           <Box
             gap={[0, 0, 20]}
             display="flex"
@@ -64,7 +57,7 @@ export const Header = () => {
               <Box  alignItems="center" justifyContent="center" display="flex" gap={10} w={[0,0,"80%"]} minWidth={[0,0,"80%"]} maxWidth={[0,0,"80%"]} h={[0,0,"70px"]}> 
           
                 {/* Logo */}
-                <Box display="flex" alignItems="center" w={[0,0,"max-content"]} gap={3}>
+                <Box onClick={dashboard} display="flex" alignItems="center" w={[0,0,"max-content"]} gap={3}>
                   <Image src="./iconebranco.png" w={[0,0,"30px","40px"]} h={[0,0,"40px","50px"]}></Image>
                   <Text fontSize={[0,0,"20px","30px"]} color="#fff">Checkin</Text>
                 </Box>
