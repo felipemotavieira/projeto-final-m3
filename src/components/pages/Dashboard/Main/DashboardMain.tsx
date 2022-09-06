@@ -36,11 +36,13 @@ export const DashboardMain = () => {
         },
       })
         .then((response) => {
-          setCityPost(response.data);
-          setLoading(false);
+          setCityPost(response.data)
+          setLoading(false)
+          window.location.reload()
         })
         .catch((error: any) => {
           console.log(error);
+          
         });
       return response;
     };

@@ -30,8 +30,15 @@ interface ISubmitData {
   confirmPassword: string;
   name: string;
 }
+interface PropsStyle{
+  bg?: string;
+  w?: string;
+  h?: string;
+  borderRadius?: string
+  text?: string
+}
 
-export const Register = () => {
+export const RegisterDash = ({bg, w, borderRadius, h, text}: PropsStyle) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -81,12 +88,21 @@ export const Register = () => {
   return (
     <>
       <Button
-        color="black"
-        _hover={{ color: "#21a968" }}
-        bg="none"
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        boxShadow="2xl"
+        ml='10px'
+        w={[0, 0, "120px","120px"]}
+        h={[0,0,"40px","40px"]}
+        borderRadius='0.375rem'
+        color="white"
+        backgroundColor= "rgba(43, 41, 69, 1)"
+        _hover={{ backgroundColor: "#201d5a" }}
+        _active={{ backgroundColor: "rgba(43, 41, 69, 1)" }}
         onClick={onOpen}
       >
-        Ainda não possui uma conta? Cadastre-se aqui
+        Cadastre-se
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

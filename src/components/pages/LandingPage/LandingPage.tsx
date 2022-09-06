@@ -15,9 +15,6 @@ export const LandingPage = () => {
     navigate("/dashboard", { replace: true });
   };
 
-
-
-
   return (
     
       <Flex
@@ -60,7 +57,7 @@ export const LandingPage = () => {
             </Text>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
-            <Login />
+            <Login bg={undefined} borderRadius="btn_land"/>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
             <Button
@@ -80,14 +77,11 @@ export const LandingPage = () => {
 
           <Flex justify={["center", "center", "start"]}>
             <Text textAlign={["center", "start"]} w="max-content">
-              {" "}
-              " Ainda não tem conta?
               <Register />
             </Text>
           </Flex>
         </Flex>
         
-           
           <Flex align="center">
             <AnimationWindows />
           </Flex>

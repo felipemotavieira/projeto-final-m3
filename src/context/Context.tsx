@@ -136,7 +136,6 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
-  const { onClose } = useDisclosure();
 
   useEffect(() => {
     //autologin
@@ -199,6 +198,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         setUser(response.data.user);
         localStorage.setItem("@TOKEN", response.data.accessToken);
         localStorage.setItem("@USERID", response.data.user.id);
+        window.location.reload()
         return true;
       })
       .catch((error: any) => {
@@ -329,26 +329,27 @@ export const Context = ({ children }: IContextProviderProps) => {
         })
           .then((response) => {
             setCityPost(response.data);
-            setLoading(false);
+            setLoading(false)
+            window.location.reload()
           })
-          .catch((error: any) => {
-            console.log(error);
-            setLoading(false);
-          });
-        return response;
-      };
-
-      if (cityId) {
-        // cidade definida
-        getPostsCity(cityId);
-        setPostsFiltered([]);
-      } else {
-        // sem cidade definida
-        setPosts([]);
-        setPostsFiltered([]);
-        setCityPost([...posts]);
-        setLoading(false);
-      }
+            .catch((error: any) => {
+              console.log(error);
+              setLoading(false)
+    
+            });
+          return response;
+        }; 
+      
+        if(cityId){ // cidade definida
+          getPostsCity(cityId)
+          setPostsFiltered([])
+        } 
+        else{ // sem cidade definida 
+            setPosts([])
+            setPostsFiltered([])
+            setCityPost([...posts])
+            setLoading(false)
+        }
     }
   }, []);
 
