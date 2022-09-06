@@ -3,8 +3,8 @@ import ProfileMain from "../../../components/modals/ProfileMain/ProfileMain";
 import ModalInfo from "../../modals/ModalInfo/ModalInfo";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
-import { Header } from "../Dashboard/Header/Header";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
+import { HeaderProfile } from "../Dashboard/Header-profile/Header";
 
 export interface Idata {
   email: string;
@@ -42,7 +42,7 @@ export const Profile = () => {
 
   return (
     <>
-      <Header />
+      <HeaderProfile />
       <ProfileMain data={data} />
 
       {posts ? (
