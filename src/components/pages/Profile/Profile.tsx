@@ -5,6 +5,8 @@ import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
 import { HeaderProfile } from "../Dashboard/Header-profile/Header";
+import NoPhoto from "../../../assets/no-photo.png";
+import { filter } from "@chakra-ui/react";
 
 export interface Idata {
   email: string;
@@ -20,33 +22,38 @@ export const Profile = () => {
   useEffect(() => {
     getPosts();
     getUsers();
-  }, [posts]);
+  }, []);
 
- 
+//  const filtered = posts.filter(post => post.userId == user.id)
 
   return (
     <>
       <HeaderProfile />
       <ProfileMain  />
 
-      {posts ? (
+      {
+        posts.length ? (
         posts
           .filter((post) => post.userId == user.id)
           .map((post) => {
-            let filter = users.find((user) => user.id === post.userId);
-            return (
-              <ContainerPost
-                nameUser={filter?.name}
-                id={post.id}
-                title={post.title}
-                message={post.description}
-                photo={post.postImage}
-                cidade={post.cityName}
-                estado={post.state}
-                photoUser={filter?.userPhoto}
-                userId={post.userId}
-              />
-            );
+            const filter = users.find((user) => {
+              return user.id == post.userId
+            });
+            console.log(filter)
+              return (
+                <ContainerPost key={post.id}
+                  nameUser={filter?.name}
+                  id={post.id}
+                  title={post.title}
+                  message={post.description}
+                  photo={post.postImage}
+                  cidade={post.cityName}
+                  estado={post.state}
+                  photoUser={filter?.userPhoto}
+                  userId={post.userId}
+                />
+              );
+            
           })
       ) : (
         <ModalInfo />

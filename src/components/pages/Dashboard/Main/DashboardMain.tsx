@@ -74,7 +74,7 @@ export const DashboardMain = () => {
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
           console.log(post);
-          const filterUser = users.find((user) => user.id === post.userId);
+          const filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
@@ -91,7 +91,7 @@ export const DashboardMain = () => {
         })
       ) : cityPost.length && token ? ( // usuario logado e com cidade
         cityPost.map((post) => {
-          const filterUser = users.find((user) => user.id === post.userId);
+          const filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
@@ -108,7 +108,7 @@ export const DashboardMain = () => {
         })
       ) : posts.length > 0 ? (
         posts.map((post) => {
-          let filterUser = users.find((user) => user.id === post.userId);
+          let filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}

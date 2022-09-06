@@ -83,6 +83,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
             data.cityName = await captureCityValue(data.cityId)
         }
         addPost(data)
+        console.log(data)
     };
 
     return (
