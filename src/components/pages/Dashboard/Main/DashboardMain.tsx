@@ -38,7 +38,7 @@ export const DashboardMain = () => {
         .then((response) => {
           setCityPost(response.data)
           setLoading(false)
-          window.location.reload()
+          // window.location.reload()
         })
         .catch((error: any) => {
           console.log(error);

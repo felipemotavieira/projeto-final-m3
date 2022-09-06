@@ -21,7 +21,7 @@ import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
 import { RegisterDash } from "../../../modals/Register-dash/Register";
-import { Login } from "../../../modals/Login/Login";
+import { LoginDash } from "../../../modals/Login dash/Login";
 
 export const Header = () => {
  
@@ -117,12 +117,12 @@ export const Header = () => {
 
                 {/* Botão de pesquisa */}
                 <Box display="flex" alignItems="center" justifyContent={"center"} w={[0,0,"400px"]} h={[0,0,"70px"]} border="none" gap={3}>
-                  <Button onClick={() => console.log('olá mundo')} justifyContent={"space-between"} w="200px" bg="#fff" color="#666666" gap={5} fontSize={[0,0,"15px"]} display={["none", "none", "flex"]}>Pesquisar <Image src="./iconelupa.png" border="none" w={[0,0,"30px","30px"]} h={[0,0,"30px","30px"]}></Image></Button>
+                  <SearchCity/>
                 </ Box> 
 
                 {/* Botões cadastro e login */}
                 <Box display={["none", "none", "flex"]} w={[0,0,"200px"]} h={[0,0,"70px"]} alignItems="center" gap={[0,0,3,5]}>
-                  <Login bg='blue' w="width" h="height" borderRadius="" text="text_login"/>
+                  <LoginDash/>
                   <RegisterDash/>
                 </Box>
               </Box>
