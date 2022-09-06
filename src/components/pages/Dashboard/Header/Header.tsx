@@ -27,6 +27,7 @@ export const Header = () => {
  
   const { user, token } = useContext(UserContext);
   const navigate = useNavigate();
+
   const toUserPage = () => {
     navigate("/profile", { replace: true });
   };
@@ -37,7 +38,7 @@ export const Header = () => {
  
   return (
     <>
-      {localStorage.getItem("@TOKEN") ? (
+      {token ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
           <Flex

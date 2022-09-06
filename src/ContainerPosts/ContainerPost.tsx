@@ -42,7 +42,7 @@ function ContainerPost({
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
@@ -148,7 +148,7 @@ function ContainerPost({
               {`${cidade}-${estado}`}
             </Heading>
 
-            {user.id === userId && (
+            {user.id === userId && token &&  (
               <Flex width={"100%"} display="flex" gap={3}>
                 <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
                   <EditIcon color={"white"}></EditIcon>
