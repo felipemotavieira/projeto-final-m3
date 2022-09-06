@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -90,12 +91,19 @@ export const CityRegister = () => {
       <Button onClick={onOpen}>Cadastrar Cidade</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          borderRadius={["60px 60px 0px 0px", "40px", "40px", "40px"]}
+          mb={["auto"]}
+          mt={["130px", "none"]}
+        >
           <ModalHeader>Para onde gostaria de ir?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit(addCity)}>
               <Select
+                borderRadius="20px"
+                pb="8px"
+                pt="8px"
                 {...register("state")}
                 onChange={(e) => handleOnChange(e.target.value)}
               >
@@ -129,7 +137,12 @@ export const CityRegister = () => {
                 <option value="TO">Tocantins</option>
               </Select>
               {cities.length > 0 ? (
-                <Select {...register("cityId")}>
+                <Select
+                  borderRadius="20px"
+                  pb="8px"
+                  pt="8px"
+                  {...register("cityId")}
+                >
                   {cities.map((elem) => (
                     <option value={elem.id} key={elem.id}>
                       {elem.nome}
@@ -137,22 +150,31 @@ export const CityRegister = () => {
                   ))}
                 </Select>
               ) : (
-                <Select isDisabled={true} placeholder="Cidades"></Select>
+                <Select
+                  borderRadius="20px"
+                  pb="8px"
+                  pt="8px"
+                  isDisabled={true}
+                  placeholder="Cidades"
+                ></Select>
               )}
-
-              <Button
-                type="submit"
-                boxShadow="2xl"
-                w="250px"
-                h="60px"
-                borderRadius="30px"
-                color="white"
-                backgroundColor="#21BA71"
-                _hover={{ backgroundColor: "#3fc4a1" }}
-                _active={{ backgroundColor: "#21BA71" }}
-              >
-                Adicionar cidade
-              </Button>
+              <Flex justify="center">
+                <Button
+                  type="submit"
+                  boxShadow="2xl"
+                  w="100%"
+                  h="60px"
+                  pb="6px"
+                  pt="6px"
+                  borderRadius="30px"
+                  color="white"
+                  backgroundColor="#21BA71"
+                  _hover={{ backgroundColor: "#3fc4a1" }}
+                  _active={{ backgroundColor: "#21BA71" }}
+                >
+                  Adicionar cidade
+                </Button>
+              </Flex>
             </form>
           </ModalBody>
         </ModalContent>
