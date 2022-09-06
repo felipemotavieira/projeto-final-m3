@@ -105,10 +105,11 @@ interface IUserProviderData {
   deleteUser: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
   onSubmitLogin: (data: ILoginData) => Promise<boolean>;
+  onSubmitLoginDash: (data: ILoginData) => Promise<boolean>;
   posts: IPosts[];
   getPosts: () => Promise<any>;
   getPostsId: () => Promise<any>;
-  patchPost: (data: any , id: string) => Promise<boolean>;
+  patchPost: (data: any, id: string) => Promise<boolean>;
   addPost: (data: IPostData) => Promise<boolean>;
   deletePost: (id: string) => Promise<any>;
   token: string | null;
@@ -136,7 +137,7 @@ export const Context = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem("@TOKEN");
   const userId = localStorage.getItem("@USERID");
-  const toast = useToast()
+  const toast = useToast();
 
   useEffect(() => {
     token &&
@@ -155,15 +156,15 @@ export const Context = ({ children }: IContextProviderProps) => {
                 },
               })
                 .then((response) => {
-                  setCityPost(response.data);                
+                  setCityPost(response.data);
                   setTimeout(() => {
                     setLoading(false);
-                  }, 3000)
+                  }, 3000);
                 })
                 .catch((error: any) => {
                   console.log(error);
                   setTimeout(() => {
-                    setLoading(false)
+                    setLoading(false);
                   }, 3000);
                 });
               return response;
@@ -179,7 +180,7 @@ export const Context = ({ children }: IContextProviderProps) => {
               // setPostsFiltered([]);
               setCityPost([...posts]);
               setTimeout(() => {
-                setLoading(false)
+                setLoading(false);
               }, 3000);
               // setLoading(false);
             }
@@ -203,7 +204,23 @@ export const Context = ({ children }: IContextProviderProps) => {
         setUser(response.data.user);
         localStorage.setItem("@TOKEN", response.data.accessToken);
         localStorage.setItem("@USERID", response.data.user.id);
-        window.location.reload()
+
+        return true;
+      })
+      .catch((error: any) => {
+        console.log(error);
+        return false;
+      });
+    return response;
+  };
+
+  const onSubmitLoginDash = async (data: ILoginData | boolean) => {
+    const response = await InternalAPI.post("/login", data)
+      .then((response) => {
+        setUser(response.data.user);
+        localStorage.setItem("@TOKEN", response.data.accessToken);
+        localStorage.setItem("@USERID", response.data.user.id);
+        window.location.reload();
         return true;
       })
       .catch((error: any) => {
@@ -247,30 +264,32 @@ export const Context = ({ children }: IContextProviderProps) => {
     getPosts();
     const cityFilter = posts.filter((post) => post.cityId == id); // [] ou [{...}, {...}]
     setPostsFiltered(cityFilter);
-      if(cityFilter.length > 0){
+    if (cityFilter.length > 0) {
+      toast({
+        title: "Você está visualizando postagens da cidade pesquisada.",
+        status: "success",
+        duration: 2500,
+        isClosable: true,
+      });
+    } else {
+      if (token) {
         toast({
-          title: "Você está visualizando postagens da cidade pesquisada.",
-          status: "success",
+          title:
+            "Está cidade não possui postagens. Você está visualizando postagens da cidade que gostaria de conhecer.",
+          status: "error",
           duration: 2500,
           isClosable: true,
-        })
-      }else{
-        if(token){
-          toast({
-                title: "Está cidade não possui postagens. Você está visualizando postagens da cidade que gostaria de conhecer.",
-                status: "error",
-                duration: 2500,
-                isClosable: true,
-              });
-        }else{
-          toast({
-            title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-            status: "error",
-            duration: 2500,
-            isClosable: true,
-          });
-        }
+        });
+      } else {
+        toast({
+          title:
+            "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        });
       }
+    }
   };
 
   const getUsers = async () => {
@@ -309,9 +328,10 @@ export const Context = ({ children }: IContextProviderProps) => {
   const deleteUser = async () => {
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.delete(`/users/${userId}`)
-      .then(() => true).then(() => window.localStorage.clear())
+      .then(() => true)
+      .then(() => window.localStorage.clear())
       .catch(() => false);
-    
+
     return response;
   };
 
@@ -321,12 +341,12 @@ export const Context = ({ children }: IContextProviderProps) => {
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.post(`/posts`, data) // adicionar post
       .then(() => true)
-      .catch((err) =>{
-        console.log(err)
-       return false
-      } );
-      getPosts();
-      return response;
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    getPosts();
+    return response;
   };
 
   //editar post
@@ -335,13 +355,14 @@ export const Context = ({ children }: IContextProviderProps) => {
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.patch(`/posts/${id}`, data)
       .then((res) => {
-        console.log(res)
-        return true})
+        console.log(res);
+        return true;
+      })
       .catch((err) => {
-        console.log(err)
-        return false
+        console.log(err);
+        return false;
       });
-      getPosts();
+    getPosts();
     return response;
   };
 
@@ -352,13 +373,12 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.delete(`posts/${id}`)
       .then(() => true)
       .catch(() => false);
-      getPosts();
+    getPosts();
     return response;
   };
 
   return (
     <UserContext.Provider
-
       value={{
         user,
         users,
@@ -369,6 +389,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         deleteUser,
         onSubmitRegister,
         onSubmitLogin,
+        onSubmitLoginDash,
         getPosts,
         posts,
         getPostsId,

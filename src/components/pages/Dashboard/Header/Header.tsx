@@ -21,6 +21,8 @@ import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
 import { RegisterDash } from "../../../modals/Register-dash/Register";
 import { Login } from "../../../modals/Login/Login";
+import { LoginDash } from "../../../modals/LoginDash/Login";
+import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 
 export const Header = () => {
   const { user, token } = useContext(UserContext);
@@ -37,6 +39,21 @@ export const Header = () => {
       {localStorage.getItem("@TOKEN") ? (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <Box w="100vw">
+          <Flex
+            backgroundColor="#F0F0F0"
+            h={["10vh", "9vh", 0, 0]}
+            w={["100vw", "100vw", 0, 0]}
+            justify="center"
+            align="center"
+            gap={3}
+          >
+            <Image
+              src="./icone.png"
+              w={["40px", "40px", 0, 0]}
+              h={["50px", "50px", 0, 0]}
+            ></Image>
+            <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
+          </Flex>
           <Box
             gap={[0, 0, 20]}
             display="flex"
@@ -56,69 +73,7 @@ export const Header = () => {
               maxWidth={[0, 0, "80%"]}
               h={[0, 0, "70px"]}
             >
-              <Box
-                bg="red"
-                display="flex"
-                gap={["5", "5", 0]}
-                alignItems="center"
-                w={["100%", "100%", "0px"]}
-              >
-                <Box
-                  display="flex"
-                  w="max-content"
-                  alignItems="center"
-                  justifyContent="center"
-                  gap="5"
-                >
-                  <Menu>
-                    <MenuButton display={["flex", "flex", "none"]}>
-                      <Avatar
-                        name="User Photo"
-                        w="40px"
-                        h="40px"
-                        src={user.userPhoto ? user.userPhoto : NoPhoto}
-                      />
-                    </MenuButton>
-                    <MenuList minW="70px" h="120px">
-                      <MenuItem w="100%" mb="10px">
-                        <Button
-                          onClickCapture={toUserPage}
-                          w="100%"
-                          h="35px"
-                          colorScheme="green"
-                        >
-                          {" "}
-                          <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
-                        </Button>
-                      </MenuItem>
-                      <MenuItem>
-                        <Button
-                          onClickCapture={leave}
-                          w="100%"
-                          h="35px"
-                          colorScheme="red"
-                        >
-                          <Image src={Logout} h="24px" pr="10px" />
-                          Sair
-                        </Button>
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
-                  <Heading color="#fff" fontSize={["15px", "17px", 0, 0]}>
-                    Péricles
-                  </Heading>
-                  <Image
-                    src="./icone+.png"
-                    w={["30px", "35px", 0, 0]}
-                    h={["30px", "35px", 0, 0]}
-                  ></Image>
-                  <Image
-                    src="./iconeaviao.png"
-                    w={["30px", "35px", 0, 0]}
-                    h={["30px", "35px", 0, 0]}
-                  />
-                </Box>
-              </Box>
+              {/* Logo */}
               <Box
                 display="flex"
                 alignItems="center"
@@ -134,8 +89,9 @@ export const Header = () => {
                   Checkin
                 </Text>
               </Box>
+              {/* Botão de pesquisa */}
               <Box
-                display={["none", "none", "flex"]}
+                display="flex"
                 alignItems="center"
                 justifyContent={"center"}
                 w={[0, 0, "400px"]}
@@ -145,6 +101,7 @@ export const Header = () => {
               >
                 <SearchCity />
               </Box>
+              {/* Botão de fazer postagem e de adicionar cidade bem como icone do usuario */}
               <Box
                 display="flex"
                 w={[0, 0, "200px"]}
@@ -152,8 +109,8 @@ export const Header = () => {
                 alignItems="center"
                 gap={[0, 0, 3, 5]}
               >
-                {/* <Image src="./icone+.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
-                {/* <Image src="./iconeaviao.png" w={[0,0,"40px","40px"]} h={[0,0,"40px","40px"]}></Image> */}
+                <AddPost />
+                <CityRegister />
                 <Menu>
                   <MenuButton display={["none", "none", "flex"]}>
                     <Avatar
@@ -191,36 +148,9 @@ export const Header = () => {
               </Box>
             </Box>
           </Box>
-          <Box
-            p="5px"
-            display={["flex", "flex", "none", "none"]}
-            alignItems={"center"}
-            justifyContent="center"
-            gap={5}
-            mt="10px"
-            w={["100vw", "100vw", 0]}
-          >
-            <SearchCity />
-          </Box>
         </Box>
       ) : (
         <Box w="100vw">
-          <Flex
-            onClick={leave}
-            backgroundColor="#F0F0F0"
-            h={["10vh", "9vh", 0, 0]}
-            w={["100vw", "100vw", 0, 0]}
-            justify="center"
-            align="center"
-            gap={3}
-          >
-            <Image
-              src="./icone.png"
-              w={["40px", "40px", 0, 0]}
-              h={["50px", "50px", 0, 0]}
-            ></Image>
-            <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
-          </Flex>
           <Box
             gap={[0, 0, 20]}
             display="flex"
@@ -247,36 +177,9 @@ export const Header = () => {
                 gap={["5", "5", 0]}
                 alignItems="center"
                 minW="100vw"
-              >
-                <Box
-                  ml={["25%", "10%"]}
-                  display={["flex", "flex", "none"]}
-                  alignItems="center"
-                  gap="5"
-                >
-                  <SearchCity />
-                  <Button
-                    color="#fff"
-                    w="max-content"
-                    h={["30px", "35px"]}
-                    fontSize={["13px", "15px"]}
-                    bg="rgba(43, 41, 69, 1)"
-                    borderRadius="15px"
-                  >
-                    Entrar
-                  </Button>
-                  <Button
-                    color="#fff"
-                    w="max-content"
-                    h={["30px", "35px"]}
-                    fontSize={["13px", "15px"]}
-                    bg="rgba(43, 41, 69, 1)"
-                    borderRadius="15px"
-                  >
-                    Cadastrar
-                  </Button>
-                </Box>
-              </Box>
+              ></Box>
+
+              {/* Logo */}
               <Box
                 display="flex"
                 alignItems="center"
@@ -292,6 +195,8 @@ export const Header = () => {
                   Checkin
                 </Text>
               </Box>
+
+              {/* Botão de pesquisa */}
               <Box
                 display="flex"
                 alignItems="center"
@@ -303,6 +208,8 @@ export const Header = () => {
               >
                 <SearchCity />
               </Box>
+
+              {/* Botões cadastro e login */}
               <Box
                 display={["none", "none", "flex"]}
                 w={[0, 0, "200px"]}
@@ -310,39 +217,13 @@ export const Header = () => {
                 alignItems="center"
                 gap={[0, 0, 3, 5]}
               >
-                <Button
-                  color="#fff "
-                  bg="rgba(43, 41, 69, 1)"
-                  w={[0, 0, "100px", "100px"]}
-                  h={[0, 0, "40px", "40px"]}
-                >
-                  Entrar
-                </Button>
-                <Button
-                  color="#fff "
-                  bg="rgba(43, 41, 69, 1)"
-                  w={[0, 0, "100px", "100px"]}
-                  h={[0, 0, "40px", "40px"]}
-                >
-                  Cadastrar
-                </Button>
+                <LoginDash />
+                <RegisterDash />
               </Box>
             </Box>
-          </Box>
-          <Box
-            p="5px"
-            display={["flex", "flex", "none", "none"]}
-            alignItems={"center"}
-            justifyContent="center"
-            gap={5}
-            mt="10px"
-            w={["100vw", "100vw", 0]}
-          >
-            <SearchCity />
           </Box>
         </Box>
       )}
     </>
   );
 };
-

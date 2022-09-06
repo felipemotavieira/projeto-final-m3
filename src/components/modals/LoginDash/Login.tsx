@@ -25,23 +25,16 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../../../context/Context";
+import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 
 interface ILoginData {
   email: string;
   password: string;
 }
 
-interface PropsStyle {
-  bg?: string;
-  w?: string;
-  h?: string;
-  borderRadius?: string;
-  text?: string;
-}
-
-export const Login = ({ bg, w, borderRadius, h, text }: PropsStyle) => {
+export const LoginDash = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { onSubmitLogin } = useContext(UserContext);
+  const { onSubmitLoginDash } = useContext(UserContext);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const handleClick = () => setShow(!show);
@@ -71,7 +64,7 @@ export const Login = ({ bg, w, borderRadius, h, text }: PropsStyle) => {
   };
 
   const submitLogin = async (data: ILoginData) => {
-    let verify = await onSubmitLogin(data);
+    let verify = await onSubmitLoginDash(data);
 
     verify
       ? handleSuccess()
@@ -87,16 +80,16 @@ export const Login = ({ bg, w, borderRadius, h, text }: PropsStyle) => {
     <>
       <Button
         boxShadow="2xl"
-        w={"250px"}
-        h={"60px"}
-        borderRadius={"30px"}
+        w={[0, 0, "100px", "100px"]}
+        h={[0, 0, "40px", "40px"]}
+        borderRadius={"0.375rem"}
         color="white"
-        backgroundColor={"#21BA71"}
-        _hover={{ backgroundColor: "#3fc4a1" }}
-        _active={{ backgroundColor: "#21BA71" }}
+        backgroundColor={"rgba(43, 41, 69, 1)"}
+        _hover={{ backgroundColor: "#201d5a" }}
+        _active={{ backgroundColor: "rgba(43, 41, 69, 1)" }}
         onClick={onOpen}
       >
-        Login
+        Entrar
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
