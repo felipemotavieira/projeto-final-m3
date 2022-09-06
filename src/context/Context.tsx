@@ -355,6 +355,7 @@ export const Context = ({ children }: IContextProviderProps) => {
 
   return (
     <UserContext.Provider
+
       value={{
         user,
         users,
