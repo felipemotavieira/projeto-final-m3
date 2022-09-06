@@ -5,8 +5,7 @@ import { Register } from "../../modals/Register/Register";
 import AnimationWindows from "../../Animation/AnimationWindows";
 import Logo from "../../Logo/Logo"
 import AnimationMobile from "../../AnimationMobile/AnimationMobile";
-import { Post } from "../../modals/Post/Post";
-import { useState } from "react";
+
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -16,14 +15,8 @@ export const LandingPage = () => {
     navigate("/dashboard", { replace: true });
   };
 
-
-
-
   return (
     
-    <>
-      
-
       <Flex
         minHeight="inherit"
         w={["100%", "100%", "80%", "80%"]}
@@ -64,7 +57,7 @@ export const LandingPage = () => {
             </Text>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
-            <Login />
+            <Login bg={undefined} borderRadius="btn_land"/>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
             <Button
@@ -84,22 +77,17 @@ export const LandingPage = () => {
 
           <Flex justify={["center", "center", "start"]}>
             <Text textAlign={["center", "start"]} w="max-content">
-              {" "}
-              " Ainda não tem conta?
               <Register />
             </Text>
-            <Post></Post>
           </Flex>
         </Flex>
         
-           
           <Flex align="center">
             <AnimationWindows />
           </Flex>
         
        
       </Flex>
-    </>
     
   );
 };

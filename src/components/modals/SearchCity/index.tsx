@@ -30,36 +30,17 @@ interface ICityData {
   cityId: string; // id da cidade da para fazer uma requisição na api do IBGE e trazer o nome da cidade
 }
 
-interface ILocal {
-  cityId: string;
-  state: string;
-  cityName: string;
-}
-
-interface IPosts {
-  postImage: string;
-  title: string;
-  description: string;
-  localization: ILocal;
-  category: null;
-  likes: null;
-  saved: null;
-  comments: null;
-  userId: number;
-  id?: number;
-}
-
 export const SearchCity = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { posts } = useContext(UserContext);
-  const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([]);
+  const { posts, getPosts, searchCityPost, postsFiltered } =
+    useContext(UserContext);
 
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
-      : ExternalAPI.get(`/${uf}/municipios`, {
+      : ExternalAPI.get(`estados/${uf}/municipios`, {
           params: {
             orderBy: "nome",
           },
@@ -73,21 +54,14 @@ export const SearchCity = () => {
   const handleSubmitCity = (data: ICityData) => {
     if (data.cityId) {
       searchCityPost(data.cityId);
-
+      onClose();
     }
-  };
-
-  const searchCityPost = (id: string) => {
-    // função que será realizada quando o usuário pesquisar uma cidade
-    const cityFilter = posts.filter((post) => post.cityId === id);
-    //setPostsFiltered(cityFilter) // array dos post da cidade que o usuário pesquisou -- acho q seria interessante deixar no contexto pois esse array é utilizado para renderizar os posts que o usuário selecionou q quer ir
-    setCities([]);
-    onClose();
   };
 
   return (
     <>
-      
+      {/* <Button onClick={onOpen}><Image src={SearchIcon} h='24px' pr='10px'/>
+            Pesquisar</Button> */}
       <Button
         display="flex"
         onClick={onOpen}
@@ -98,18 +72,17 @@ export const SearchCity = () => {
       >
         Pesquisar<Image src="./iconelupa.png" w={["30px"]} h={["28px"]}></Image>
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Encontrar destino</ModalHeader>
           <ModalCloseButton />
-          <ModalBody >
+          <ModalBody>
             <form onSubmit={handleSubmit(handleSubmitCity)}>
               <Select
-               borderRadius="15px"
-               mb="15px"
-               bg={"rgba(240, 240, 240, 1)"}
+                borderRadius="15px"
+                mb="15px"
+                bg={"rgba(240, 240, 240, 1)"}
                 {...register("state")}
                 onChange={(e) => handleOnChange(e.target.value)}
               >
@@ -141,13 +114,16 @@ export const SearchCity = () => {
                 <option value="SP">São Paulo</option>
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
-              </Select >
+              </Select>
               {cities.length > 0 ? (
-                <Select borderRadius="15px" bg={"rgba(240, 240, 240, 1)"} {...register("cityId")}>
+                <Select
+                  borderRadius="15px"
+                  bg={"rgba(240, 240, 240, 1)"}
+                  {...register("cityId")}
+                >
                   {cities.map((elem) => {
                     return (
                       <option value={elem.id} key={elem.id}>
-
                         {elem.nome}
                       </option>
                     );
@@ -156,7 +132,6 @@ export const SearchCity = () => {
               ) : (
                 <Select isDisabled={true} placeholder="Cidades"></Select>
               )}
-
               <Button
                 type="submit"
                 boxShadow="2xl"
@@ -164,7 +139,7 @@ export const SearchCity = () => {
                 borderRadius="30px"
                 color="white"
                 backgroundColor="#21BA71"
-                _hover={{ backgroundColor: "#3fc4a1" }}
+                _hover={{ backgroundColor: "#3FC4A1" }}
                 _active={{ backgroundColor: "#21BA71" }}
               >
                 Pesquisar cidade
@@ -174,7 +149,7 @@ export const SearchCity = () => {
           <ModalFooter display="flex" justifyContent="start" py="10px">
             <Button
               backgroundColor="#21BA71"
-              _hover={{ backgroundColor: "#3fc4a1" }}
+              _hover={{ backgroundColor: "#3FC4A1" }}
               _active={{ backgroundColor: "#21BA71" }}
               borderRadius="20px"
               colorScheme="blue"
