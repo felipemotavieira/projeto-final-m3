@@ -104,7 +104,6 @@ interface IUserProviderData {
   deleteUser: () => Promise<any>;
   onSubmitRegister: (data: ISubmitData) => Promise<boolean>;
   onSubmitLogin: (data: ILoginData) => Promise<boolean>;
-  onSubmitLoginDash: (data: ILoginData) => Promise<boolean>;
   posts: IPosts[];
   getPosts: () => Promise<any>;
   getPostsId: () => Promise<any>;
@@ -194,21 +193,6 @@ export const Context = ({ children }: IContextProviderProps) => {
   };
 
   const onSubmitLogin = async (data: ILoginData | boolean) => {
-    const response = await InternalAPI.post("/login", data)
-      .then((response) => {
-        setUser(response.data.user);
-        localStorage.setItem("@TOKEN", response.data.accessToken);
-        localStorage.setItem("@USERID", response.data.user.id);
-        return true;
-      })
-      .catch((error: any) => {
-        console.log(error);
-        return false;
-      });
-    return response;
-  };
-
-  const onSubmitLoginDash = async (data: ILoginData | boolean) => {
     const response = await InternalAPI.post("/login", data)
       .then((response) => {
         setUser(response.data.user);
@@ -381,7 +365,6 @@ export const Context = ({ children }: IContextProviderProps) => {
         deleteUser,
         onSubmitRegister,
         onSubmitLogin,
-        onSubmitLoginDash,
         getPosts,
         posts,
         getPostsId,
@@ -397,7 +380,6 @@ export const Context = ({ children }: IContextProviderProps) => {
         cityPost,
         loading,
         setLoading,
-
       }}
     >
       {children}
