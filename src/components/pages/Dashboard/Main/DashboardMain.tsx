@@ -52,11 +52,11 @@ export const DashboardMain = () => {
     if (cityId && token) {
       // cidade definida
       getPostsCity(cityId);
-      setPostsFiltered([]);
+      // setPostsFiltered([]);
     } else {
       // sem cidade definida
       setPosts([]);
-      setPostsFiltered([]);
+      // setPostsFiltered([]);
       setCityPost([...posts]);
       setTimeout(() => {
         setLoading(false)
