@@ -55,14 +55,14 @@ export const DashboardMain = () => {
       // setPostsFiltered([]);
     } else {
       // sem cidade definida
-      setPosts([]);
+      // setPosts([]);
       // setPostsFiltered([]);
       setCityPost([...posts]);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     }
-  }, []);
+  }, [cityId, posts]);
 
   return (
     <>
@@ -80,7 +80,7 @@ export const DashboardMain = () => {
         justifyContent="center"
       >
         {loading ? (
-          <span className="loader">carregandi</span>
+          <span className="loader"></span>
         ) : postsFiltered.length > 0 ? (
           postsFiltered.map((post) => {
             console.log(post);
