@@ -134,7 +134,7 @@ export const DashboardMain = () => {
         })
       ) : (
         <Box w="50vw" h="80vh" mb="auto">
-          <span>Carregando...</span>
+          <span className="loader"></span>
         </Box>
       )}
 
