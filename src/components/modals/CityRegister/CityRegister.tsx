@@ -118,8 +118,11 @@ export const CityRegister = () => {
 
   return (
     <>
+      <Button bg="rgba(43, 41, 69, 1)" color="#fff" p="0px" w={["30px","30px","100px"]} h={["30px","30px","30px"]} onClick={onOpen}>
+        {" "}
+        <GiCommercialAirplane />{" "}
+      </Button>
 
-      <Button onClick={onOpen}>Cadastrar</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
