@@ -1,6 +1,6 @@
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
-import {Box, UnorderedList} from "@chakra-ui/react";
+import { Box, UnorderedList } from "@chakra-ui/react";
 
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
@@ -55,85 +55,90 @@ export const DashboardMain = () => {
       // setPostsFiltered([]);
     } else {
       // sem cidade definida
-      setPosts([]);
+      // setPosts([]);
       // setPostsFiltered([]);
       setCityPost([...posts]);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     }
-  }, []);
+  }, [cityId, posts]);
 
   return (
     <>
       <Header />
-
-      {loading ? (
-        <span className="loader"></span>
-      ) : postsFiltered.length > 0 ? (
-        
-        postsFiltered.map((post) => {
-          console.log(post);
-          const filterUser = users.find((user) => user.id == post.userId);
-          return (
-            <ContainerPost
-              nameUser={filterUser?.name}
-              id={post.id}
-              title={post.title}
-              message={post.description}
-              photo={post.postImage}
-              cidade={post.cityName}
-              estado={post.state}
-              photoUser={filterUser?.userPhoto}
-              userId={post.userId}
-            />
-          );
-        })
-        
-      ) : cityPost.length && token ? ( // usuario logado e com cidade
-      
-      cityPost.map((post) => {
-          const filterUser = users.find((user) => user.id == post.userId);
-          return (
-            <ContainerPost
-              nameUser={filterUser?.name}
-              id={post.id}
-              title={post.title}
-              message={post.description}
-              photo={post.postImage}
-              cidade={post.cityName}
-              estado={post.state}
-              photoUser={filterUser?.userPhoto}
-              userId={post.userId}
-            />
-          );
-        })
-        
-      ) : posts.length > 0 ? (
-        <UnorderedList mt="150px" mr="20px" mb="20px" w="100%" max-width= "892px" h="max-content" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-        {posts.map((post) => {
-          let filterUser = users.find((user) => user.id == post.userId);
-          return (
-            <ContainerPost
-              nameUser={filterUser?.name}
-              id={post.id}
-              title={post.title}
-              message={post.description}
-              photo={post.postImage}
-              cidade={post.cityName}
-              estado={post.state}
-              photoUser={filterUser?.userPhoto}
-              userId={post.userId}
-            />
-          );
-        })}
-        </UnorderedList>
-      ) : (
-        <Box w="50vw" h="80vh" mb="auto">
+      <UnorderedList
+        mt="150px"
+        mr="20px"
+        mb="20px"
+        w="100%"
+        max-width="892px"
+        h="max-content"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        {loading ? (
           <span className="loader"></span>
-        </Box>
-      )}
-
+        ) : postsFiltered.length > 0 ? (
+          postsFiltered.map((post) => {
+            console.log(post);
+            const filterUser = users.find((user) => user.id == post.userId);
+            return (
+              <ContainerPost
+                nameUser={filterUser?.name}
+                id={post.id}
+                title={post.title}
+                message={post.description}
+                photo={post.postImage}
+                cidade={post.cityName}
+                estado={post.state}
+                photoUser={filterUser?.userPhoto}
+                userId={post.userId}
+              />
+            );
+          })
+        ) : cityPost.length && token ? ( // usuario logado e com cidade
+          cityPost.map((post) => {
+            const filterUser = users.find((user) => user.id == post.userId);
+            return (
+              <ContainerPost
+                nameUser={filterUser?.name}
+                id={post.id}
+                title={post.title}
+                message={post.description}
+                photo={post.postImage}
+                cidade={post.cityName}
+                estado={post.state}
+                photoUser={filterUser?.userPhoto}
+                userId={post.userId}
+              />
+            );
+          })
+        ) : posts.length > 0 ? (
+          posts.map((post) => {
+            let filterUser = users.find((user) => user.id == post.userId);
+            return (
+              <ContainerPost
+                nameUser={filterUser?.name}
+                id={post.id}
+                title={post.title}
+                message={post.description}
+                photo={post.postImage}
+                cidade={post.cityName}
+                estado={post.state}
+                photoUser={filterUser?.userPhoto}
+                userId={post.userId}
+              />
+            );
+          })
+        ) : (
+          <Box w="50vw" h="80vh" mb="auto">
+            <span className="loader"></span>
+          </Box>
+        )}
+      </UnorderedList>
       <Rodape />
     </>
   );

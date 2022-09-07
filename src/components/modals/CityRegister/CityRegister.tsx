@@ -47,7 +47,7 @@ export const CityRegister = () => {
   const [cities, setCities] = useState<Item[]>([]);
   const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { user, setLoading, setCityPost, posts } = useContext(UserContext);
+  const { user, setLoading, setCityPost, posts, setUser } = useContext(UserContext);
   let userId = localStorage.getItem("@USERID");
   let token = localStorage.getItem("@TOKEN");
   const toast = useToast();
@@ -90,7 +90,7 @@ export const CityRegister = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        setUser(res.data);
         onClose();
         toast({
           title: "Cidade definida com sucesso.",
@@ -99,8 +99,8 @@ export const CityRegister = () => {
           isClosable: true,
         });
         setLoading(true);
+        setCityPost([]);
         setTimeout(() => {
-          setCityPost([]);
           const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
           setCityPost([...filter]);
           setLoading(false);

@@ -328,16 +328,18 @@ export const Context = ({ children }: IContextProviderProps) => {
 
   // fazer nova postagem
   const addPost = async (data: IPostData | boolean) => {
+    setLoading(true)
     const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.post(`/posts`, data) // adicionar post
-      .then(() => {
+      .then((res) => {
         toast({
           title: "Post realizado com sucesso!",
           status: "success",
           duration: 3500,
           isClosable: true,
         });
+        setLoading(false)
         return true;
       })
       .catch((err) => {
@@ -350,17 +352,19 @@ export const Context = ({ children }: IContextProviderProps) => {
 
   //editar post
   const patchPost = async (data: IPostData, id: string) => {
+    setPosts([])
+    setLoading(true)
     const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.patch(`/posts/${id}`, data)
       .then((res) => {
-        console.log(res);
         toast({
           title: "Post editado com sucesso!",
           status: "success",
           duration: 3500,
           isClosable: true,
         });
+        setLoading(false)
         return true;
       })
       .catch((err) => {
