@@ -100,7 +100,7 @@ export const Header = () => {
       ) : (
         <HeaderTotal>
           <HeaderCinza>
-            <img src="./icone.png" alt="Logo" />
+            <img onClick={leave} src="./icone.png" alt="Logo" />
             <p>Checkin</p>
           </HeaderCinza>
 
