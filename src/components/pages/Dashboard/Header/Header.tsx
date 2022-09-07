@@ -23,9 +23,13 @@ import { RegisterDash } from "../../../modals/Register-dash/Register";
 import { Login } from "../../../modals/Login/Login";
 import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
+import { HeaderCinza, HeaderVerde, HeaderTotal } from "./header";
+import {ModalLoginHeader} from "./ModalLoginHeader";
+import { ModalRegisterLogin } from "./ModalRegisterHeader";
 
 export const Header = () => {
-  const { user, token, setCityPost, setPostsFiltered } = useContext(UserContext);
+  const { user, token, setCityPost, setPostsFiltered } =
+    useContext(UserContext);
   const navigate = useNavigate();
   const toUserPage = () => {
     navigate("/profile", { replace: true });
@@ -33,198 +37,87 @@ export const Header = () => {
   const leave = () => {
     localStorage.clear();
     navigate("/", { replace: true });
-    setCityPost([])
-    setPostsFiltered([])
+    setCityPost([]);
+    setPostsFiltered([]);
   };
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
-        //NÃO MEXER- SUJEITO A QUEBRAR TUDO
-        <Box w="100vw">
-          <Flex
-            backgroundColor="#F0F0F0"
-            h={["10vh", "9vh", 0, 0]}
-            w={["100vw", "100vw", 0, 0]}
-            justify="center"
-            align="center"
-            gap={3}
-          >
-            <Image
-              src="./icone.png"
-              w={["40px", "40px", 0, 0]}
-              h={["50px", "50px", 0, 0]}
-            ></Image>
-            <Heading fontSize={["30px", "30px", 0, 0]}>Checkin</Heading>
-          </Flex>
-          <Box
-            gap={[0, 0, 20]}
-            display="flex"
-            justifyContent={["center", "center", "center"]}
-            background="#21BA71"
-            h={["8vh", "8vh", "10vh", "11vh"]}
-            w={["100vw"]}
-            alignItems="center"
-          >
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              display="flex"
-              gap={10}
-              w={[0, 0, "80%"]}
-              minWidth={[0, 0, "80%"]}
-              maxWidth={[0, 0, "80%"]}
-              h={[0, 0, "70px"]}
-            >
-              {/* Logo */}
-              <Box
-                display="flex"
-                alignItems="center"
-                w={[0, 0, "max-content"]}
-                gap={3}
-              >
-                <Image
-                  src="./iconebranco.png"
-                  w={[0, 0, "30px", "40px"]}
-                  h={[0, 0, "40px", "50px"]}
-                ></Image>
-                <Text fontSize={[0, 0, "20px", "30px"]} color="#fff">
-                  Checkin
-                </Text>
-              </Box>
-              {/* Botão de pesquisa */}
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent={"center"}
-                w={[0, 0, "400px"]}
-                h={[0, 0, "70px"]}
-                border="none"
-                gap={3}
-              >
-                <SearchCity />
-              </Box>
-              {/* Botão de fazer postagem e de adicionar cidade bem como icone do usuario */}
-              <Box
-                display="flex"
-                w={[0, 0, "200px"]}
-                h={[0, 0, "70px"]}
-                alignItems="center"
-                gap={[0, 0, 3, 5]}
-              >
-                <AddPost />
-                <CityRegister />
-                <Menu>
-                  <MenuButton display={["none", "none", "flex"]}>
-                    <Avatar
-                      name="User Photo"
-                      w="40px"
-                      h="40px"
-                      src={user.userPhoto ? user.userPhoto : NoPhoto}
-                    />
-                  </MenuButton>
-                  <MenuList minW="70px" h="120px">
-                    <MenuItem w="100%" mb="10px">
-                      <Button
-                        onClickCapture={toUserPage}
-                        w="100%"
-                        h="35px"
-                        colorScheme="green"
-                      >
-                        {" "}
-                        <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
-                      </Button>
-                    </MenuItem>
-                    <MenuItem>
-                      <Button
-                        onClickCapture={leave}
-                        w="100%"
-                        h="35px"
-                        colorScheme="red"
-                      >
-                        <Image src={Logout} h="24px" pr="10px" />
-                        Sair
-                      </Button>
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+        <HeaderTotal>
+          <HeaderCinza>
+            <img src="./icone.png" alt="Logo" />
+            <p>Checkin</p>
+          </HeaderCinza>
+          <HeaderVerde>
+            <header>
+            <div>
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="User Photo"
+                    w={["40px","40px", "50px"]}
+                    h={["40px","40px", "50px"]}
+                    src={user.userPhoto ? user.userPhoto : NoPhoto}
+                  />
+                </MenuButton>
+                <MenuList minW="70px" h="120px">
+                  <MenuItem w="100%" mb="10px">
+                    <Button
+                      onClickCapture={toUserPage}
+                      w="100%"
+                      h="35px"
+                      colorScheme="green"
+                    >
+                      {" "}
+                      <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button
+                      onClickCapture={leave}
+                      w="100%"
+                      h="35px"
+                      colorScheme="red"
+                    >
+                      <Image src={Logout} h="24px" pr="10px" />
+                      Sair
+                    </Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              <p>{user.name}</p>
+            </div>
+              
+            <div>
+              <AddPost/>
+              <CityRegister/>
+              <SearchCity/>
+            </div>
+            </header>
+            
+          </HeaderVerde>
+        </HeaderTotal>
       ) : (
-        <Box w="100vw">
-          <Box
-            gap={[0, 0, 20]}
-            display="flex"
-            justifyContent={"center"}
-            background="#21BA71"
-            h={["8vh", "8vh", "10vh", "11vh"]}
-            w={["100vw"]}
-            maxW="100vw"
-            alignItems="center"
-          >
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              display={["flex"]}
-              gap={10}
-              w={[0, 0, "80%"]}
-              minWidth={[0, 0, "80%"]}
-              maxWidth={[0, 0, "80%"]}
-              h={[0, 0, "70px"]}
-            >
-              <Box
-                display={["flex", "flex", "none"]}
-                justifyContent="center"
-                gap={["5", "5", 0]}
-                alignItems="center"
-                minW="100vw"
-              ></Box>
+        <HeaderTotal>
+          <HeaderCinza>
+              <img src="./icone.png" alt="Logo" />
+              <p>Checkin</p>
+          </HeaderCinza>
 
-              {/* Logo */}
-              <Box
-                display="flex"
-                alignItems="center"
-                w={[0, 0, "max-content"]}
-                gap={3}
-              >
-                <Image
-                  src="./iconebranco.png"
-                  w={[0, 0, "30px", "40px"]}
-                  h={[0, 0, "40px", "50px"]}
-                ></Image>
-                <Text fontSize={[0, 0, "20px", "30px"]} color="#fff">
-                  Checkin
-                </Text>
+          <HeaderVerde>
+              <Box display="flex" justifyContent={["space-evenly","space-evenly","space-between"]} w="100%" maxW={"892px"}>
+                
+                  <ModalLoginHeader/>
+                  <SearchCity/>
+                  <ModalRegisterLogin/>
+                  
+                
               </Box>
-
-              {/* Botão de pesquisa */}
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent={"center"}
-                w={[0, 0, "400px"]}
-                h={[0, 0, "70px"]}
-                border="none"
-                gap={3}
-              >
-                <SearchCity />
-              </Box>
-
-              {/* Botões cadastro e login */}
-              <Box
-                display={["none", "none", "flex"]}
-                w={[0, 0, "200px"]}
-                h={[0, 0, "70px"]}
-                alignItems="center"
-                gap={[0, 0, 3, 5]}
-              >
-                <LoginDash />
-                <RegisterDash />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+              
+            </HeaderVerde>
+        
+        </HeaderTotal>
+        
       )}
     </>
   );
