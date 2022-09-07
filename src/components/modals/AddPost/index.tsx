@@ -43,7 +43,6 @@ import {yupResolver} from '@hookform/resolvers/yup'
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [cities, setCities] = useState<Item[]>([]);
     const {posts, addPost} = useContext(UserContext)
-    // const [postsFiltered, setPostsFiltered] = useState<IPosts[]>([])
     const userId = localStorage.getItem('@USERID')
     
     const formSchema = yup.object({
@@ -78,6 +77,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
     }
     
     const handleAddPost = async (data: IPosts) => {
+      console.log(data)
         if (userId){
             data.userId = userId
             data.cityName = await captureCityValue(data.cityId)

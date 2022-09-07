@@ -5,8 +5,7 @@ function AnimationMobile() {
   const [valueScroll, setValueScroll] = useState<number>(0);
 
   window.addEventListener("scroll", (e) => setValueScroll(window.screenY));
-  console.log(valueScroll)
-
+ 
   return (
     <JanelaMobile valueScroll={valueScroll}>
       <svg

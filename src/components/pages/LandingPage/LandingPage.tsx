@@ -86,7 +86,6 @@ export const LandingPage = () => {
             <AnimationWindows />
           </Flex>
         
-       
       </Flex>
     
   );

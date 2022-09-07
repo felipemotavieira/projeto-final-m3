@@ -7,26 +7,27 @@ import {
   FormLabel,
   Input
 } from "@chakra-ui/react";
-import { useState, MouseEvent, Dispatch, SetStateAction } from "react";
+import { useState, MouseEvent, Dispatch, SetStateAction, useContext, useEffect} from "react";
 import { ProfileForm } from "./styles";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
-import {Idata} from "../../pages/Profile/Profile"
 import {ModalDelete} from "../ModalDelete/ModalDelete"
+import { UserContext } from "../../../context/Context";
 
 
+function ProfileMain() {
+   const {user, deleteUser, getUsers, users} = useContext(UserContext);
+  
+   useEffect(() => {
+    console.log(user)
+   }, [user])
 
-interface IProfileMainProps {
-  data:Idata;
-}
-
-function ProfileMain({data}:IProfileMainProps) {
-  const {email, name, userPhoto} = data;
   const [modalDeleteOpen, setModalDeleteOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
-  const [modalEditeOpen, setModalEditeOpen] = useState<  boolean| Dispatch<SetStateAction<boolean>>>(false)
+  const [modalEditeOpen, setModalEditeOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
 
   const handleToEditeProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setModalEditeOpen(true)
+    getUsers()
   }
   const handleToDeleteProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -42,7 +43,20 @@ function ProfileMain({data}:IProfileMainProps) {
     >
      
       {
-        modalDeleteOpen && <ModalDelete setModalOpen ={setModalDeleteOpen}  title={"Confirmação de Exclusão"} message={"Você tem certeza de que deseja exluir?"}message2={"Não é possível recuperar novamente"} />
+        modalDeleteOpen && <ModalDelete setModalOpen ={setModalDeleteOpen}  title={"Confirmação de Exclusão"} message={"Você tem certeza de que deseja exluir?"} message2={"Não é possível recuperar novamente"}>
+         <Button
+            onClick={deleteUser}
+            width="100%"
+            borderRadius="25px"
+            height="50px"
+            color="white"
+            type="submit"
+            mt="20px"
+            backgroundColor= "#21BA71" 
+          >
+            Excluir
+          </Button>
+        </ModalDelete>
       }
 
       {
@@ -61,7 +75,8 @@ function ProfileMain({data}:IProfileMainProps) {
             borderRadius="42px"
             height="50px"
             type="text"
-            value={name}
+            value={user.name}
+            // onChange={()=> {}}
             padding=" 0 25px"
           />
         </FormControl>
@@ -74,8 +89,8 @@ function ProfileMain({data}:IProfileMainProps) {
             height="50px"
             type="text"
             padding=" 0 25px"
-            placeholder= { !userPhoto ? "Adicione uma URL para completar o seu perfil": ''}
-            value={ userPhoto? userPhoto :''}
+            placeholder= { !user.userPhoto ? "Adicione uma URL para completar o seu perfil": ''}
+            value={ user.userPhoto? user.userPhoto :''}
           />
         </FormControl>
         <FormControl>
@@ -85,12 +100,12 @@ function ProfileMain({data}:IProfileMainProps) {
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
-            value={email}
+            value={user.email}
             padding=" 0 25px"
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Cidades que gostária de conhecer</FormLabel>
+          <FormLabel>Cidade que gostaria de conhecer</FormLabel>
           <Select
             width="100%"
             backgroundColor="#dedede"
@@ -100,9 +115,6 @@ function ProfileMain({data}:IProfileMainProps) {
             <option value="adicionar">
               Adicionar funcionalidade no javascript
             </option>
-
-
-
 
           </Select>
         </FormControl>

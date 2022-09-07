@@ -60,8 +60,6 @@ export const SearchCity = () => {
 
   return (
     <>
-      {/* <Button onClick={onOpen}><Image src={SearchIcon} h='24px' pr='10px'/>
-            Pesquisar</Button> */}
       <Button
         display="flex"
         onClick={onOpen}

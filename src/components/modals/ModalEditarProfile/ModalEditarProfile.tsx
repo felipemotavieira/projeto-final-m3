@@ -1,4 +1,10 @@
-import { FormControl, FormLabel, Input, FormErrorMessage} from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  useToast,
+} from "@chakra-ui/react";
 import ContainerModal from "../../ContainerModal/ContainerModal";
 import { ButtonsModal } from "../../ButtonsModal/ButtonsModal";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
@@ -8,18 +14,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
-
-interface IEditeData{
-  name?:string;
+interface IEditeData {
+  name?: string;
   email?: string;
-  userPhoto?:string;
-  
+  userPhoto?: string;
 }
 
 export const ModalEditarProfile = (data: any) => {
   const { modalEditeOpen, setModalEditeOpen } = data;
-  const {user} = useContext(UserContext)
+  const { user, getUsers, setUser } = useContext(UserContext);
   let token = localStorage.getItem("@TOKEN");
+  const toast = useToast();
 
   const closeModalEditar = () => {
     setModalEditeOpen(false);
@@ -37,22 +42,29 @@ export const ModalEditarProfile = (data: any) => {
     resolver: yupResolver(formSchema),
   });
 
-
   const editarProfile = (data: any) => {
-
     for (const property in data) {
-      if(data[property].trim() === "" || data[property].trim() === undefined ){
-          delete data[property];
+      if (data[property].trim() === "" || data[property].trim() === undefined) {
+        delete data[property];
       }
     }
-           
-       InternalAPI.patch(`/users/${user.id}`, data,  {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    InternalAPI.patch(`/users/${user.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUser(res.data);
+        closeModalEditar();
+        toast({
+          title: "Perfil editado com sucesso.",
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        });
       })
-       .then(res=> closeModalEditar()).catch(err => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -63,62 +75,61 @@ export const ModalEditarProfile = (data: any) => {
             title={"Edite suas informações"}
           >
             <form onSubmit={handleSubmit(editarProfile)}>
-            <FormControl mb="10px" width="100%"
-            isInvalid={!!errors?.name?.message}
-            >
-              <FormLabel>Nome</FormLabel>
-              <Input
-                {...register("name")}
+              <FormControl
+                mb="10px"
                 width="100%"
-                backgroundColor="#dedede"
-                borderRadius="42px"
-                height="50px"
-                type="text"
-                placeholder="Seu nome"
-                padding=" 0 25px"
-              />
-            <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl mb="10px"
-            isInvalid={!!errors?.userPhoto?.message}>
-              <FormLabel>Foto Perfil</FormLabel>
-              <Input
-                {...register("userPhoto")}
-                width="100%"
-                backgroundColor="#dedede"
-                borderRadius="42px"
-                height="50px"
-                type="text"
-                placeholder="URL da imagem"
-                padding=" 0 25px"
-              />
-            <FormErrorMessage>{errors?.userPhoto?.message}</FormErrorMessage>
-            </FormControl >
-            <FormControl mb="10px" isInvalid={!!errors?.email?.message}>
-              <FormLabel>Email</FormLabel>
-              <Input
-                {...register("email")}
-                width="100%"
-                backgroundColor="#dedede"
-                borderRadius="42px"
-                height="50px"
-                type="text"
-                placeholder="exemplo@email.com"
-                padding=" 0 25px"
-              />
-              <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
-            </FormControl>
-            <ButtonsModal
-              titlebtn="Editar"
-              type="prosseguir"
-            ></ButtonsModal>
-            <ButtonsModal
-              titlebtn="Cancelar"
-              type="cancelar"
-              functionOnclick={closeModalEditar}
-            ></ButtonsModal>
+                isInvalid={!!errors?.name?.message}
+              >
+                <FormLabel>Nome</FormLabel>
+                <Input
+                  {...register("name")}
+                  width="100%"
+                  backgroundColor="#dedede"
+                  borderRadius="42px"
+                  height="50px"
+                  type="text"
+                  placeholder="Seu nome"
+                  padding=" 0 25px"
+                />
+                <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl mb="10px" isInvalid={!!errors?.userPhoto?.message}>
+                <FormLabel>Foto Perfil</FormLabel>
+                <Input
+                  {...register("userPhoto")}
+                  width="100%"
+                  backgroundColor="#dedede"
+                  borderRadius="42px"
+                  height="50px"
+                  type="text"
+                  placeholder="URL da imagem"
+                  padding=" 0 25px"
+                />
+                <FormErrorMessage>
+                  {errors?.userPhoto?.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl mb="10px" isInvalid={!!errors?.email?.message}>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  {...register("email")}
+                  width="100%"
+                  backgroundColor="#dedede"
+                  borderRadius="42px"
+                  height="50px"
+                  type="text"
+                  placeholder="exemplo@email.com"
+                  padding=" 0 25px"
+                />
+                <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+              </FormControl>
+              <ButtonsModal titlebtn="Editar" type="prosseguir"></ButtonsModal>
+              <ButtonsModal
+                titlebtn="Cancelar"
+                type="cancelar"
+                functionOnclick={closeModalEditar}
+              ></ButtonsModal>
             </form>
-            
           </ContainerModal>
         </>
       )}

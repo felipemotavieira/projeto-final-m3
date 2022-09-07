@@ -3,8 +3,10 @@ import ProfileMain from "../../../components/modals/ProfileMain/ProfileMain";
 import ModalInfo from "../../modals/ModalInfo/ModalInfo";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
-import { Header } from "../Dashboard/Header/Header";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
+import { HeaderProfile } from "../Dashboard/Header-profile/Header";
+import NoPhoto from "../../../assets/no-photo.png";
+import { filter } from "@chakra-ui/react";
 
 export interface Idata {
   email: string;
@@ -15,54 +17,41 @@ export interface Idata {
 }
 
 export const Profile = () => {
-  const [data, setData] = useState<Idata>({} as Idata);
   const { users, user, getPosts, posts, getUsers } = useContext(UserContext);
 
   useEffect(() => {
     getPosts();
     getUsers();
-  }, []);
+  }, [posts, user]);
 
-  useEffect(() => {
-    let token = localStorage.getItem("@TOKEN");
-    token
-      ? InternalAPI.get(`/users/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((response: { data: SetStateAction<Idata> }) =>
-            setData(response.data)
-          )
-          .catch((error: any) => {
-            console.log(error);
-          })
-      : localStorage.clear();
-  }, []);
+//  const filtered = posts.filter(post => post.userId == user.id)
 
   return (
     <>
-      <Header />
-      <ProfileMain data={data} />
+      <HeaderProfile />
+      <ProfileMain  />
 
-      {posts ? (
+      {
+        posts.filter((post) => post.userId == user.id).length > 0 ? (
         posts
-          .filter((post) => post.userId === user.id)
+          .filter((post) => post.userId == user.id)
           .map((post) => {
-            let filter = users.find((user) => user.id === post.userId);
-            return (
-              <ContainerPost
-                nameUser={filter?.name}
-                id={post.id}
-                title={post.title}
-                message={post.description}
-                photo={post.postImage}
-                cidade={post.cityName}
-                estado={post.state}
-                photoUser={filter?.userPhoto}
-                userId={post.userId}
-              />
-            );
+            const filter = users.find((user) => {
+              return user.id == post.userId
+            });
+              return (
+                <ContainerPost key={post.id}
+                  nameUser={filter?.name}
+                  id={post.id}
+                  title={post.title}
+                  message={post.description}
+                  photo={post.postImage}
+                  cidade={post.cityName}
+                  estado={post.state}
+                  photoUser={filter?.userPhoto}
+                  userId={post.userId}
+                />
+              );
           })
       ) : (
         <ModalInfo />

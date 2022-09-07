@@ -1,13 +1,23 @@
 import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
-import { Box, Button, Image, Link, ScaleFade, Text, UnorderedList, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Image,
+  Link,
+  ScaleFade,
+  Text,
+  UnorderedList,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
-import { AiFillLinkedin, AiOutlineGithub } from 'react-icons/ai';
+import { AiFillLinkedin, AiOutlineGithub } from "react-icons/ai";
 
 export const DashboardMain = () => {
-  const { isOpen, onToggle } = useDisclosure()
+  const { isOpen, onToggle } = useDisclosure();
   const {
     users,
     user,
@@ -38,27 +48,29 @@ export const DashboardMain = () => {
         },
       })
         .then((response) => {
-          setCityPost(response.data)
-          setLoading(false)
-          window.location.reload()
+          setCityPost(response.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
         })
         .catch((error: any) => {
           console.log(error);
-          
         });
       return response;
     };
 
-    if (cityId) {
+    if (cityId && token) {
       // cidade definida
       getPostsCity(cityId);
-      setPostsFiltered([]);
+      // setPostsFiltered([]);
     } else {
       // sem cidade definida
       setPosts([]);
-      setPostsFiltered([]);
+      // setPostsFiltered([]);
       setCityPost([...posts]);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
   }, []);
 
@@ -71,7 +83,7 @@ export const DashboardMain = () => {
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
           console.log(post);
-          const filterUser = users.find((user) => user.id === post.userId);
+          const filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
@@ -88,7 +100,7 @@ export const DashboardMain = () => {
         })
       ) : cityPost.length && token ? ( // usuario logado e com cidade
         cityPost.map((post) => {
-          const filterUser = users.find((user) => user.id === post.userId);
+          const filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
@@ -105,8 +117,7 @@ export const DashboardMain = () => {
         })
       ) : posts.length > 0 ? (
         posts.map((post) => {
-          let filterUser = users.find((user) => user.id === post.userId);
-          console.log(users);
+          let filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
               nameUser={filterUser?.name}
@@ -123,7 +134,7 @@ export const DashboardMain = () => {
         })
       ) : (
         <Box w="50vw" h="80vh" mb="auto">
-          <Image src="./Atenção.png"></Image>
+          <span>Carregando...</span>
         </Box>
       )}
 
@@ -141,8 +152,9 @@ export const DashboardMain = () => {
               alignItems="center"
               p="10px"
               
-            >
+             >
               <Box w={["100%", "100%", "70%"]} gap={5} >
+                
               <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text fontSize={["15px", "15px", "18px"]} w="130px">Felipe Vieira</Text>
                 <Text fontSize={["15px", "15px", "18px"]} w="150px">Tech Lead</Text>
@@ -197,10 +209,21 @@ export const DashboardMain = () => {
                   <AiOutlineGithub size="30px" />
                 </Link>
               </Box>
-              </Box>
             </Box>
-          </ScaleFade>
-          <Button borderRadius="none" w="100vw" bg="rgba(33, 186, 113, 1)" _hover={{bg:"rgba(33, 186, 113, 1)"}} color="#FFF" onClick={onToggle} fontSize="15px">Todos os direitos reservados. Clique!</Button>
+          </Box>
+
+      </ScaleFade>
+      <Button
+        borderRadius="none"
+        w="100vw"
+        bg="rgba(33, 186, 113, 1)"
+        _hover={{ bg: "rgba(33, 186, 113, 1)" }}
+        color="#FFF"
+        onClick={onToggle}
+        fontSize="15px"
+      >
+        Todos os direitos reservados. Clique!
+      </Button>
     </>
   );
 };
