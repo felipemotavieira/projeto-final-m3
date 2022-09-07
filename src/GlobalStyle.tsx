@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   align-items: center;
   background-color: #F5F5F5;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .loader {
@@ -66,6 +67,62 @@ const GlobalStyle = createGlobalStyle`
     transform: scale(1);
   }
 }
+
+@keyframes slideB {
+
+  0% {
+    -webkit-transform: translateY(-110px);
+            transform: translateY(-110px);
+            opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+            opacity: 1;
+  }
+}
+
+
+@keyframes slideB {
+
+0% {
+  -webkit-transform: translateY(-110px);
+          transform: translateY(-110px);
+          opacity: 0;
+}
+100% {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+          opacity: 1;
+}
+}
+
+@keyframes slideT {
+
+0% {
+  -webkit-transform: translateY(110px);
+          transform: translateY(110px);
+          opacity: 0;
+}
+100% {
+  -webkit-transform: translateY(0px);
+          transform: translateY(0px);
+          opacity: 1;
+}
+}
+
+@keyframes Font {
+
+0% {
+          opacity: 0;
+}
+100% {
+          opacity: 1;
+}
+}
+
+
+
   
 `;
 

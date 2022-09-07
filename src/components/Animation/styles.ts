@@ -20,6 +20,7 @@ export const Janela = styled.div<Ivalue>`
   justify-content: center;
   align-items: center;
   animation: ${svganimation} 1s forwards;
+  animation: slideT 2s forwards;
 
   img {
     width: 100%;

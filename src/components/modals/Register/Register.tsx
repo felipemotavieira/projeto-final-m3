@@ -81,15 +81,18 @@ export const Register = () => {
   return (
     <>
       <Button
+       marginBottom={"45px"}
         color="black"
         _hover={{ color: "#21a968" }}
         bg="none"
         onClick={onOpen}
+        display={"flex"}
+        flexWrap ="wrap"
       >
-        Ainda não possui uma conta? Cadastre-se aqui
+      Ainda não possui uma conta? Cadastre-se aqui
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
         <ModalContent
           display="flex"
