@@ -89,13 +89,13 @@ export const FormEditarPost = (data:Idata) => {
         <FormControl mb="10px" width="100%" isInvalid={!!errors?.title?.message}>
           <FormLabel>Imagem</FormLabel>
           <Input
-            {...register('title')}
+            {...register('postImage')}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
             type="text"
-            placeholder="Seu nome"
+            placeholder="URL da imagem"
             padding=" 0 25px"
           />
           <FormErrorMessage>{errors?.title?.message}</FormErrorMessage>
@@ -104,13 +104,13 @@ export const FormEditarPost = (data:Idata) => {
         <FormControl mb="10px" isInvalid={!!errors?.postImage?.message}>
           <FormLabel>Título</FormLabel>
           <Input
-            {...register("postImage")}
+            {...register("title")}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
             height="50px"
             type="text"
-            placeholder="URL da imagem"
+            placeholder="Título da postagem"
             padding=" 0 25px"
           />
           <FormErrorMessage>{errors?.postImage?.message}</FormErrorMessage>

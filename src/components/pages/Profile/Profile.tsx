@@ -22,7 +22,7 @@ export const Profile = () => {
   useEffect(() => {
     getPosts();
     getUsers();
-  }, []);
+  }, [posts, user]);
 
 //  const filtered = posts.filter(post => post.userId == user.id)
 

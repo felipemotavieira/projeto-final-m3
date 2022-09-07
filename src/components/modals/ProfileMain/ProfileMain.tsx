@@ -15,13 +15,11 @@ import { UserContext } from "../../../context/Context";
 
 
 function ProfileMain() {
-   const {user, deleteUser, getUsersId} = useContext(UserContext);
-   const userId = localStorage.getItem('@USERID') as string;
-
-  //  useEffect(() => {
-  //   const response = getUsersId(+userId).then(res => console.log(res))
-  //   console.log(response)
-  //  }, [])
+   const {user, deleteUser, getUsers, users} = useContext(UserContext);
+  
+   useEffect(() => {
+    console.log(user)
+   }, [user])
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
   const [modalEditeOpen, setModalEditeOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
@@ -29,6 +27,7 @@ function ProfileMain() {
   const handleToEditeProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setModalEditeOpen(true)
+    getUsers()
   }
   const handleToDeleteProfile = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -77,6 +76,7 @@ function ProfileMain() {
             height="50px"
             type="text"
             value={user.name}
+            // onChange={()=> {}}
             padding=" 0 25px"
           />
         </FormControl>

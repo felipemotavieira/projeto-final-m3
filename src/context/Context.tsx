@@ -97,6 +97,7 @@ interface IPosts {
 
 interface IUserProviderData {
   user: IUser;
+  setUser: Dispatch<SetStateAction<IUser>>
   users: IUsers[];
   usersId: IUsersId;
   getUsers: () => Promise<any>;
@@ -321,7 +322,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.patch(`users/${userId}`, data)
       .then(() => true)
       .catch(() => false);
-      getUsers()
+      // getUsers()
     return response;
   };
 
@@ -406,6 +407,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         cityPost,
         loading,
         setLoading,
+        setUser
       }}
     >
       {children}
