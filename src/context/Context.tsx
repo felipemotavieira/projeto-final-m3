@@ -273,23 +273,12 @@ export const Context = ({ children }: IContextProviderProps) => {
         isClosable: true,
       });
     } else {
-      if (token) {
-        toast({
-          title:
-            "Está cidade não possui postagens. Você está visualizando postagens da cidade que gostaria de conhecer.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title:
-            "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      }
+      toast({
+        title: "Está cidade ainda não possui postagens.",
+        status: "warning",
+        duration: 2500,
+        isClosable: true,
+      });
     }
   };
 

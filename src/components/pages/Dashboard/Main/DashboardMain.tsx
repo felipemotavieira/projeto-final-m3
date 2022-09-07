@@ -79,7 +79,7 @@ export const DashboardMain = () => {
       <Header />
 
       {loading ? (
-        <span>Carregando...</span>
+        <span className="loader"></span>
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
           console.log(post);
