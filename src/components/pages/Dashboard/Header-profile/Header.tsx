@@ -84,7 +84,7 @@ export const HeaderProfile = () => {
                 gap={[0, 0, 3, 5]}
               >
                 <AddPost />
-                <CityRegister />
+                {/* <CityRegister /> */}
                 <Menu>
                   <MenuButton display={["none", "none", "flex"]}>
                     <Avatar
