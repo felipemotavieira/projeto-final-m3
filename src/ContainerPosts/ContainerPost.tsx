@@ -102,7 +102,6 @@ function ContainerPost({
       )}
 
       <Flex
-        
         margin={"25px"}
         backgroundColor="#ffffff"
         maxWidth="892px"
@@ -171,10 +170,22 @@ function ContainerPost({
 
             {user.id == userId && token && (
               <Flex width={"100%"} display="flex" gap={3}>
-                <Button backgroundColor={"#2B2945"} onClick={handleEdite}>
+                <Button
+                  backgroundColor={"#2B2945"}
+                  transition="0.3s"
+                  _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
+                  _active={{ bg: "#2B2945" }}
+                  onClick={handleEdite}
+                >
                   <EditIcon color={"white"}></EditIcon>
                 </Button>
-                <Button backgroundColor={"#EA4141"} onClick={handleDeleta}>
+                <Button
+                  backgroundColor={"#EA4141"}
+                  transition="0.3s"
+                  _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
+                  _active={{ bg: "#EA4141" }}
+                  onClick={handleDeleta}
+                >
                   <DeleteIcon color={"white"}></DeleteIcon>
                 </Button>
               </Flex>

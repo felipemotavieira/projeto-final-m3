@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   align-items: center;
   background-color: #F5F5F5;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .loader {
