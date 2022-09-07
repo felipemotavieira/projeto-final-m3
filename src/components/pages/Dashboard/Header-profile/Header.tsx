@@ -14,8 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { AddPost } from "../../../modals/AddPost";
-import { HeaderCinza, HeaderVerde } from "../Header/header";
-
+import { HeaderCinza, HeaderVerde } from "../Header/headerStyled";
 
 export const HeaderProfile = () => {
   const { user, token } = useContext(UserContext);
@@ -46,8 +45,8 @@ export const HeaderProfile = () => {
                   <MenuButton>
                     <Avatar
                       name="User Photo"
-                      w={["40px","40px", "50px"]}
-                      h={["40px","40px", "50px"]}
+                      w={["40px", "40px", "50px"]}
+                      h={["40px", "40px", "50px"]}
                       src={user.userPhoto ? user.userPhoto : NoPhoto}
                     />
                   </MenuButton>

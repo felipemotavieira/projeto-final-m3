@@ -1,10 +1,10 @@
-import { Header } from "../Header/Header";
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
-import {Box} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
 import { Rodape } from "../Rodape/rodape";
+import { Header } from "../Header/Header";
 
 export const DashboardMain = () => {
   const {
@@ -127,7 +127,7 @@ export const DashboardMain = () => {
         </Box>
       )}
 
-      <Rodape/>
+      <Rodape />
     </>
   );
 };
