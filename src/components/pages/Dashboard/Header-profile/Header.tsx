@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { AddPost } from "../../../modals/AddPost";
-import { HeaderCinza, HeaderVerde } from "../Header/header";
+import { HeaderCinza, HeaderVerde } from "../Header/headerStyled";
 
 
 export const HeaderProfile = () => {

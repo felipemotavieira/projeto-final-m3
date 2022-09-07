@@ -23,7 +23,7 @@ import { RegisterDash } from "../../../modals/Register-dash/Register";
 import { Login } from "../../../modals/Login/Login";
 import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
-import { HeaderCinza, HeaderVerde, HeaderTotal } from "./header";
+import { HeaderCinza, HeaderVerde, HeaderTotal } from "./headerStyled";
 import {ModalLoginHeader} from "./ModalLoginHeader";
 import { ModalRegisterLogin } from "./ModalRegisterHeader";
 

@@ -54,7 +54,7 @@ export const DashboardMain = () => {
       // setPostsFiltered([]);
     } else {
       // sem cidade definida
-      setPosts([]);
+      // setPosts([]);
       // setPostsFiltered([]);
       setCityPost([...posts]);
       setTimeout(() => {

@@ -37,7 +37,7 @@ interface Item {
 
 export const FormEditarPost = (data:Idata) => {
   const {id} = data
-  const {user, patchPost} = useContext(UserContext)
+  const {user, patchPost, getPosts} = useContext(UserContext)
 
   const formSchema = yup.object().shape({
     email: yup.string().email("E-mail inválido"),
@@ -69,16 +69,24 @@ export const FormEditarPost = (data:Idata) => {
           .catch((error) => console.log(error));
   };
 
+  const captureCityValue = async (cityId: string) => {
+    const response = await ExternalAPI.get(`/municipios/${cityId}`);
+    return response.data.nome;
+  };
 
-  const editarProfile = (dados: any) => {
+  const editarProfile = async (dados: any) => {
 
     for (const property in dados) {
       if (dados[property].trim() === "" || dados[property].trim() === undefined) {
         delete dados[property];
       }else{
         dados.userId = user.id
+        if(dados.cityId){
+          dados.cityName = await captureCityValue(dados.cityId)
+        }
       }
     }
+    getPosts()
     patchPost({...dados}, id)
   };
 
@@ -176,7 +184,7 @@ export const FormEditarPost = (data:Idata) => {
           <FormLabel>Adicionar cidade</FormLabel>
           {cities.length > 0 ? (
             <Select
-              {...register('cityName')}
+              {...register('cityId')}
               width="100%"
               backgroundColor="#dedede"
               borderRadius="42px"
@@ -185,7 +193,7 @@ export const FormEditarPost = (data:Idata) => {
             >
               {cities.map((elem) => {
                 return (
-                  <option value={elem.nome} key={elem.id}>
+                  <option value={elem.id} key={elem.id}>
                     {elem.nome}
                   </option>
                 );
