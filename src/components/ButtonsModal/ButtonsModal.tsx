@@ -26,6 +26,7 @@ export const ButtonsModal = ({titlebtn, type, functionOnclick}:IbuttonsModal) =>
             width="100%"
             borderRadius="25px"
             height="50px"
+            minH={"50px"}
             backgroundColor={backgroundColor}
             color="white"
             type="submit"

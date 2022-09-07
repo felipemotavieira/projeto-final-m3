@@ -1,7 +1,7 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Button, Flex, Box, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import Logo from '../Logo/Logo'
+import Logo from "../Logo/Logo";
 
 interface IContainerProps {
   functionClose: () => void;
@@ -16,35 +16,65 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
         backgroundColor="#FFFFFF"
         maxWidth="435px"
         width="100%"
-        padding="50px"
+        padding="60px 40px"
         borderRadius="25px"
         position="fixed"
         zIndex="500"
+        top="4vh"
         flexDirection="column"
-        top="2vh"
+        maxHeight={"90vh"}
+        boxShadow={"-4px -7px 40px -11px #00000035"}
       >
-        <Flex justify="flex-end">
-        <Flex width={"100%"} justify="center"><Logo/></Flex>
-          
-          <Button position={"relative"} width={"30px"} onClick={functionClose} background="none">
+        <Flex
+          overflow={"auto"}
+          flexDirection={"column"}
+          css={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
+          <Button
+            zIndex={6000}
+            position={"absolute"}
+            width={"30px"}
+            top={"15px"}
+            right={"10px"}
+            onClick={functionClose}
+            background="none"
+            css={{
+              "&:hover": {
+                background: "none",
+              },
+            }}
+          >
             <CloseIcon></CloseIcon>
           </Button>
+          <Flex justify="flex-end" flexDirection={"column"}>
+            <Flex width={"100%"} justify="center">
+              <Logo />
+            </Flex>
+          </Flex>
+
+          <Text
+            mb="10px"
+            textAlign={"center"}
+            fontWeight={"700"}
+            fontSize={"25px"}
+          >
+            {title}
+          </Text>
+
+          {children}
         </Flex>
-
-        <Text mb="10px" textAlign={"center"} fontWeight={"700"} fontSize={"25px"}>
-          {title}
-        </Text>
-        
-        {children}
-
       </Flex>
+
       <Box
         width={"100%"}
-        minH={"100%"}
-        position={"fixed"}
+        position={"absolute"}
         opacity={"0.15"}
         backgroundColor={"black"}
-              >dfdf</Box>
+      ></Box>
     </>
   );
 }
