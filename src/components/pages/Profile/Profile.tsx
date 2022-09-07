@@ -7,6 +7,7 @@ import ContainerPost from "../../../ContainerPosts/ContainerPost";
 import { HeaderProfile } from "../Dashboard/Header-profile/Header";
 import NoPhoto from "../../../assets/no-photo.png";
 import { filter } from "@chakra-ui/react";
+import { Rodape } from "../Dashboard/Rodape/rodape";
 
 export interface Idata {
   email: string;
@@ -56,6 +57,9 @@ export const Profile = () => {
       ) : (
         <ModalInfo />
       )}
+
+      <Rodape/>
+      
     </>
   );
 };

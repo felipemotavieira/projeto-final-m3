@@ -4,11 +4,7 @@ import Logout from "../../../../assets/logout.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
 import {
-  Heading,
-  Text,
-  Box,
   Button,
-  Flex,
   Menu,
   MenuButton,
   MenuList,
@@ -18,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { AddPost } from "../../../modals/AddPost";
+import { HeaderCinza, HeaderVerde } from "../Header/headerStyled";
 
 export const HeaderProfile = () => {
   const { user, token } = useContext(UserContext);
@@ -36,61 +33,20 @@ export const HeaderProfile = () => {
     <>
       {token && (
         //NÃO MEXER- SUJEITO A QUEBRAR TUDO
-        <Box w="100vw">
-          <Box
-            gap={[0, 0, 20]}
-            display="flex"
-            justifyContent={["center", "center", "center"]}
-            background="#21BA71"
-            h={["8vh", "8vh", "10vh", "11vh"]}
-            w={["100vw"]}
-            alignItems="center"
-          >
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              display="flex"
-              gap={10}
-              w={[0, 0, "80%"]}
-              minWidth={[0, 0, "80%"]}
-              maxWidth={[0, 0, "80%"]}
-              h={[0, 0, "70px"]}
-            >
-              {/* Logo */}
-              <Box
-                onClick={dashboard}
-                display="flex"
-                alignItems="center"
-                w={[0, 0, "max-content"]}
-                gap={3}
-                _hover={{ cursor: "pointer" }}
-              >
-                <Image
-                  src="./iconebranco.png"
-                  w={[0, 0, "30px", "40px"]}
-                  h={[0, 0, "40px", "50px"]}
-                ></Image>
-                <Text fontSize={[0, 0, "20px", "30px"]} color="#fff">
-                  Checkin
-                </Text>
-              </Box>
-
-              {/* Botão de fazer postagem e de adicionar cidade bem como icone do usuario */}
-              <Box
-                display="flex"
-                w={[0, 0, "200px"]}
-                h={[0, 0, "70px"]}
-                alignItems="center"
-                gap={[0, 0, 3, 5]}
-              >
-                <AddPost />
-                {/* <CityRegister /> */}
+        <>
+          <HeaderCinza>
+            <img onClick={dashboard} src="./icone.png" alt="Logo" />
+            <p>Checkin</p>
+          </HeaderCinza>
+          <HeaderVerde>
+            <header>
+              <div>
                 <Menu>
-                  <MenuButton display={["none", "none", "flex"]}>
+                  <MenuButton>
                     <Avatar
                       name="User Photo"
-                      w="40px"
-                      h="40px"
+                      w={["40px", "40px", "50px"]}
+                      h={["40px", "40px", "50px"]}
                       src={user.userPhoto ? user.userPhoto : NoPhoto}
                     />
                   </MenuButton>
@@ -108,10 +64,16 @@ export const HeaderProfile = () => {
                     </MenuItem>
                   </MenuList>
                 </Menu>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+                <p>{user.name}</p>
+              </div>
+
+              <div>
+                <AddPost />
+                <CityRegister />
+              </div>
+            </header>
+          </HeaderVerde>
+        </>
       )}
     </>
   );

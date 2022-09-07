@@ -15,6 +15,8 @@ import {
   Input,
   Textarea,
   FormErrorMessage,
+  ModalFooter,
+  ModalHeader,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
@@ -23,6 +25,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Logo from "../../Logo/Logo";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface Item {
   id: number;
@@ -98,7 +101,16 @@ export const AddPost = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>+</Button>
+      <Button
+        bg="rgba(43, 41, 69, 1)"
+        color="#fff"
+        p="0px"
+        w={["30px", "30px", "100px"]}
+        h={["30px", "30px", "30px"]}
+        onClick={onOpen}
+      >
+        <AiOutlinePlus />
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
