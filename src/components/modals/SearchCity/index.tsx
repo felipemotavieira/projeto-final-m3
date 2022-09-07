@@ -66,11 +66,13 @@ export const SearchCity = () => {
         display="flex"
         onClick={onOpen}
         gap={5}
-        bg="#fff"
+        bg="rgba(43, 41, 69, 1)"
         alignItems="center"
         fontSize="15px"
+        color="#fff"
+        
       >
-        Pesquisar<Image src="./iconelupa.png" w={["30px"]} h={["28px"]}></Image>
+        Pesquisar<Image src="./lupateste.png" w={["30px"]} h={["28px"]}></Image>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

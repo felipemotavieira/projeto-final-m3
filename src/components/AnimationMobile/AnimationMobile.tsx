@@ -10,7 +10,7 @@ function AnimationMobile() {
   return (
     <JanelaMobile valueScroll={valueScroll}>
       <svg
-        width="822"
+        width="100vw"
         height="715"
         viewBox="0 0 822 715"
         fill="none"

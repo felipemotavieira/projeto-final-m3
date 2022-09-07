@@ -271,7 +271,7 @@ export const Header = () => {
                   alignItems="center"
                   gap="5"
                 >
-                  <SearchCity />
+                  <Box bg="red"><SearchCity /></Box>
                   <Button
                     color="#fff"
                     w="max-content"
@@ -362,4 +362,3 @@ export const Header = () => {
     </>
   );
 };
-

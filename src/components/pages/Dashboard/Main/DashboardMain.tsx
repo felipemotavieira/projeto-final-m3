@@ -143,7 +143,7 @@ export const DashboardMain = () => {
               
             >
               <Box w={["100%", "100%", "70%"]} gap={5} >
-              <Box display={"flex"} justifyContent="space-between">
+              <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text fontSize={["15px", "15px", "18px"]} w="130px">Felipe Vieira</Text>
                 <Text fontSize={["15px", "15px", "18px"]} w="150px">Tech Lead</Text>
                 <Link href='https://www.linkedin.com/in/felipe-mota-vieira-4b084a235/' isExternal>
@@ -154,7 +154,7 @@ export const DashboardMain = () => {
                 </Link>
               </Box>
 
-              <Box display={"flex"} justifyContent="space-between">
+              <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text w="130px" fontSize={["15px", "15px", "18px"]}>Jorge Kimura</Text>
                 <Text w="150px" fontSize={["15px", "15px", "18px"]}>Scrum Master</Text>
                 <Link href='https://www.linkedin.com/in/jorge-kimura/' isExternal>
@@ -165,7 +165,7 @@ export const DashboardMain = () => {
                 </Link>
               </Box>
 
-              <Box display={"flex"} justifyContent="space-between">
+              <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text w="130px" fontSize={["15px", "15px", "18px"]}>Lívia Oliveira</Text>
                 <Text w="150px" fontSize={["15px", "15px", "18px"]}>Quality Assurence</Text>
                 <Link href='https://www.linkedin.com/in/l%C3%ADvia-silva-de-oliveira-367612227/' isExternal>
@@ -176,7 +176,7 @@ export const DashboardMain = () => {
                 </Link>
               </Box>
 
-              <Box display={"flex"} justifyContent="space-between">
+              <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text w="130px" fontSize={["15px", "15px", "18px"]}>Maria Belchior</Text>
                 <Text w="150px" fontSize={["15px", "15px", "18px"]}>Quality Assurence</Text>
                 <Link href='https://www.linkedin.com/in/maria-belchior-26434a13b/' isExternal>
@@ -187,7 +187,7 @@ export const DashboardMain = () => {
                 </Link>
               </Box>
 
-              <Box display={"flex"} justifyContent="space-between">
+              <Box display={"flex"} justifyContent="space-between" transition="0.5s" borderRadius="10px" _hover={{bg:"#1bd279"}}>
                 <Text w="130px" fontSize={["15px", "15px", "18px"]}>Naiane Reis</Text>
                 <Text w="150px" fontSize={["15px", "15px", "18px"]}>Product Owner</Text>
                 <Link href='https://www.linkedin.com/in/naianereis/' isExternal>
