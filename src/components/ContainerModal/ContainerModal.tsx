@@ -1,7 +1,7 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Button, Flex, Box, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import Logo from "../Logo/Logo";
+import { Logo } from "../Logo/Logo";
 
 interface IContainerProps {
   functionClose: () => void;
