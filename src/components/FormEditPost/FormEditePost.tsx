@@ -130,7 +130,6 @@ export const FormEditarPost = (data: Idata) => {
             placeholder="Digite aqui a descrição..."
             padding=" 10px 25px"
           />
-          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl mb="10px">
