@@ -62,11 +62,7 @@ export const SearchCity = () => {
   return (
     <>
       <Button
-        onClick={onOpen}
-        bg="rgba(43, 41, 69, 1)"
-        color="#fff"
-        p="0px"
-        w={["30px","30px","100px"]} h={["30px","30px","30px"]}
+        bg="rgba(43, 41, 69, 1)" transition="0.3s" _hover={{transform: "scale(1.2)", transition: "all 0.5s"}} _active={{bg:"rgba(43, 41, 69, 1)"}} color="#fff" onClick={onOpen} p="0px" w={["30px","30px","100px"]} h={["30px","30px","30px"]}
       >
         <FiSearch />
       </Button>

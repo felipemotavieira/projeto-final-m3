@@ -149,6 +149,7 @@ function ProfileMain() {
             color="white"
             mt={4}
             type="submit"
+            transition="0.3s" _hover={{transform: "scale(1.2)", transition: "all 0.5s"}} _active={{bg:"rgba(43, 41, 69, 1)"}}
           >
             Editar
           </Button>
@@ -163,6 +164,7 @@ function ProfileMain() {
             maxWidth="258px"
             backgroundColor="#EA4141"
             mt={4}
+            transition="0.3s" _hover={{transform: "scale(1.2)", transition: "all 0.5s"}} _active={{bg:"#EA4141"}}
           >
             Deletar
           </Button>

@@ -6,7 +6,7 @@ import { UserContext } from "../../../context/Context";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
 import { HeaderProfile } from "../Dashboard/Header-profile/Header";
 import NoPhoto from "../../../assets/no-photo.png";
-import { filter } from "@chakra-ui/react";
+import { filter, UnorderedList } from "@chakra-ui/react";
 import { Rodape } from "../Dashboard/Rodape/rodape";
 
 export interface Idata {
@@ -31,6 +31,7 @@ export const Profile = () => {
     <>
       <HeaderProfile />
       <ProfileMain  />
+      <UnorderedList mb="50px">
 
       {
         posts.filter((post) => post.userId == user.id).length > 0 ? (
@@ -57,6 +58,7 @@ export const Profile = () => {
       ) : (
         <ModalInfo />
       )}
+      </UnorderedList>
 
       <Rodape/>
       
