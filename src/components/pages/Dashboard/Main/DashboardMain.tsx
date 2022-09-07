@@ -68,7 +68,7 @@ export const DashboardMain = () => {
       <Header />
 
       {loading ? (
-        <span>Carregando...</span>
+        <span className="loader"></span>
       ) : postsFiltered.length > 0 ? (
         postsFiltered.map((post) => {
           console.log(post);
@@ -123,7 +123,7 @@ export const DashboardMain = () => {
         })
       ) : (
         <Box w="50vw" h="80vh" mb="auto">
-          <span>Carregando...</span>
+          <span className="loader"></span>
         </Box>
       )}
 

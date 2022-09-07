@@ -4,11 +4,7 @@ import Logout from "../../../../assets/logout.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
 import {
-  Heading,
-  Text,
-  Box,
   Button,
-  Flex,
   Menu,
   MenuButton,
   MenuList,
@@ -18,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { AddPost } from "../../../modals/AddPost";
-import { SearchCity } from "../../../modals/SearchCity";
 import { HeaderCinza, HeaderVerde } from "../Header/header";
+
 
 export const HeaderProfile = () => {
   const { user, token } = useContext(UserContext);
