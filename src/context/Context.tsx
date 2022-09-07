@@ -97,7 +97,7 @@ interface IPosts {
 
 interface IUserProviderData {
   user: IUser;
-  setUser: Dispatch<SetStateAction<IUser>>
+  setUser: Dispatch<SetStateAction<IUser>>;
   users: IUsers[];
   usersId: IUsersId;
   getUsers: () => Promise<any>;
@@ -273,23 +273,12 @@ export const Context = ({ children }: IContextProviderProps) => {
         isClosable: true,
       });
     } else {
-      if (token) {
-        toast({
-          title:
-            "Está cidade não possui postagens. Você está visualizando postagens da cidade que gostaria de conhecer.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title:
-            "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      }
+      toast({
+        title: "Está cidade ainda não possui postagens.",
+        status: "warning",
+        duration: 2500,
+        isClosable: true,
+      });
     }
   };
 
@@ -322,7 +311,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.patch(`users/${userId}`, data)
       .then(() => true)
       .catch(() => false);
-      // getUsers()
+    // getUsers()
     return response;
   };
 
@@ -342,7 +331,15 @@ export const Context = ({ children }: IContextProviderProps) => {
     const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.post(`/posts`, data) // adicionar post
-      .then(() => true)
+      .then(() => {
+        toast({
+          title: "Post realizado com sucesso!",
+          status: "success",
+          duration: 3500,
+          isClosable: true,
+        });
+        return true;
+      })
       .catch((err) => {
         console.log(err);
         return false;
@@ -358,6 +355,12 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.patch(`/posts/${id}`, data)
       .then((res) => {
         console.log(res);
+        toast({
+          title: "Post editado com sucesso!",
+          status: "success",
+          duration: 3500,
+          isClosable: true,
+        });
         return true;
       })
       .catch((err) => {
@@ -373,7 +376,15 @@ export const Context = ({ children }: IContextProviderProps) => {
     const token = localStorage.getItem("@TOKEN");
     InternalAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await InternalAPI.delete(`posts/${id}`)
-      .then(() => true)
+      .then(() => {
+        toast({
+          title: "Post excluído com sucesso!",
+          status: "success",
+          duration: 3500,
+          isClosable: true,
+        });
+        return true;
+      })
       .catch(() => false);
     getPosts();
     return response;
@@ -407,7 +418,7 @@ export const Context = ({ children }: IContextProviderProps) => {
         cityPost,
         loading,
         setLoading,
-        setUser
+        setUser,
       }}
     >
       {children}

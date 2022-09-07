@@ -5,13 +5,16 @@ import {
   Select,
   FormControl,
   FormLabel,
-  Input
+  Input,
+  Box
 } from "@chakra-ui/react";
 import { useState, MouseEvent, Dispatch, SetStateAction, useContext, useEffect} from "react";
 import { ProfileForm } from "./styles";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
 import {ModalDelete} from "../ModalDelete/ModalDelete"
 import { UserContext } from "../../../context/Context";
+import { CityRegister } from "../CityRegister/CityRegister";
+import { CityRegisterUser } from "../CityRegister-User/CityRegister";
 
 
 function ProfileMain() {
@@ -40,6 +43,7 @@ function ProfileMain() {
       maxWidth="892px"
       flexDirection="column"
       alignItems="center"
+      margin={"45px 0 25px 0"}
     >
      
       {
@@ -106,17 +110,26 @@ function ProfileMain() {
         </FormControl>
         <FormControl>
           <FormLabel>Cidade que gostaria de conhecer</FormLabel>
-          <Select
-            width="100%"
-            backgroundColor="#dedede"
-            borderRadius="42px"
-            height="50px"
+          <Box backgroundColor="#dedede"
+          borderRadius="42px" 
+          display='flex'
+          justifyContent='space-between'
+          
           >
-            <option value="adicionar">
-              Adicionar funcionalidade no javascript
-            </option>
-
-          </Select>
+          <Input
+            width="85%"
+            outline='hidden'
+            border='none'
+            borderRadius="42px 0 0 42px"
+            _focus={{border: 'none', outline: 'none'}}
+            _active={{border: 'none', outline: 'none'}}
+            height="50px"
+            placeholder= { !user.cityName ? "Adicione uma cidade que gostaria de conhecer": ''}
+            value={user.cityName}
+            padding=" 0 25px"
+          />
+          <CityRegisterUser />
+          </Box>
         </FormControl>
         <Flex
           className="containerBtn"
