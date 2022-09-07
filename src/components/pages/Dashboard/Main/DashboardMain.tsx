@@ -72,7 +72,8 @@ export const DashboardMain = () => {
         <span className="loader"></span>
       ) : postsFiltered.length > 0 ? (
         
-        postsFiltered.map((post) => {
+        <UnorderedList bg="red" mt="150px" mr="20px" mb="20px" w="100%" max-width= "892px" h="max-content" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+        {postsFiltered.map((post) => {
           console.log(post);
           const filterUser = users.find((user) => user.id == post.userId);
           return (
@@ -88,11 +89,13 @@ export const DashboardMain = () => {
               userId={post.userId}
             />
           );
-        })
+        })}
+        </UnorderedList>
         
       ) : cityPost.length && token ? ( // usuario logado e com cidade
       
-      cityPost.map((post) => {
+      <UnorderedList bg="red" mt="150px" mr="20px" mb="20px" w="100%" max-width= "892px" h="max-content" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      {cityPost.map((post) => {
           const filterUser = users.find((user) => user.id == post.userId);
           return (
             <ContainerPost
@@ -107,10 +110,11 @@ export const DashboardMain = () => {
               userId={post.userId}
             />
           );
-        })
+        })}
+        </UnorderedList>
         
       ) : posts.length > 0 ? (
-        <UnorderedList mt="150px" mr="20px" mb="20px" w="100%" max-width= "892px" h="max-content" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+        <UnorderedList bg="red" mt="150px" mr="20px" mb="20px" w="100%" max-width= "892px" h="max-content" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         {posts.map((post) => {
           let filterUser = users.find((user) => user.id == post.userId);
           return (

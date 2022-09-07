@@ -73,6 +73,7 @@ function ContainerPost({
   return (
     <>
       {isOpenDelete && (
+        
         <Modal
           title={"Corfimação de exclusão"}
           message={"Você tem certeza de que deseja excluir? "}

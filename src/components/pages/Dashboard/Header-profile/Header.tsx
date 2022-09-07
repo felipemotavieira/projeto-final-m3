@@ -69,7 +69,6 @@ export const HeaderProfile = () => {
 
               <div>
                 <AddPost />
-                <CityRegister />
               </div>
             </header>
           </HeaderVerde>

@@ -31,7 +31,7 @@ export const Profile = () => {
     <>
       <HeaderProfile />
       <ProfileMain  />
-      <UnorderedList mb="50px">
+      <UnorderedList display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb="50px">
 
       {
         posts.filter((post) => post.userId == user.id).length > 0 ? (

@@ -1,6 +1,6 @@
 import ContainerModal from "../../ContainerModal/ContainerModal";
 import { ButtonsModal } from "../../ButtonsModal/ButtonsModal";
-import { Text } from "@chakra-ui/react";
+import { Text,Box } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, ReactNode } from "react";
 
 interface Idata {
@@ -29,7 +29,7 @@ export const ModalDelete = ({
 
   return (
     <>
-      <>
+      
         <ContainerModal title={title} functionClose={closeModal}>
           
           {message && (
@@ -56,7 +56,7 @@ export const ModalDelete = ({
             functionOnclick={closeModal}
           />
         </ContainerModal>
-      </>
+      
     </>
   );
 };
