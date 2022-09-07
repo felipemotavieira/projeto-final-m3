@@ -86,27 +86,29 @@ export const CityRegister = () => {
           duration: 1500,
           isClosable: true,
         });
-        setLoading(true)
+        setLoading(true);
         setTimeout(() => {
-          const filter = posts.filter(post => post.cityId == res.data.cityId) //[] ou [{...}, {...}]
-          setCityPost([...filter])
-          setLoading(false)
-          console.log(filter)
-          if(filter.length > 0){
+          const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
+          setCityPost([...filter]);
+          setLoading(false);
+          console.log(filter);
+          if (filter.length > 0) {
             toast({
-              title: "Você está visualizando postagens da cidade que gostaria de conhecer.",
+              title:
+                "Você está visualizando postagens da cidade que gostaria de conhecer.",
               status: "success",
               duration: 2500,
               isClosable: true,
-            })
-          }else{
+            });
+          } else {
             toast({
-                    title: "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-                    status: "error",
-                    duration: 2500,
-                    isClosable: true,
-                  });
-            }
+              title:
+                "Está cidade não possui postagens. Você está visualizando postagens de cidades aleatórias.",
+              status: "error",
+              duration: 2500,
+              isClosable: true,
+            });
+          }
         }, 2000);
       })
       .catch((err) => console.log(err));
