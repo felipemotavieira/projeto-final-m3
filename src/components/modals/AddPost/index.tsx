@@ -16,6 +16,8 @@ import { UserContext } from "../../../context/Context";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AiOutlinePlus } from "react-icons/ai";
+
 
 interface Item {
   id: number;
@@ -91,7 +93,10 @@ export const AddPost = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>+</Button>
+
+      <Button bg="rgba(43, 41, 69, 1)" color="#fff" onClick={onOpen} p="0px" w={["30px","30px","100px"]} h={["30px","30px","30px"]}>
+        <AiOutlinePlus />
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

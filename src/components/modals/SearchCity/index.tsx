@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
 import SearchIcon from "../../../assets/search-icon.svg";
 import { UserContext } from "../../../context/Context";
+import { FiSearch } from "react-icons/fi";
 
 interface Item {
   id: number;
@@ -61,14 +62,13 @@ export const SearchCity = () => {
   return (
     <>
       <Button
-        display="flex"
         onClick={onOpen}
-        gap={5}
-        bg="#fff"
-        alignItems="center"
-        fontSize="15px"
+        bg="rgba(43, 41, 69, 1)"
+        color="#fff"
+        p="0px"
+        w={["30px","30px","100px"]} h={["30px","30px","30px"]}
       >
-        Pesquisar<Image src="./iconelupa.png" w={["30px"]} h={["28px"]}></Image>
+        <FiSearch />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
