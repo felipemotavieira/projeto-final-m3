@@ -25,7 +25,8 @@ import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 
 export const Header = () => {
-  const { user, token, setCityPost, setPostsFiltered } = useContext(UserContext);
+  const { user, token, setCityPost, setPostsFiltered } =
+    useContext(UserContext);
   const navigate = useNavigate();
   const toUserPage = () => {
     navigate("/profile", { replace: true });
@@ -33,8 +34,8 @@ export const Header = () => {
   const leave = () => {
     localStorage.clear();
     navigate("/", { replace: true });
-    setCityPost([])
-    setPostsFiltered([])
+    setCityPost([]);
+    setPostsFiltered([]);
   };
   return (
     <>
