@@ -7,7 +7,7 @@ import {
   FormLabel,
   Input
 } from "@chakra-ui/react";
-import { useState, MouseEvent, Dispatch, SetStateAction, useContext } from "react";
+import { useState, MouseEvent, Dispatch, SetStateAction, useContext, useEffect} from "react";
 import { ProfileForm } from "./styles";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
 import {ModalDelete} from "../ModalDelete/ModalDelete"
@@ -15,8 +15,14 @@ import { UserContext } from "../../../context/Context";
 
 
 function ProfileMain() {
-   const {user, deleteUser} = useContext(UserContext)
-  
+   const {user, deleteUser, getUsersId} = useContext(UserContext);
+   const userId = localStorage.getItem('@USERID') as string;
+
+  //  useEffect(() => {
+  //   const response = getUsersId(+userId).then(res => console.log(res))
+  //   console.log(response)
+  //  }, [])
+
   const [modalDeleteOpen, setModalDeleteOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
   const [modalEditeOpen, setModalEditeOpen] = useState< boolean| Dispatch<SetStateAction<boolean>>>(false)
 
@@ -99,7 +105,7 @@ function ProfileMain() {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Cidades que gostária de conhecer</FormLabel>
+          <FormLabel>Cidade que gostaria de conhecer</FormLabel>
           <Select
             width="100%"
             backgroundColor="#dedede"
