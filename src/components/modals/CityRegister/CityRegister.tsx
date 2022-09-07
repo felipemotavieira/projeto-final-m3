@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { UserContext } from "../../../context/Context";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
+import { GiCommercialAirplane } from "react-icons/gi";
 
 interface Item {
   id: number;
@@ -117,7 +118,11 @@ export const CityRegister = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Cadastrar</Button>
+      <Button bg="rgba(43, 41, 69, 1)" color="#fff" p="0px" w={["30px","30px","100px"]} h={["30px","30px","30px"]} onClick={onOpen}>
+        {" "}
+        <GiCommercialAirplane />{" "}
+      </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

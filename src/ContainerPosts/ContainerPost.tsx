@@ -102,6 +102,7 @@ function ContainerPost({
       )}
 
       <Flex
+        
         margin={"25px"}
         backgroundColor="#ffffff"
         maxWidth="892px"
