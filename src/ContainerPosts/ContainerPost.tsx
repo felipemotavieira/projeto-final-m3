@@ -8,6 +8,9 @@ import {
   Avatar,
   WrapItem,
   Wrap,
+  Tooltip,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction, useState, useContext } from "react";
@@ -16,6 +19,9 @@ import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
 import { UserContext } from "../context/Context";
 import { ButtonsModal } from "../components/ButtonsModal/ButtonsModal";
 import NoPhoto from "../assets/no-photo.png";
+import FavIcon from "../assets/favorite-icon.svg";
+import CommentIcon from "../assets/comment-icon.svg";
+
 interface Idata {
   title: string;
   message: string;
@@ -122,6 +128,7 @@ function ContainerPost({
           <Box
             display="flex"
             flexDirection="column"
+            justifyContent="space-around"
             gap={3}
             width={"100%"}
             padding={"20px"}
@@ -167,26 +174,39 @@ function ContainerPost({
               {`${cidade} - ${estado}`}
             </Heading>
 
-            {user.id == userId && token && (
+            {user.id == userId && token ? (
               <Flex width={"100%"} display="flex" gap={3}>
-                <Button
-                  backgroundColor={"#2B2945"}
-                  transition="0.3s"
-                  _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
-                  _active={{ bg: "#2B2945" }}
-                  onClick={handleEdite}
-                >
-                  <EditIcon color={"white"}></EditIcon>
-                </Button>
-                <Button
-                  backgroundColor={"#EA4141"}
-                  transition="0.3s"
-                  _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
-                  _active={{ bg: "#EA4141" }}
-                  onClick={handleDeleta}
-                >
-                  <DeleteIcon color={"white"}></DeleteIcon>
-                </Button>
+                <Tooltip hasArrow bg="white" label="Editar postagem">
+                  <Button
+                    backgroundColor={"#2B2945"}
+                    transition="0.3s"
+                    _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
+                    _active={{ bg: "#2B2945" }}
+                    onClick={handleEdite}
+                  >
+                    <EditIcon color={"white"}></EditIcon>
+                  </Button>
+                </Tooltip>
+                <Tooltip hasArrow bg="white" label="Apagar postagem">
+                  <Button
+                    backgroundColor={"#EA4141"}
+                    transition="0.3s"
+                    _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
+                    _active={{ bg: "#EA4141" }}
+                    onClick={handleDeleta}
+                  >
+                    <DeleteIcon color={"white"}></DeleteIcon>
+                  </Button>
+                </Tooltip>
+              </Flex>
+            ) : (
+              <Flex width={"100%"} display="flex" gap={5}>
+                <Tooltip hasArrow bg="white" label="Amei!">
+                  <Image src={FavIcon} h="28px" w="28px" />
+                </Tooltip>
+                <Tooltip hasArrow bg="white" label="Comentar">
+                  <Image src={CommentIcon} h="28px" w="28px" />
+                </Tooltip>
               </Flex>
             )}
           </Box>
