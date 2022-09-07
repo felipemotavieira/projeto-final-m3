@@ -43,6 +43,7 @@ function ProfileMain() {
       maxWidth="892px"
       flexDirection="column"
       alignItems="center"
+      margin={"45px 0 25px 0"}
     >
      
       {
