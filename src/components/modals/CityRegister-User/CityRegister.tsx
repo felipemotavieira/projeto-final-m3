@@ -30,12 +30,12 @@ interface ICityData {
   cityName: Promise<string>;
 }
 
-export const CityRegister = () => {
+export const CityRegisterUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
   const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { user, setLoading, setCityPost, posts } = useContext(UserContext);
+  const { user, setLoading, setCityPost, posts, setUser } = useContext(UserContext);
   let userId = localStorage.getItem("@USERID");
   let token = localStorage.getItem("@TOKEN");
   const toast = useToast();
@@ -79,6 +79,7 @@ export const CityRegister = () => {
     })
       .then((res) => {
         console.log(res);
+        setUser(res.data)
         onClose();
         toast({
           title: "Cidade definida com sucesso.",
@@ -86,38 +87,40 @@ export const CityRegister = () => {
           duration: 1500,
           isClosable: true,
         });
-        setLoading(true);
-        setTimeout(() => {
-          setCityPost([]);
-          const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
-          setCityPost([...filter]);
-          setLoading(false);
-          console.log(filter);
-          if (filter.length > 0) {
-            toast({
-              title:
-                "Você está visualizando postagens da cidade que gostaria de conhecer.",
-              status: "success",
-              duration: 3500,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              title:
-                "Esta cidade ainda não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-              status: "warning",
-              duration: 3500,
-              isClosable: true,
-            });
-          }
-        }, 2000);
+        // setLoading(true);
+        // setTimeout(() => {
+        //   setCityPost([]);
+        //   const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
+        //   setCityPost([...filter]);
+        //   setLoading(false);
+        //   console.log(filter);
+        //   if (filter.length > 0) {
+        //     toast({
+        //       title:
+        //         "Você está visualizando postagens da cidade que gostaria de conhecer.",
+        //       status: "success",
+        //       duration: 3500,
+        //       isClosable: true,
+        //     });
+        //   } else {
+        //     toast({
+        //       title:
+        //         "Esta cidade ainda não possui postagens. Você está visualizando postagens de cidades aleatórias.",
+        //       status: "warning",
+        //       duration: 3500,
+        //       isClosable: true,
+        //     });
+        //   }
+        // }, 2000);
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <>
-      <Button onClick={onOpen}>Cadastrar</Button>
+      <Button onClick={onOpen} h='50px'  padding=" 0 25px" bg="rgba(43, 41, 69, 1)" color='white'
+      _hover={{ backgroundColor: "#201d5a" }} borderRadius="0 42px 42px 0"
+      >Cadastrar</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
