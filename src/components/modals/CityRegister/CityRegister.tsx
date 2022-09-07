@@ -100,8 +100,8 @@ export const CityRegister = () => {
           isClosable: true,
         });
         setLoading(true);
+        setCityPost([]);
         setTimeout(() => {
-          setCityPost([]);
           const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
           setCityPost([...filter]);
           setLoading(false);

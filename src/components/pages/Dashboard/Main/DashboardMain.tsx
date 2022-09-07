@@ -61,7 +61,7 @@ export const DashboardMain = () => {
         setLoading(false);
       }, 2000);
     }
-  }, []);
+  }, [cityId]);
 
   return (
     <>
