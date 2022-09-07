@@ -32,14 +32,13 @@ export const Profile = () => {
       <ProfileMain  />
 
       {
-        posts.length ? (
+        posts.filter((post) => post.userId == user.id).length > 0 ? (
         posts
           .filter((post) => post.userId == user.id)
           .map((post) => {
             const filter = users.find((user) => {
               return user.id == post.userId
             });
-            console.log(filter)
               return (
                 <ContainerPost key={post.id}
                   nameUser={filter?.name}
@@ -53,7 +52,6 @@ export const Profile = () => {
                   userId={post.userId}
                 />
               );
-            
           })
       ) : (
         <ModalInfo />

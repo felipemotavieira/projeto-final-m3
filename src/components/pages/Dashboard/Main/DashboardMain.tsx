@@ -134,7 +134,7 @@ export const DashboardMain = () => {
         })
       ) : (
         <Box w="50vw" h="80vh" mb="auto">
-          <Image src="./Atenção.png"></Image>
+          <span>Carregando...</span>
         </Box>
       )}
 

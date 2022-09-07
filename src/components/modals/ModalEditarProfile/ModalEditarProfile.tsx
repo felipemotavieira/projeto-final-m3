@@ -18,7 +18,7 @@ interface IEditeData{
 
 export const ModalEditarProfile = (data: any) => {
   const { modalEditeOpen, setModalEditeOpen } = data;
-  const {user} = useContext(UserContext)
+  const {user, getUsers} = useContext(UserContext)
   let token = localStorage.getItem("@TOKEN");
 
   const closeModalEditar = () => {

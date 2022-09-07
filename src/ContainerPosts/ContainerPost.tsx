@@ -15,6 +15,7 @@ import { ModalDelete as Modal } from "../components/modals/ModalDelete/ModalDele
 import { FormEditarPost } from "../components/FormEditPost/FormEditePost";
 import { UserContext } from "../context/Context";
 import { ButtonsModal } from "../components/ButtonsModal/ButtonsModal";
+import NoPhoto from "../assets/no-photo.png";
 interface Idata {
   title: string;
   message: string;
@@ -133,7 +134,7 @@ function ContainerPost({
             >
               <Wrap>
                 <WrapItem>
-                  <Avatar src={photoUser} />
+                  <Avatar src={photoUser ? photoUser : NoPhoto} />
                 </WrapItem>
               </Wrap>
 

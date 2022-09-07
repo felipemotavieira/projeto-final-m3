@@ -321,6 +321,7 @@ export const Context = ({ children }: IContextProviderProps) => {
     const response = await InternalAPI.patch(`users/${userId}`, data)
       .then(() => true)
       .catch(() => false);
+      getUsers()
     return response;
   };
 
