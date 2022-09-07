@@ -109,6 +109,8 @@ function ContainerPost({
         borderRadius="25px"
         flexDirection="column"
         boxSizing={"border-box"}
+        transition={"0.5s"}
+        _hover={{ boxShadow: "2xl", cursor: "pointer" }}
       >
         <Box display="flex" gap={10} flexDirection="row" w="95%">
           <Image
