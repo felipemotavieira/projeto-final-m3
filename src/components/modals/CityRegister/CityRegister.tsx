@@ -25,9 +25,8 @@ import { useForm } from "react-hook-form";
 import { UserContext } from "../../../context/Context";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
-import Logo from "../../Logo/Logo";
+import { Logo } from "../../Logo/Logo";
 import { GiCommercialAirplane } from "react-icons/gi";
-
 
 interface Item {
   id: number;
@@ -130,7 +129,17 @@ export const CityRegister = () => {
 
   return (
     <>
-      <Button bg="rgba(43, 41, 69, 1)" transition="0.3s" _hover={{transform: "scale(1.2)", transition: "all 0.5s"}} _active={{bg:"rgba(43, 41, 69, 1)"}} color="#fff" onClick={onOpen} p="0px" w={["30px","30px","100px"]} h={["30px","30px","30px"]}>
+      <Button
+        bg="rgba(43, 41, 69, 1)"
+        transition="0.3s"
+        _hover={{ transform: "scale(1.2)", transition: "all 0.5s" }}
+        _active={{ bg: "rgba(43, 41, 69, 1)" }}
+        color="#fff"
+        onClick={onOpen}
+        p="0px"
+        w={["30px", "30px", "100px"]}
+        h={["30px", "30px", "30px"]}
+      >
         {" "}
         <GiCommercialAirplane />{" "}
       </Button>
