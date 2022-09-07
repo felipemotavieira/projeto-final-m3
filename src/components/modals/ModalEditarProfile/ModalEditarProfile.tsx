@@ -18,7 +18,7 @@ interface IEditeData{
 
 export const ModalEditarProfile = (data: any) => {
   const { modalEditeOpen, setModalEditeOpen } = data;
-  const {user, getUsers} = useContext(UserContext)
+  const {user, getUsers, setUser} = useContext(UserContext)
   let token = localStorage.getItem("@TOKEN");
 
   const closeModalEditar = () => {
@@ -39,19 +39,20 @@ export const ModalEditarProfile = (data: any) => {
 
 
   const editarProfile = (data: any) => {
-
     for (const property in data) {
       if(data[property].trim() === "" || data[property].trim() === undefined ){
           delete data[property];
       }
     }
-           
        InternalAPI.patch(`/users/${user.id}`, data,  {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-       .then(res=> closeModalEditar()).catch(err => console.log(err))
+       .then(res=> {
+        setUser(res.data)
+        closeModalEditar()
+      }).catch(err => console.log(err))
   }
 
   return (
