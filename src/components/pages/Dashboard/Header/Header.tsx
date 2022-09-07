@@ -24,11 +24,7 @@ import { Login } from "../../../modals/Login/Login";
 import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import { HeaderCinza, HeaderVerde, HeaderTotal } from "./headerStyled";
-<<<<<<< HEAD
-import {ModalLoginHeader} from "./ModalLoginHeader";
-=======
 import { ModalLoginHeader } from "./ModalLoginHeader";
->>>>>>> 08d0a49a3c5364844002ab87b51aef15ccea1136
 import { ModalRegisterLogin } from "./ModalRegisterHeader";
 import React from "react";
 
