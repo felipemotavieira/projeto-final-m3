@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import ExternalAPI from "../../services/ExternalAPI/ExternalAPI";
-import { useState, useContext } from "react";
+import { useState, useContext, Dispatch, SetStateAction } from "react";
 import { UserContext } from "../../context/Context";
 
 interface IEditeData {
@@ -25,6 +25,9 @@ interface IEditeData {
 
 interface Idata {
   id: any;
+  setIsOpenEdite: Dispatch<
+    SetStateAction<boolean | Dispatch<SetStateAction<boolean>>>
+  >;
 }
 
 interface Item {
@@ -35,7 +38,7 @@ interface Item {
 }
 
 export const FormEditarPost = (data: Idata) => {
-  const { id } = data;
+  const { id, setIsOpenEdite } = data;
   const { user, patchPost } = useContext(UserContext);
 
   const formSchema = yup.object().shape({
@@ -79,6 +82,7 @@ export const FormEditarPost = (data: Idata) => {
       }
     }
     patchPost({ ...dados }, id);
+    setIsOpenEdite(false);
   };
 
   return (

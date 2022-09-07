@@ -70,10 +70,6 @@ function ContainerPost({
     setIsOpenDelete(false);
   };
 
-  const editePost = (data: IData) => {
-    console.log(data);
-  };
-
   return (
     <>
       {isOpenDelete && (
@@ -95,9 +91,12 @@ function ContainerPost({
         <Modal
           title={"Edição de post"}
           setModalOpen={setIsOpenEdite}
-          functionAction={editePost}
+          // functionAction={editePost}
         >
-          <FormEditarPost id={id}></FormEditarPost>
+          <FormEditarPost
+            setIsOpenEdite={setIsOpenEdite}
+            id={id}
+          ></FormEditarPost>
         </Modal>
       )}
 
