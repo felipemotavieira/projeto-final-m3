@@ -15,7 +15,10 @@ import {
 import { UserContext } from "../../../../context/Context";
 import { AddPost } from "../../../modals/AddPost";
 import { HeaderCinza, HeaderVerde } from "../Header/headerStyled";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 08d0a49a3c5364844002ab87b51aef15ccea1136
 
 export const HeaderProfile = () => {
   const { user, token } = useContext(UserContext);
@@ -46,8 +49,8 @@ export const HeaderProfile = () => {
                   <MenuButton>
                     <Avatar
                       name="User Photo"
-                      w={["40px","40px", "50px"]}
-                      h={["40px","40px", "50px"]}
+                      w={["40px", "40px", "50px"]}
+                      h={["40px", "40px", "50px"]}
                       src={user.userPhoto ? user.userPhoto : NoPhoto}
                     />
                   </MenuButton>

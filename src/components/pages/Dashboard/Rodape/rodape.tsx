@@ -13,7 +13,7 @@ export const Rodape = () =>{
                 w="100vw"
                 borderRadius="20px 20px 0 0"
                 bg="rgba(33, 186, 113, 1)"
-                display="flex"
+                display={isOpen? "flex": "none"}
                 flexDirection="column"
                 justifyContent="space-between"
                 alignItems="center"

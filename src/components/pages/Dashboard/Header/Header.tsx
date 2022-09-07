@@ -24,8 +24,13 @@ import { Login } from "../../../modals/Login/Login";
 import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import { HeaderCinza, HeaderVerde, HeaderTotal } from "./headerStyled";
+<<<<<<< HEAD
 import {ModalLoginHeader} from "./ModalLoginHeader";
+=======
+import { ModalLoginHeader } from "./ModalLoginHeader";
+>>>>>>> 08d0a49a3c5364844002ab87b51aef15ccea1136
 import { ModalRegisterLogin } from "./ModalRegisterHeader";
+import React from "react";
 
 export const Header = () => {
   const { user, token, setCityPost, setPostsFiltered } =
@@ -50,74 +55,72 @@ export const Header = () => {
           </HeaderCinza>
           <HeaderVerde>
             <header>
-            <div>
-              <Menu>
-                <MenuButton>
-                  <Avatar
-                    name="User Photo"
-                    w={["40px","40px", "50px"]}
-                    h={["40px","40px", "50px"]}
-                    src={user.userPhoto ? user.userPhoto : NoPhoto}
-                  />
-                </MenuButton>
-                <MenuList minW="70px" h="120px">
-                  <MenuItem w="100%" mb="10px">
-                    <Button
-                      onClickCapture={toUserPage}
-                      w="100%"
-                      h="35px"
-                      colorScheme="green"
-                    >
-                      {" "}
-                      <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
-                    </Button>
-                  </MenuItem>
-                  <MenuItem>
-                    <Button
-                      onClickCapture={leave}
-                      w="100%"
-                      h="35px"
-                      colorScheme="red"
-                    >
-                      <Image src={Logout} h="24px" pr="10px" />
-                      Sair
-                    </Button>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-              <p>{user.name}</p>
-            </div>
-              
-            <div>
-              <AddPost/>
-              <CityRegister/>
-              <SearchCity/>
-            </div>
+              <div>
+                <Menu>
+                  <MenuButton>
+                    <Avatar
+                      name="User Photo"
+                      w={["40px", "40px", "50px"]}
+                      h={["40px", "40px", "50px"]}
+                      src={user.userPhoto ? user.userPhoto : NoPhoto}
+                    />
+                  </MenuButton>
+                  <MenuList minW="70px" h="120px">
+                    <MenuItem w="100%" mb="10px">
+                      <Button
+                        onClickCapture={toUserPage}
+                        w="100%"
+                        h="35px"
+                        colorScheme="green"
+                      >
+                        {" "}
+                        <Image src={Person} h="24px" pr="10px" /> Perfil{" "}
+                      </Button>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button
+                        onClickCapture={leave}
+                        w="100%"
+                        h="35px"
+                        colorScheme="red"
+                      >
+                        <Image src={Logout} h="24px" pr="10px" />
+                        Sair
+                      </Button>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+                <p>{user.name}</p>
+              </div>
+
+              <div>
+                <AddPost />
+                <CityRegister />
+                <SearchCity />
+              </div>
             </header>
-            
           </HeaderVerde>
         </HeaderTotal>
       ) : (
         <HeaderTotal>
           <HeaderCinza>
-              <img src="./icone.png" alt="Logo" />
-              <p>Checkin</p>
+            <img src="./icone.png" alt="Logo" />
+            <p>Checkin</p>
           </HeaderCinza>
 
           <HeaderVerde>
-              <Box display="flex" justifyContent={["space-evenly","space-evenly","space-between"]} w="100%" maxW={"892px"}>
-                
-                  <ModalLoginHeader/>
-                  <SearchCity/>
-                  <ModalRegisterLogin/>
-                  
-                
-              </Box>
-              
-            </HeaderVerde>
-        
+            <Box
+              display="flex"
+              justifyContent={["space-evenly", "space-evenly", "space-between"]}
+              w="100%"
+              maxW={"892px"}
+            >
+              <ModalLoginHeader />
+              <SearchCity />
+              <ModalRegisterLogin />
+            </Box>
+          </HeaderVerde>
         </HeaderTotal>
-        
       )}
     </>
   );
