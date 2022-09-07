@@ -15,12 +15,12 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../context/Context";
 
 interface IEditeData {
-   cityId: string,
-   cityName: string,
-   description: string,
-   postImage: string,
-   state: string,
-   title: string,
+  cityId: string;
+  cityName: string;
+  description: string;
+  postImage: string;
+  state: string;
+  title: string;
 }
 
 interface Idata {
@@ -34,10 +34,9 @@ interface Item {
   regiaoimediata: any;
 }
 
-
-export const FormEditarPost = (data:Idata) => {
-  const {id} = data
-  const {user, patchPost} = useContext(UserContext)
+export const FormEditarPost = (data: Idata) => {
+  const { id } = data;
+  const { user, patchPost } = useContext(UserContext);
 
   const formSchema = yup.object().shape({
     email: yup.string().email("E-mail inválido"),
@@ -54,7 +53,6 @@ export const FormEditarPost = (data:Idata) => {
     resolver: yupResolver(formSchema),
   });
 
-
   const handleOnChange = (uf: string) => {
     uf === "Escolha o estado"
       ? setCities([])
@@ -69,27 +67,31 @@ export const FormEditarPost = (data:Idata) => {
           .catch((error) => console.log(error));
   };
 
-
   const editarProfile = (dados: any) => {
-
     for (const property in dados) {
-      if (dados[property].trim() === "" || dados[property].trim() === undefined) {
+      if (
+        dados[property].trim() === "" ||
+        dados[property].trim() === undefined
+      ) {
         delete dados[property];
-      }else{
-        dados.userId = user.id
+      } else {
+        dados.userId = user.id;
       }
     }
-    patchPost({...dados}, id)
+    patchPost({ ...dados }, id);
   };
-
 
   return (
     <>
       <form onSubmit={handleSubmit(editarProfile)}>
-        <FormControl mb="10px" width="100%" isInvalid={!!errors?.title?.message}>
+        <FormControl
+          mb="10px"
+          width="100%"
+          isInvalid={!!errors?.postImage?.message}
+        >
           <FormLabel>Imagem</FormLabel>
           <Input
-            {...register('postImage')}
+            {...register("postImage")}
             width="100%"
             backgroundColor="#dedede"
             borderRadius="42px"
@@ -98,10 +100,10 @@ export const FormEditarPost = (data:Idata) => {
             placeholder="URL da imagem"
             padding=" 0 25px"
           />
-          <FormErrorMessage>{errors?.title?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.postImage?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl mb="10px" isInvalid={!!errors?.postImage?.message}>
+        <FormControl mb="10px" isInvalid={!!errors?.title?.message}>
           <FormLabel>Título</FormLabel>
           <Input
             {...register("title")}
@@ -113,7 +115,7 @@ export const FormEditarPost = (data:Idata) => {
             placeholder="Título da postagem"
             padding=" 0 25px"
           />
-          <FormErrorMessage>{errors?.postImage?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.title?.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl mb="10px" isInvalid={!!errors?.description?.message}>
@@ -128,6 +130,7 @@ export const FormEditarPost = (data:Idata) => {
             placeholder="Digite aqui a descrição..."
             padding=" 10px 25px"
           />
+          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl mb="10px">
@@ -176,12 +179,12 @@ export const FormEditarPost = (data:Idata) => {
           <FormLabel>Adicionar cidade</FormLabel>
           {cities.length > 0 ? (
             <Select
-              {...register('cityName')}
+              {...register("cityName")}
               width="100%"
               backgroundColor="#dedede"
               borderRadius="42px"
               height="50px"
-              id ="cidade"
+              id="cidade"
             >
               {cities.map((elem) => {
                 return (
@@ -194,19 +197,18 @@ export const FormEditarPost = (data:Idata) => {
           ) : (
             <Select isDisabled={true} placeholder="Cidades"></Select>
           )}
-          
         </FormControl>
         <Button
-            width="100%"
-            borderRadius="25px"
-            height="50px"
-            color="white"
-            type="submit"
-            mt="20px"
-            backgroundColor= "#21BA71" 
-          >
-            Editar
-          </Button>
+          width="100%"
+          borderRadius="25px"
+          height="50px"
+          color="white"
+          type="submit"
+          mt="20px"
+          backgroundColor="#21BA71"
+        >
+          Editar
+        </Button>
       </form>
     </>
   );
