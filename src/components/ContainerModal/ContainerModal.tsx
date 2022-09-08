@@ -68,14 +68,9 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
           {children}
         </Flex>
       </Flex>
-
-      <Box
-        width={"100%"}
-        position={"absolute"}
-        opacity={"0.15"}
-        backgroundColor={"black"}
-      ></Box>
+     
     </>
+
   );
 }
 

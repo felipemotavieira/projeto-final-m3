@@ -108,7 +108,7 @@ function ContainerPost({
 
       <Flex
         animation={"Font  0.5s forwards"}
-        margin={"15px 0"}
+        margin={"25px"}
         backgroundColor="#ffffff"
         maxWidth="892px"
         width="100%"

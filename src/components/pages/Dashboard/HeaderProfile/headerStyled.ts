@@ -39,6 +39,7 @@ export const HeaderCinza = styled.div`
       display: flex;
       align-items: center;
       p {
+        cursor: pointer;
         font-size: 25px;
         font-weight: 800;
         margin-left: 15px;

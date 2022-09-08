@@ -2,6 +2,8 @@ import ContainerModal from "../../ContainerModal/ContainerModal";
 import { ButtonsModal } from "../../ButtonsModal/ButtonsModal";
 import { Text } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, ReactNode } from "react";
+import { GiFlexibleLamp } from "react-icons/gi"
+import {Flex} from "@chakra-ui/react";
 
 interface Idata {
   setModalOpen: Dispatch<
@@ -28,9 +30,11 @@ export const ModalDelete = ({
   };
 
   return (
-    <>
-      <>
-        <ContainerModal title={title} functionClose={closeModal}>
+    <Flex
+    justify={"center"}
+    >
+      
+        <ContainerModal  title={title} functionClose={closeModal}>
           
           {message && (
             <Text mt="20px" fontSize={"18px"}>
@@ -56,7 +60,7 @@ export const ModalDelete = ({
             functionOnclick={closeModal}
           />
         </ContainerModal>
-      </>
-    </>
+      
+    </Flex>
   );
 };

@@ -42,6 +42,8 @@ export const Header = () => {
     setCityPost([]);
     setPostsFiltered([]);
   };
+
+   
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
@@ -59,7 +61,7 @@ export const Header = () => {
                 <Menu >
                   <MenuButton >
                   <Flex>
-                    <Text fontSize={"16px"}>{user.name}</Text>
+                  <Text fontWeight={600} fontSize={"15px"}>{user.name}</Text>
                     <Avatar
                       marginLeft={"15px"}
                       name="User Photo"

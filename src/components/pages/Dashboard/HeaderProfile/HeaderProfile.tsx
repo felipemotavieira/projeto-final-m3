@@ -42,13 +42,21 @@ export const HeaderProfile = () => {
     setCityPost([]);
     setPostsFiltered([]);
   };
+
+
+  const rotaDashboard = () => {
+    navigate("/dashboard", { replace: true });
+    
+  };
+   
+
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
         <HeaderTotal>
           <HeaderCinza>
-            <div className="containerLogoPerfil">
-              <div>
+            <div className="containerLogoPerfil" >
+              <div  onClick={rotaDashboard}>
                 <figure>
                   <Logo></Logo>
                 </figure>
@@ -59,7 +67,7 @@ export const HeaderProfile = () => {
                 <Menu >
                   <MenuButton >
                     <Flex>
-                    <Text fontSize={"16px"}>{user.name}</Text>
+                    <Text fontWeight={600} fontSize={"15px"}>{user.name}</Text>
                     <Avatar
                       marginLeft={"15px"}
                       name="User Photo"
@@ -102,7 +110,6 @@ export const HeaderProfile = () => {
             <header>
               <div>
                 <AddPost />
-                <CityRegister />
               </div>
             </header>
           </HeaderVerde>
