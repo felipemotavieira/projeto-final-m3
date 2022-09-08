@@ -40,8 +40,9 @@ function ProfileMain() {
       width="100%"
       maxWidth="892px"
       flexDirection="column"
+      justify={"center"}
       alignItems="center"
-      margin={"45px 0 25px 0"}
+      margin={"160px 0 25px 0"}
     >
      
       {

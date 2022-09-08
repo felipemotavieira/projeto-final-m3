@@ -8,13 +8,24 @@ export const HeaderTotal = styled.div`
 export const HeaderCinza = styled.div`
   background-color: rgba(240, 240, 240, 1);
   width: 100vw;
-  height: 8vh;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px ;
+  padding: 15px 50px;
   gap: 15px;
-  
+
+  div {
+      display: flex;
+      align-items: center;
+      figure {
+        width: 45px;
+        cursor: pointer;
+        img {
+          width: 90%;
+        }
+      }
+    }
 
   .containerLogoPerfil {
     margin: 0 auto;
@@ -22,28 +33,22 @@ export const HeaderCinza = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    animation: slideB .5s forwards;
+    animation: slideB 0.5s forwards;
 
-    div{
-        display: flex;
-        align-items: center;
-        p{
-            font-size: 25px;
-            font-weight: 800;
-            margin-left: 15px;
-        }
-    }
-    figure {
-      cursor: pointer;
-      width: 50px;
-      img {
-        width: 100%;
-      }
-      > p {
-        font-size: 35px;
+    div {
+      display: flex;
+      align-items: center;
+      p {
+        cursor: pointer;
+        font-size: 25px;
         font-weight: 800;
-        @media only screen and (min-width: 768px) {
-          font-size: 30px;
+        margin-left: 15px;
+      }
+      figure {
+        width: 45px;
+        cursor: pointer;
+        img {
+          width: 90%;
         }
       }
     }
@@ -51,14 +56,13 @@ export const HeaderCinza = styled.div`
 `;
 
 export const HeaderVerde = styled.div`
-
   background-color: rgba(33, 186, 113, 1);
   width: 100vw;
   height: 8vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 40px ;
+  padding: 0 40px;
   @media only screen and (min-width: 768px) {
     justify-content: space-evenly;
   }
@@ -84,7 +88,7 @@ export const HeaderVerde = styled.div`
         }
       }
     }
-    
+
     div {
       gap: 15px;
       @media only screen and (min-width: 768px) {

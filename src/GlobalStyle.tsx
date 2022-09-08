@@ -1,7 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,700;1,400;1,500;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,500;1,600;1,700;1,800;1,900&display=swap');
   
+ *{
+  font-family: 'DM Sans', sans-serif;;
+ }
+
 .App {
   min-height: 100vh;
   width: 100%;
@@ -9,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
   align-items: center;
   background-color: #F5F5F5;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .loader {
@@ -19,6 +25,8 @@ const GlobalStyle = createGlobalStyle`
   margin: 20px auto;
   box-sizing: border-box;
   position: relative;
+  position: fixed;
+  top: 42%;
 }
 .loader::after {
   content: '';  
@@ -67,6 +75,60 @@ const GlobalStyle = createGlobalStyle`
     transform: scale(1);
   }
 }
+
+@keyframes slideB {
+
+  0% {
+    -webkit-transform: translateY(-110px);
+            transform: translateY(-110px);
+            opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+            opacity: 1;
+  }
+}
+
+
+@keyframes slideB {
+
+0% {
+  -webkit-transform: translateY(-110px);
+          transform: translateY(-110px);
+          opacity: 0;
+}
+100% {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+          opacity: 1;
+}
+}
+
+@keyframes slideT {
+
+0% {
+  -webkit-transform: translateY(110px);
+          transform: translateY(110px);
+          opacity: 0;
+}
+100% {
+  -webkit-transform: translateY(0px);
+          transform: translateY(0px);
+          opacity: 1;
+}
+}
+
+@keyframes Font {
+
+0% {
+          opacity: 0;
+}
+100% {
+          opacity: 1;
+}
+}
+
   
 `;
 

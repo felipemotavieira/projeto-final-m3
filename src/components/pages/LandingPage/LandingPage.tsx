@@ -23,14 +23,15 @@ export const LandingPage = () => {
         alignItems={"center"}
       >
         <Flex
+          animation={"slideB 1s forwards"}
           direction="column"
           gap="7"
           w={["500px", "800px", "600px"]}
           h="100%"
           justify="center"
         >
-          <Flex gap="3" align="center" justify={["center", "center", "start"]}>
-            <Logo />
+          <Flex animation={"Font 2.7s forwards"} gap="3" align="center" justify={["center", "center", "start"]}>
+            <Logo/>
             <Heading as="h1" fontSize={["50px"]}>
               Checkin
             </Heading>
@@ -83,6 +84,11 @@ export const LandingPage = () => {
           <AnimationWindows />
         </Flex>
       </Flex>
+<<<<<<< HEAD
+
+     
+=======
+>>>>>>> 7416db81e3c7676a6856afb40d250dacc2975b2e
     </>
   );
 };
