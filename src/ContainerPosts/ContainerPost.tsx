@@ -105,14 +105,17 @@ function ContainerPost({
         boxSizing={"border-box"}
         transition={"0.5s"}
         _hover={{ boxShadow: "2xl", cursor: "pointer" }}
+        overflow ={"hidden"}
       >
         <Box display="flex" gap={10} flexDirection="row" w="95%">
+        <Box h={[0, 0, "350px"]} w={[0, 0, "600px"]}  overflow={"hidden"}>
           <Image
-            borderRadius="20px 0 0px 20px"
-            w={[0, 0, "50%"]}
-            h={[0, 0, "350px"]}
+          height={"100%"}
+          width ={"auto"}
+          objectFit="fill"
             src={photo}
           ></Image>
+          </Box>
 
           <Box
             display="flex"
@@ -158,7 +161,7 @@ function ContainerPost({
             <Heading as="h2" fontSize={"18px"}>
               {title}
             </Heading>
-            <Text>{message}</Text>
+            <Text lineHeight={"2ch"} noOfLines={4}>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
               {`${cidade} - ${estado}`}
             </Heading>
