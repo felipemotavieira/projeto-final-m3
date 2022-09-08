@@ -8,13 +8,14 @@ export const HeaderTotal = styled.div`
 export const HeaderCinza = styled.div`
   background-color: rgba(240, 240, 240, 1);
   width: 100vw;
-  height: 8vh;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px ;
+  /* padding: 0 40px; */
   gap: 15px;
   
+
 
   .containerLogoPerfil {
     margin: 0 auto;

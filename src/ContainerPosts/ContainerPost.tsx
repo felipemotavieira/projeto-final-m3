@@ -96,7 +96,7 @@ function ContainerPost({
 
       <Flex
         animation={"Font  0.5s forwards"}
-        margin={"25px"}
+        margin={"25px 0px"}
         backgroundColor="#ffffff"
         maxWidth="892px"
         width="100%"
@@ -161,8 +161,8 @@ function ContainerPost({
             <Heading as="h2" fontSize={"18px"}>
               {title}
             </Heading>
-            <Text lineHeight={"2ch"} noOfLines={4}>{message}</Text>
-            <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
+            <Text minH='50px' lineHeight={"2ch"} noOfLines={4}>{message}</Text>
+            <Heading as="h5" fontSize={["18px"]} fontWeight={"500"}>
               {`${cidade} - ${estado}`}
             </Heading>
 
