@@ -66,7 +66,7 @@ function ContainerPost({
   };
 
   return (
-    <>
+    <Box padding={"0px 18px"}>
       {isOpenDelete && (
         <Modal
           title={"Corfimação de exclusão"}
@@ -95,6 +95,7 @@ function ContainerPost({
       )}
 
       <Flex
+        animation={"Font  0.5s forwards"}
         margin={"25px"}
         backgroundColor="#ffffff"
         maxWidth="892px"
@@ -200,7 +201,7 @@ function ContainerPost({
           </Box>
         </Box>
       </Flex>
-    </>
+    </Box>
   );
 }
 
