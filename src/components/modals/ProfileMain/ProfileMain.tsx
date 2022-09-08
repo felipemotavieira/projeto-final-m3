@@ -2,7 +2,6 @@ import {
   Button,
   Flex,
   Heading,
-  Select,
   FormControl,
   FormLabel,
   Input,
@@ -13,12 +12,11 @@ import { ProfileForm } from "./styles";
 import { ModalEditarProfile } from "../../modals/ModalEditarProfile/ModalEditarProfile";
 import {ModalDelete} from "../ModalDelete/ModalDelete"
 import { UserContext } from "../../../context/Context";
-import { CityRegister } from "../CityRegister/CityRegister";
 import { CityRegisterUser } from "../CityRegister-User/CityRegister";
 
 
 function ProfileMain() {
-   const {user, deleteUser, getUsers, users} = useContext(UserContext);
+   const {user, deleteUser, getUsers} = useContext(UserContext);
   
    useEffect(() => {
     console.log(user)
@@ -80,7 +78,6 @@ function ProfileMain() {
             height="50px"
             type="text"
             value={user.name}
-            // onChange={()=> {}}
             padding=" 0 25px"
           />
         </FormControl>
