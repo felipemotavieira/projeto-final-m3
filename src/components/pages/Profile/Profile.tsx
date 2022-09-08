@@ -1,12 +1,10 @@
-import { SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ProfileMain from "../../../components/modals/ProfileMain/ProfileMain";
 import ModalInfo from "../../modals/ModalInfo/ModalInfo";
-import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
 import { HeaderProfile } from "../Dashboard/Header-profile/Header";
-import NoPhoto from "../../../assets/no-photo.png";
-import { filter, UnorderedList } from "@chakra-ui/react";
+import { UnorderedList } from "@chakra-ui/react";
 import { Rodape } from "../Dashboard/Rodape/rodape";
 
 export interface Idata {
@@ -24,8 +22,6 @@ export const Profile = () => {
     getPosts();
     getUsers();
   }, [posts, user]);
-
-//  const filtered = posts.filter(post => post.userId == user.id)
 
   return (
     <>

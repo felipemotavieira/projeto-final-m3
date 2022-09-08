@@ -5,7 +5,6 @@ import { Register } from "../../modals/Register/Register";
 import AnimationWindows from "../../Animation/AnimationWindows";
 import { Logo } from "../../Logo/Logo";
 import AnimationMobile from "../../AnimationMobile/AnimationMobile";
-import { Rodape } from "../Dashboard/Rodape/rodape";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -84,8 +83,6 @@ export const LandingPage = () => {
           <AnimationWindows />
         </Flex>
       </Flex>
-
-      {/*<Rodape/>*/}
     </>
   );
 };

@@ -8,7 +8,7 @@ import { UserContext } from "../context/Context";
 
 export const AppRoutes = () => {
 
-  const { user, token } = useContext(UserContext)
+  const { token } = useContext(UserContext)
  
   return (
     <Routes>

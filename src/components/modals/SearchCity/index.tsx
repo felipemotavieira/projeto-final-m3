@@ -1,23 +1,18 @@
 import {
   Button,
-  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Select,
   useDisclosure,
-  useToast,
   Flex,
   Text,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
-import SearchIcon from "../../../assets/search-icon.svg";
 import { UserContext } from "../../../context/Context";
 import { FiSearch } from "react-icons/fi";
 import { Logo } from "../../Logo/Logo";
@@ -31,14 +26,14 @@ interface Item {
 
 interface ICityData {
   state: string;
-  cityId: string; // id da cidade da para fazer uma requisição na api do IBGE e trazer o nome da cidade
+  cityId: string;
 }
 
 export const SearchCity = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { posts, getPosts, searchCityPost, postsFiltered } =
+  const { searchCityPost } =
     useContext(UserContext);
 
   const handleOnChange = (uf: string) => {

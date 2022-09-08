@@ -32,7 +32,6 @@ export const HeaderProfile = () => {
   return (
     <>
       {token && (
-        //NÃO MEXER- SUJEITO A QUEBRAR TUDO
         <>
           <HeaderCinza>
             <img onClick={dashboard} src="./icone.png" alt="Logo" />

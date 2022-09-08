@@ -4,11 +4,8 @@ import Person from "../../../../assets/person-icon.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
 import {
-  Heading,
-  Text,
   Box,
   Button,
-  Flex,
   Menu,
   MenuButton,
   MenuList,
@@ -19,17 +16,13 @@ import {
 import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
-import { RegisterDash } from "../../../modals/Register-dash/Register";
-import { Login } from "../../../modals/Login/Login";
-import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import { HeaderCinza, HeaderVerde, HeaderTotal } from "./headerStyled";
 import { ModalLoginHeader } from "./ModalLoginHeader";
 import { ModalRegisterLogin } from "./ModalRegisterHeader";
-import React from "react";
 
 export const Header = () => {
-  const { user, token, setCityPost, setPostsFiltered } =
+  const { user, setCityPost, setPostsFiltered } =
     useContext(UserContext);
   const navigate = useNavigate();
   const toUserPage = () => {

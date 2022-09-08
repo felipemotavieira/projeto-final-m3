@@ -25,7 +25,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../../../context/Context";
-import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 
 interface ILoginData {
   email: string;
