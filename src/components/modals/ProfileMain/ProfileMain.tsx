@@ -42,7 +42,7 @@ function ProfileMain() {
       flexDirection="column"
       justify={"center"}
       alignItems="center"
-      margin={"160px 0 25px 0"}
+      margin={"190px 0 25px 0"}
     >
      
       {
