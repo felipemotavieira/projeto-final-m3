@@ -25,8 +25,6 @@ import {
   import { useNavigate } from "react-router-dom";
   import { yupResolver } from "@hookform/resolvers/yup";
   import { UserContext } from "../../../../context/Context";
-  import { AiOutlinePlus } from "react-icons/ai";
-
   
   interface ILoginData {
     email: string;

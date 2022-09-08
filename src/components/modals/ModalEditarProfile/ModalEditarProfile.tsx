@@ -22,7 +22,7 @@ interface IEditeData {
 
 export const ModalEditarProfile = (data: any) => {
   const { modalEditeOpen, setModalEditeOpen } = data;
-  const { user, getUsers, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   let token = localStorage.getItem("@TOKEN");
   const toast = useToast();
 

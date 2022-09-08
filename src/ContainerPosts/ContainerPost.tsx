@@ -9,8 +9,6 @@ import {
   WrapItem,
   Wrap,
   Tooltip,
-  Icon,
-  IconButton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction, useState, useContext } from "react";
@@ -34,15 +32,6 @@ interface Idata {
   userId?: string;
 }
 
-interface IData {
-  cityId: string;
-  cityName: string;
-  description: string;
-  postImage: string;
-  state: string;
-  title: string;
-}
-
 function ContainerPost({
   title,
   message,
@@ -58,7 +47,7 @@ function ContainerPost({
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const { user, deletePost, patchPost, token } = useContext(UserContext);
+  const { user, deletePost, token } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
@@ -97,7 +86,6 @@ function ContainerPost({
         <Modal
           title={"Edição de post"}
           setModalOpen={setIsOpenEdite}
-          // functionAction={editePost}
         >
           <FormEditarPost
             setIsOpenEdite={setIsOpenEdite}

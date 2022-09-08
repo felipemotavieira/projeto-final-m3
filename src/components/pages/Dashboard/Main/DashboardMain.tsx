@@ -1,7 +1,6 @@
 import { UserContext } from "../../../../context/Context";
 import { useContext, useEffect } from "react";
 import { Box, UnorderedList } from "@chakra-ui/react";
-
 import ContainerPost from "../../../../ContainerPosts/ContainerPost";
 import InternalAPI from "../../../../services/InternalAPI/InternalAPI";
 import { Rodape } from "../Rodape/rodape";
@@ -15,8 +14,6 @@ export const DashboardMain = () => {
     getPosts,
     token,
     postsFiltered,
-    setPostsFiltered,
-    setPosts,
     cityPost,
     setCityPost,
     loading,
@@ -31,7 +28,6 @@ export const DashboardMain = () => {
     getUsers();
 
     const getPostsCity = async (id: string) => {
-      // encontrar post de cidades
       const response = await InternalAPI.get(`/posts/`, {
         params: {
           cityId: id,
@@ -50,13 +46,8 @@ export const DashboardMain = () => {
     };
 
     if (cityId && token) {
-      // cidade definida
       getPostsCity(cityId);
-      // setPostsFiltered([]);
     } else {
-      // sem cidade definida
-      // setPosts([]);
-      // setPostsFiltered([]);
       setCityPost([...posts]);
       setTimeout(() => {
         setLoading(false);
@@ -83,7 +74,6 @@ export const DashboardMain = () => {
           <span className="loader"></span>
         ) : postsFiltered.length > 0 ? (
           postsFiltered.map((post) => {
-            console.log(post);
             const filterUser = users.find((user) => user.id == post.userId);
             return (
               <ContainerPost
@@ -99,7 +89,7 @@ export const DashboardMain = () => {
               />
             );
           })
-        ) : cityPost.length && token ? ( // usuario logado e com cidade
+        ) : cityPost.length && token ? ( 
           cityPost.map((post) => {
             const filterUser = users.find((user) => user.id == post.userId);
             return (

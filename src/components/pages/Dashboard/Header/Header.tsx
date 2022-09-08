@@ -4,34 +4,28 @@ import Person from "../../../../assets/person-icon.svg";
 import NoPhoto from "../../../../assets/no-photo.png";
 import { useContext } from "react";
 import {
-  Heading,
-  Text,
   Box,
   Button,
-  Flex,
   Menu,
   MenuButton,
   MenuList,
   Avatar,
   MenuItem,
   Image,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 import { UserContext } from "../../../../context/Context";
 import { SearchCity } from "../../../modals/SearchCity";
 import { AddPost } from "../../../modals/AddPost";
-import { RegisterDash } from "../../../modals/Register-dash/Register";
-import { Login } from "../../../modals/Login/Login";
-import { LoginDash } from "../../../modals/LoginDash/Login";
 import { CityRegister } from "../../../modals/CityRegister/CityRegister";
 import { HeaderCinza, HeaderVerde, HeaderTotal } from "./headerStyled";
 import { ModalLoginHeader } from "./ModalLoginHeader";
 import { ModalRegisterLogin } from "./ModalRegisterHeader";
 import { Logo } from "../../../Logo/Logo";
-import React from "react";
 
 export const Header = () => {
-  const { user, token, setCityPost, setPostsFiltered } =
-    useContext(UserContext);
+  const { user, setCityPost, setPostsFiltered } = useContext(UserContext);
   const navigate = useNavigate();
   const toUserPage = () => {
     navigate("/profile", { replace: true });
@@ -43,7 +37,6 @@ export const Header = () => {
     setPostsFiltered([]);
   };
 
-   
   return (
     <>
       {localStorage.getItem("@TOKEN") ? (
@@ -58,20 +51,27 @@ export const Header = () => {
               </div>
 
               <div>
-                <Menu >
-                  <MenuButton >
-                  <Flex>
-                  <Text fontWeight={600} fontSize={"15px"}>{user.name}</Text>
-                    <Avatar
-                      marginLeft={"15px"}
-                      name="User Photo"
-                      w={["50px", "50px", "50px"]}
-                      h={["50px", "50px", "50px"]}
-                      src={user.userPhoto ? user.userPhoto : NoPhoto}
-                    />
+                <Menu>
+                  <MenuButton>
+                    <Flex>
+                      <Text fontWeight={600} fontSize={"15px"}>
+                        {user.name}
+                      </Text>
+                      <Avatar
+                        marginLeft={"15px"}
+                        name="User Photo"
+                        w={["50px", "50px", "50px"]}
+                        h={["50px", "50px", "50px"]}
+                        src={user.userPhoto ? user.userPhoto : NoPhoto}
+                      />
                     </Flex>
                   </MenuButton>
-                  <MenuList  display={"flex"} flexDirection={"column"} minW="70px" h="120px">
+                  <MenuList
+                    display={"flex"}
+                    flexDirection={"column"}
+                    minW="70px"
+                    h="120px"
+                  >
                     <MenuItem w="100%" mb="10px">
                       <Button
                         onClickCapture={toUserPage}
