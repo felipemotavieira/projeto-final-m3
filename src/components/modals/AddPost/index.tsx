@@ -15,8 +15,6 @@ import {
   Input,
   Textarea,
   FormErrorMessage,
-  ModalFooter,
-  ModalHeader,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
@@ -52,7 +50,7 @@ interface IPosts {
 export const AddPost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cities, setCities] = useState<Item[]>([]);
-  const { posts, addPost } = useContext(UserContext);
+  const { addPost } = useContext(UserContext);
   const userId = localStorage.getItem("@USERID");
 
   const formSchema = yup.object({
@@ -91,7 +89,6 @@ export const AddPost = () => {
   };
 
   const handleAddPost = async (data: IPosts) => {
-    console.log(data);
     if (userId) {
       data.userId = userId;
       data.cityName = await captureCityValue(data.cityId);

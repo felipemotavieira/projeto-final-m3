@@ -4,7 +4,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
   ModalOverlay,
   Select,
   useDisclosure,
@@ -13,7 +12,7 @@ import {
   Text,
   Box,
 } from "@chakra-ui/react";
-import { SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../../context/Context";
 import ExternalAPI from "../../../services/ExternalAPI/ExternalAPI";
@@ -39,7 +38,7 @@ export const CityRegisterUser = () => {
   const [cities, setCities] = useState<Item[]>([]);
   const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { user, setLoading, setCityPost, posts, setUser } =
+  const { setUser } =
     useContext(UserContext);
   let userId = localStorage.getItem("@USERID");
   let token = localStorage.getItem("@TOKEN");
@@ -83,7 +82,6 @@ export const CityRegisterUser = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         setUser(res.data);
         onClose();
         toast({
@@ -92,31 +90,6 @@ export const CityRegisterUser = () => {
           duration: 1500,
           isClosable: true,
         });
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setCityPost([]);
-        //   const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
-        //   setCityPost([...filter]);
-        //   setLoading(false);
-        //   console.log(filter);
-        //   if (filter.length > 0) {
-        //     toast({
-        //       title:
-        //         "Você está visualizando postagens da cidade que gostaria de conhecer.",
-        //       status: "success",
-        //       duration: 3500,
-        //       isClosable: true,
-        //     });
-        //   } else {
-        //     toast({
-        //       title:
-        //         "Esta cidade ainda não possui postagens. Você está visualizando postagens de cidades aleatórias.",
-        //       status: "warning",
-        //       duration: 3500,
-        //       isClosable: true,
-        //     });
-        //   }
-        // }, 2000);
       })
       .catch((err) => console.log(err));
   };

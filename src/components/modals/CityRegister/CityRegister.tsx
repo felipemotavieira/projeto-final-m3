@@ -15,11 +15,9 @@ import {
   Box,
 } from "@chakra-ui/react";
 import {
-  SetStateAction,
   useContext,
   useEffect,
   useState,
-  Dispatch,
 } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../../context/Context";
@@ -47,7 +45,7 @@ export const CityRegister = () => {
   const [cities, setCities] = useState<Item[]>([]);
   const [locations, setLocations] = useState<ICityData[]>([]);
   const { register, handleSubmit } = useForm<ICityData>();
-  const { user, setLoading, setCityPost, posts, setUser } = useContext(UserContext);
+  const { setLoading, setCityPost, posts, setUser } = useContext(UserContext);
   let userId = localStorage.getItem("@USERID");
   let token = localStorage.getItem("@TOKEN");
   const toast = useToast();
@@ -101,10 +99,9 @@ export const CityRegister = () => {
         setLoading(true);
         setCityPost([]);
         setTimeout(() => {
-          const filter = posts.filter((post) => post.cityId == res.data.cityId); //[] ou [{...}, {...}]
+          const filter = posts.filter((post) => post.cityId == res.data.cityId); 
           setCityPost([...filter]);
           setLoading(false);
-          console.log(filter);
           if (filter.length > 0) {
             toast({
               title:
