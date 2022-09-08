@@ -151,7 +151,7 @@ export const CityRegister = () => {
             backgroundColor="#FFFFFF"
             maxWidth="435px"
             width="100%"
-            padding="50px"
+            padding="0px 20px 40px 0px"
             borderRadius="25px"
             position="fixed"
             zIndex="500"

@@ -9,8 +9,6 @@ import {
   WrapItem,
   Wrap,
   Tooltip,
-  Icon,
-  IconButton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction, useState, useContext } from "react";
@@ -34,15 +32,6 @@ interface Idata {
   userId?: string;
 }
 
-interface IData {
-  cityId: string;
-  cityName: string;
-  description: string;
-  postImage: string;
-  state: string;
-  title: string;
-}
-
 function ContainerPost({
   title,
   message,
@@ -58,7 +47,7 @@ function ContainerPost({
     boolean | Dispatch<SetStateAction<boolean>>
   >(false);
 
-  const { user, deletePost, patchPost, token } = useContext(UserContext);
+  const { user, deletePost, token } = useContext(UserContext);
 
   const [isOpenDelete, setIsOpenDelete] = useState<
     boolean | Dispatch<SetStateAction<boolean>>
@@ -97,7 +86,6 @@ function ContainerPost({
         <Modal
           title={"Edição de post"}
           setModalOpen={setIsOpenEdite}
-          // functionAction={editePost}
         >
           <FormEditarPost
             setIsOpenEdite={setIsOpenEdite}
@@ -117,14 +105,17 @@ function ContainerPost({
         boxSizing={"border-box"}
         transition={"0.5s"}
         _hover={{ boxShadow: "2xl", cursor: "pointer" }}
+        overflow ={"hidden"}
       >
         <Box display="flex" gap={10} flexDirection="row" w="95%">
+        <Box h={[0, 0, "350px"]} w={[0, 0, "600px"]}  overflow={"hidden"}>
           <Image
-            borderRadius="20px 0 0px 20px"
-            w={[0, 0, "50%"]}
-            h={[0, 0, "350px"]}
+          height={"100%"}
+          width ={"auto"}
+          objectFit="fill"
             src={photo}
           ></Image>
+          </Box>
 
           <Box
             display="flex"
@@ -170,7 +161,7 @@ function ContainerPost({
             <Heading as="h2" fontSize={"18px"}>
               {title}
             </Heading>
-            <Text>{message}</Text>
+            <Text lineHeight={"2ch"} noOfLines={4}>{message}</Text>
             <Heading as="h5" fontSize={[0, 0, "18px"]} fontWeight={"500"}>
               {`${cidade} - ${estado}`}
             </Heading>

@@ -68,7 +68,7 @@ function ContainerModal({ functionClose, title, children }: IContainerProps) {
           {children}
         </Flex>
       </Flex>
-     
+      <Box backgroundColor={"black"} position={"fixed"} zIndex={1} width ={"100vw"} height ={"100vh"} top ={"0"} opacity={".4"}/>
     </>
 
   );

@@ -121,7 +121,7 @@ export const AddPost = () => {
             backgroundColor="#FFFFFF"
             maxWidth="435px"
             width="100%"
-            padding="50px"
+            padding="20px"
             borderRadius="25px"
             position="fixed"
             zIndex="500"
