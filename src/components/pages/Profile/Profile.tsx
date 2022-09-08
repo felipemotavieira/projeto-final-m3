@@ -4,9 +4,11 @@ import ModalInfo from "../../modals/ModalInfo/ModalInfo";
 import InternalAPI from "../../../services/InternalAPI/InternalAPI";
 import { UserContext } from "../../../context/Context";
 import ContainerPost from "../../../ContainerPosts/ContainerPost";
-import { HeaderProfile } from "../Dashboard/Header-profile/Header";
+import { HeaderProfile } from "../Dashboard/HeaderProfile/HeaderProfile";
 import NoPhoto from "../../../assets/no-photo.png";
-import { filter } from "@chakra-ui/react";
+import { filter, Flex, UnorderedList } from "@chakra-ui/react";
+import { Rodape } from "../Dashboard/Rodape/rodape";
+import { Header } from "../Dashboard/Header/Header";
 
 export interface Idata {
   email: string;
@@ -30,6 +32,7 @@ export const Profile = () => {
     <>
       <HeaderProfile />
       <ProfileMain  />
+      <UnorderedList display={"flex"} justifyContent={"center"}  flexDirection={"column"} marginBottom={"50px"}>
 
       {
         posts.filter((post) => post.userId == user.id).length > 0 ? (
@@ -56,6 +59,10 @@ export const Profile = () => {
       ) : (
         <ModalInfo />
       )}
+      </UnorderedList>
+
+      <Rodape/>
+      
     </>
   );
 };

@@ -29,7 +29,7 @@ import { ModalRegisterLogin } from "./ModalRegisterHeader";
 import { Logo } from "../../../Logo/Logo";
 import React from "react";
 
-export const Header = () => {
+export const HeaderProfile = () => {
   const { user, token, setCityPost, setPostsFiltered } =
     useContext(UserContext);
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ export const Header = () => {
               <div>
                 <Menu >
                   <MenuButton >
-                  <Flex>
+                    <Flex>
                     <Text fontSize={"16px"}>{user.name}</Text>
                     <Avatar
                       marginLeft={"15px"}
@@ -68,6 +68,7 @@ export const Header = () => {
                       src={user.userPhoto ? user.userPhoto : NoPhoto}
                     />
                     </Flex>
+                    
                   </MenuButton>
                   <MenuList  display={"flex"} flexDirection={"column"} minW="70px" h="120px">
                     <MenuItem w="100%" mb="10px">
@@ -102,7 +103,6 @@ export const Header = () => {
               <div>
                 <AddPost />
                 <CityRegister />
-                <SearchCity />
               </div>
             </header>
           </HeaderVerde>
@@ -110,14 +110,14 @@ export const Header = () => {
       ) : (
         <HeaderTotal>
           <HeaderCinza>
-            <div className="containerLogoPerfil">
-              <div>
+
+            <div>
                 <figure>
                   <Logo></Logo>
+                  <p>Checkin</p>
                 </figure>
-                <p>Checkin</p>
-              </div>
             </div>
+                 
           </HeaderCinza>
 
           <HeaderVerde>

@@ -3,20 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Login } from "../../modals/Login/Login";
 import { Register } from "../../modals/Register/Register";
 import AnimationWindows from "../../Animation/AnimationWindows";
-import Logo from "../../Logo/Logo"
+import { Logo } from "../../Logo/Logo";
 import AnimationMobile from "../../AnimationMobile/AnimationMobile";
-
+import { Rodape } from "../Dashboard/Rodape/rodape";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-
 
   const handleToDashboard = () => {
     navigate("/dashboard", { replace: true });
   };
 
   return (
-    
+    <>
       <Flex
         minHeight="inherit"
         w={["100%", "100%", "80%", "80%"]}
@@ -39,8 +38,7 @@ export const LandingPage = () => {
             </Heading>
           </Flex>
 
-          <AnimationMobile/>
-          
+          <AnimationMobile />
 
           <Flex justify={["center", "center", "start"]}>
             <Heading as="h3" size="lg">
@@ -58,7 +56,7 @@ export const LandingPage = () => {
             </Text>
           </Flex>
           <Flex justify={["center", "center", "start"]}>
-            <Login bg={undefined} borderRadius="btn_land"/>
+            <Login bg={undefined} borderRadius="btn_land" />
           </Flex>
           <Flex justify={["center", "center", "start"]}>
             <Button
@@ -82,12 +80,13 @@ export const LandingPage = () => {
             </Text>
           </Flex>
         </Flex>
-        
-          <Flex align="center">
-            <AnimationWindows />
-          </Flex>
-        
+
+        <Flex align="center">
+          <AnimationWindows />
+        </Flex>
       </Flex>
-    
+
+     
+    </>
   );
 };
