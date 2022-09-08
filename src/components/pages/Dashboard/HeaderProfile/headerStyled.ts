@@ -12,7 +12,7 @@ export const HeaderCinza = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 50px;
+  /* padding: 15px 50px; */
   gap: 15px;
 
   div {
